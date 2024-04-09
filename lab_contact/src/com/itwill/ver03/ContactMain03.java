@@ -66,7 +66,8 @@ public class ContactMain03 {
 		System.out.println("\n --- 연락처 삭제 ---");
 		System.out.print("인덱스 입력>> ");
 		int index = inputInteger();
-		 if (!dao.isValidIndex(index)) {
+		 if (!dao.isValidIndex(index)) { //dao.isValidIndex(index)가 false값 리턴해줄때 ! true로 바꿔서 실행함.
+			 // true값을 리턴해 주면 flase로 바꿔서 실행 안 함.
 	            System.out.println("해당 인덱스에는 수정할 정보가 없습니다...");
 	            return;
 	        }
@@ -156,10 +157,10 @@ public class ContactMain03 {
         List<Contact> contacts = dao.read();
         int index = 0;
         for (Contact c : contacts) {
-            if (c != null) {
+//            if (c != null) {
                 System.out.println("[" + index + "] " + c);
                 index++;
-            }
+//            }
         }
     }
     
