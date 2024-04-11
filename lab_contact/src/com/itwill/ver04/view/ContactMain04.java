@@ -14,7 +14,7 @@ public class ContactMain04 {
     private ContactDao dao = ContactDaoImpl.getInstance();
     
     public static void main(String[] args) {
-        System.out.println("*** 연락처 프로그램 v0.3 ***");
+        System.out.println("*** 연락처 프로그램 v0.4 ***");
         
         ContactMain04 app = new ContactMain04();
         
