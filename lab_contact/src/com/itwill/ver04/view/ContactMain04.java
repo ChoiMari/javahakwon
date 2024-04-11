@@ -9,20 +9,19 @@ import com.itwill.ver04.util.FileUtil;
 
 public class ContactMain04 {
 
-	public static void main(String[] args) {
-		//FileUtil  테스트
-//		new FileUril(); 테스트
-		File f = FileUtil.initializeDataDir();
-		System.out.println(f);
-		
-//		FileUtil.readDataFromFile();
-		List<Contact> list = FileUtil.initializeData();
-		System.out.println(list);
-		
-		List<Contact> data = new ArrayList<Contact>();
-		data.add(new Contact());
-		FileUtil.writeDataToFile(data);
-		
-	}
+    public static void main(String[] args) {
+        // FileUtil 테스트
+        File f = FileUtil.initializeDataDir();
+        System.out.println(f);
+        
+//        FileUtil.readDataFromFile();
+        List<Contact> list = FileUtil.initializeData();
+        System.out.println(list);
+        
+        List<Contact> data = new ArrayList<Contact>();
+        data.add(new Contact());
+        FileUtil.writeDataToFile(data);
+
+    }
 
 }

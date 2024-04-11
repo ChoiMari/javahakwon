@@ -2,14 +2,14 @@ package com.itwill.ver04.controller;
 
 import java.util.List;
 
-import com.itwill.ver01.Contact; // Model
+import com.itwill.ver04.model.Contact;
 
 // Controller 인터페이스. DAO(Data Access Object)
 public interface ContactDao {
     
     /**
      * 새로운 연락처 정보(이름, 전화번호, 이메일)을 리스트에 저장.
-     * + 바뀐 리스트 내용을 파일에 저장.
+     * 바뀐 리스트의 내용을 파일에 저장.
      * 
      * @param 리스트에 저장할 Contact 타입 객체.
      * @return 리스트에 연락처 정보를 저장했으면 1, 저장 실패하면 0.
