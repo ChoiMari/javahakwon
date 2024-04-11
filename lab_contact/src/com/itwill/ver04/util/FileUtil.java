@@ -33,17 +33,24 @@ public class FileUtil {
 	 *  
 	 *  @return File 객체
 	 */
-	public static File initializeDataDir() { //데이터 디렉토리를 초기화 한다
-		File file = new File(DATA_DIR, DATA_FILE);
-		
-		if(file.exists()) { // 폴더가 이미 있는 경우
-			System.out.println("데이터 폴더가 이미 있습니다...");
-		} else { // 폴더가 없는 경우
-			file.mkdir();
-			System.out.println("데이터 폴더 생성 성공");
-		}
-		return file;
-	}
+	 public static File initializeDataDir() {
+	        boolean result = false;
+	        
+	        File file = new File(DATA_DIR);
+	        
+	        if (file.exists()) { // 폴더가 이미 있는 경우
+	            System.out.println("데이터 폴더가 이미 있습니다...");
+	        } else { // 폴더가 없는 경우
+	            result = file.mkdir();
+	            if (result) {
+	                System.out.println("데이터 폴더 생성 성공");
+	            } else {
+	                System.out.println("데이터 폴더 생성 실패");
+	            }
+	        }
+	        
+	        return file;
+	    }
 	
 	/**
 	 * 연락처 리스트가 저장된 데이터 파일을 읽고, 그 결과를 List 타입으로 리턴.
