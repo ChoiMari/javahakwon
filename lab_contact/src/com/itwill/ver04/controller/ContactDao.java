@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.itwill.ver01.Contact; // Model
 
-// Controller 인터페이스
+// Controller 인터페이스. DAO(Data Access Object)
 public interface ContactDao {
     
     /**
