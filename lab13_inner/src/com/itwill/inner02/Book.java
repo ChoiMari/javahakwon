@@ -37,4 +37,38 @@ public class Book {
 				title,author,publisher);
 	}
 	
+	//--- Builder(Factoty) 디자인 패턴
+	public static BookBuilder builder() {//외부 클래스에서 내부 클래스의 private 생성자를 호출 할 수 있음.
+		return new BookBuilder(); // builder()메서드 호출 시 BookBuilder 객체 만들어짐
+	} 
+	
+	public static class BookBuilder{
+		private String title;
+		private String author;
+		private String publisher;
+		
+		private BookBuilder() {}
+		
+		public BookBuilder title(String title) { //리턴 값이 있는 setter메서드 느낌이라 함
+			this.title = title;
+			return this;
+		}
+		public BookBuilder author(String author) { 
+			this.author = author;
+			return this;
+		}
+		
+		public BookBuilder publisher(String publisher) { 
+			this.publisher = publisher;
+			return this;
+		}
+		
+		public Book build() {
+			return new Book(title, author, publisher);
+		}
+		
+	}
+	
+	//--- Builder(Factoty) 디자인 패턴
+	
 }
