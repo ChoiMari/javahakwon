@@ -177,7 +177,13 @@ public class LambdaMain04 {
 		mean = sum / count;
 		System.out.println("평균=" + mean);
 		
-		
+		//람다 표현식
+		mean = employees.stream()
+				.filter((e) -> e.getDept().equals("개발1팀"))
+				.mapToDouble((e) -> e.getSalary() * 1.1) //이건 메서드 참조 못한다고 함 *1.1 해야 되서
+				.average()
+				.orElseThrow();
+		System.out.println("mean=" + mean);
 		
 		
 		//내가 푼 것
