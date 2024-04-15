@@ -28,13 +28,13 @@ public class LambdaMain01 {
 		System.out.println("result = "+ result);
 		
 		//----- 익명 클래스 사용:
-		result = calc.calculate(new Calculable() {
+		result = calc.calculate(new Calculable() { // 인터 페이스 이름으로 생성자 호출 new Calculable()
 			
 			@Override
-			public double calculate(double x, double y) {
+			public double calculate(double x, double y) { // 클래스 이름 없음 . 익명 클래스. 선언 위치에서 객체 생성.
 				
 				return x * y;
-			}
+			} //new Subtracter()와 다를 게 없다고 함.
 		});
 		System.out.println("result = " + result);
 		
