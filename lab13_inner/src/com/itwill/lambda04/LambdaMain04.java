@@ -179,7 +179,7 @@ public class LambdaMain04 {
 		
 		//람다 표현식
 		mean = employees.stream()
-				.filter((e) -> e.getDept().equals("개발1팀"))
+				.filter((e) -> e.getDept().equals("개발1팀")) // 조건으로  e.getDept().contains("개발1팀")이렇게 줘도 된다 함.
 				.mapToDouble((e) -> e.getSalary() * 1.1) //이건 메서드 참조 못한다고 함 *1.1 해야 되서
 				.average()
 				.orElseThrow();
@@ -202,6 +202,29 @@ public class LambdaMain04 {
 //			}
 //		}
 		
+		
+		// Ex8. 직원들 중 대리는 몇 명?
+		System.out.println("--- Ex8. ---");
+		count = 0;
+		for(Employee e : employees) {
+			if(e.getJobTitle().equals("대리")) {
+			count++;
+			}
+		}
+		System.out.println("count=" + count);
+		
+		//람다 표현식
+		long empCount = employees.stream()
+			.filter((e) -> e.getJobTitle().equals("대리"))
+			.count();
+		// 주의 count의 리턴 타입 long 
+		// 그래서 리턴 값 저장시 long 타입으로 변수 선언하기 long empCount
+		
+		System.out.println("empCount=" + empCount);
+		
+		// 배열의 인덱스는 int타입
+		// 리스트의 인덱스는 long타입 이라고 함
+		// 그래서 count메서드의 리턴타입이 long이라고 함 
 	}
 
 }
