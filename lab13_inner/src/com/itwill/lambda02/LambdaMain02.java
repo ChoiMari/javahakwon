@@ -83,8 +83,8 @@ public class LambdaMain02 {
 		System.out.println(squares);
 		
 		// languages의 문자열을 대문자로 변환한 리스트 : 
-		List<Object> upperCases = app.map(languages, x -> ((String)x).toUpperCase()); //x는 languages리스트의 원소로 생각.
-		System.out.println(upperCases);
+		//List<Object> upperCases = app.map(languages, x -> ((String)x).toUpperCase()); //x는 languages리스트의 원소로 생각.
+		//System.out.println(upperCases);
 		
 	} //main()끝
 
