@@ -33,6 +33,7 @@ public class AppMain04 {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				//System.out.println(this); ->Runnable()타입의 객체 주소라고 함
 				try {
 					AppMain04 window = new AppMain04();
 					window.frame.setVisible(true);
@@ -142,7 +143,12 @@ public class AppMain04 {
 		// "/" 버튼 클릭시 실행 -> 람다 표현식 사용
 		btnDivide = new JButton("/"); 
 		//btnDivide.addActionListener(AppMain04:: handleButtonClick); //AppMain04의 main()가 static 어쩌고 해서 메소드 참조 람다 안된다고..
-		btnDivide.addActionListener((e) -> handleButtonClick(e));
+		btnDivide.addActionListener(this:: handleButtonClick); //->this로 하면 된다고 함.
+		//System.out.println(this); //출력시 com.itwill.swing04.AppMain04@33a3b252
+		//여기서 this는 AppMain04.this라고 함. 
+		//AppMain04가 생성한 객체라고..(생성자를 불렀을 때 만들어진 객체의 주소라고 함)
+		
+		//btnDivide.addActionListener((e) -> handleButtonClick(e));
 		
 		
 		btnDivide.setFont(new Font("굴림", Font.PLAIN, 20));
