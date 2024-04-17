@@ -1,6 +1,7 @@
 package com.itwill.swing05;
 
 import java.awt.EventQueue;
+import java.awt.TextArea;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class AppMain05 {
 
@@ -21,6 +23,7 @@ public class AppMain05 {
 	private JButton btnInputButton;
 	private JLabel lblLabel2;
 	private JLabel lblLabel3;
+	private JScrollPane scrollPane;
 	private JTextArea textArea;
 
 	/**
@@ -43,13 +46,13 @@ public class AppMain05 {
 	 * Create the application.
 	 */
 	public AppMain05() {
-		initialize();
+		initialize(); //기본생성자에서 메서드 호출 - 이 호출되는 메서드에서 필드 초기화
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() { //메서드가 필드 초기화
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,7 +70,7 @@ public class AppMain05 {
 		btnInputButton = new JButton("입력");
 		btnInputButton.addActionListener(new ActionListener() { //입력 버튼 클릭시 실행
 			public void actionPerformed(ActionEvent e) {
-				handleButtonClick();
+				handleInputButtonClick();
 			}
 		});
 		btnInputButton.setBounds(325, 103, 97, 27);
@@ -91,18 +94,37 @@ public class AppMain05 {
 		textEmail.setBounds(126, 103, 182, 30);
 		frame.getContentPane().add(textEmail);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 140, 410, 111);
+		frame.getContentPane().add(scrollPane);
+		
 		textArea = new JTextArea();
-		textArea.setBounds(12, 143, 410, 86);
-		frame.getContentPane().add(textArea);
+		scrollPane.setViewportView(textArea);
 	}
 
-	private void handleButtonClick() {
+	private void handleInputButtonClick() {
+		//JTextField(이름,전화번호,이메일)에 입력된 문자열을 읽음
 		String name = textName.getText();
 		String phoneNum = textPhoneNum.getText();
 		String email = textEmail.getText();
 		
-		textArea.setText(String.format(" [이름] %s \n [전화번호] %s \n [이메일] %s",name,phoneNum,email));
+		String msg = String.format(" [이름] %s , [전화번호] %s , [이메일] %s \n",name,phoneNum,email);
+		// 이름,전화번호 ,이메일을 JtextArea에 씀.
+//		textArea.setText(msg);
 		
-	}
+		//입력버튼 누를 때 마다 밑에 쌓이게 만듬
+		textArea.append(msg); //기존의 작성된 내용 끝에 추가
+		
+		//모든 JTextField의 입력된 내용을 지움.
+		textName.setText(""); //"" 비어있는 문자열로 만들어서 내용을 지움
+		textPhoneNum.setText(""); //"" 비어있는 문자열로 만들어서 내용을 지움
+		textEmail.setText(""); //"" 비어있는 문자열로 만들어서 내용을 지움
+		
+		//만약 gettext()가 null을 리턴 했다면 출력될 때 null이 나온다고 함.
+		//그래서 ""비어있는 문자열로 만들어서 내용을 지운것
+		// gettext()가 "" 비어있는 문자열인지 비교해서 입력이 안됐다 하면
+		// 입력 버튼 눌렀을 때 내용을 입력하세요라고 할 수도 있음.
+		
 
+	}
 }
