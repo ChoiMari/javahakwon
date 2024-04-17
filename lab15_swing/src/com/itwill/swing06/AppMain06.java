@@ -203,18 +203,21 @@ public class AppMain06 {
 		//textArea.setText(buffer); //문법 에러-> setText는 아규먼트 String만 됨. buffer는 String이 아님.
 		//해결
 		textArea.setText(buffer.toString());
-		
+
 		//어떤 체크박스들이 선택 됐는 지 -> 중복 선택 할 수 가 있음 그래서 else if안됨 다 별개의 if로 해야..!!
-		if(cbAbstract.isSelected()) {
+		// 체크박스 선택 개수만큼 if문 실행 된다. 예)Abstract,Final 체크박스 클릭시 if문 2개 실행.
+		if(cbAbstract.isSelected()) { //Abstract체크박스 클릭시 true되면서 실행됨.
 			buffer.append(cbAbstract.getText()).append(" ");//선택된 라디오버튼을 버퍼에 append하겠다.
+			
 		} 
-		if(cbFinal.isSelected()) {
+		if(cbFinal.isSelected()) {//Fina체크박스 클릭시 true되면서 실행됨.
 			buffer.append(cbFinal.getText()).append(" ");
+			
 		} 
-		if(cbStatic.isSelected()) {
+		if(cbStatic.isSelected()) {//StaticFina체크박스 클릭시 true되면서 실행됨.
 			buffer.append(cbStatic.getText()).append(" ");//중복체크하면 이름 따닥따닥 붙으니까 방지용으로 .append(" ")추가함.
 		} 
-		buffer.append(" 체크박스 선택됨.\n");
+		buffer.append(" 체크박스 선택됨.\n"); //->아무것도 체크박스에서 선택 안하면 이 코드만 실행됨.
 	
 		
 		//콤보 박스에서 선택된 아이템이 무엇인 지 
@@ -239,8 +242,9 @@ public class AppMain06 {
 
 	private void handleCheckBoxClick(ActionEvent e) {
 		//3개의 체크 박스들 중에서 누가 클릭 되었는 지 텍스트 에리어에 보여지게 만드는 코드
-		 JCheckBox cb = (JCheckBox) e.getSource();
-		 String text = cb.getText();
+		 JCheckBox cb = (JCheckBox) e.getSource(); //getSource()는 사용자가 창에서 클릭한 곳의 정보를 오브젝트값으로 리턴 받아서
+		 // (JCheckBox)타입으로 강제변환-> 다형성. 해서 변수 cb에 저장함
+		 String text = cb.getText(); // 사용자가 창에서 클릭한 곳의 정보를 getText()를 이용해서 text로 바꿈. 그걸 밑의 코드에서 textArea에 보여지게 함.
 		 boolean selected = cb.isSelected();
 		 textArea.setText(text + ": " + selected + "\n"); //선택 내용이 쌓이면서 보여지게 만듬.
 		 

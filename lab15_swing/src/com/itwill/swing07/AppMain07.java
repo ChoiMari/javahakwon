@@ -1,5 +1,6 @@
 package com.itwill.swing07;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -15,6 +16,7 @@ public class AppMain07 {
 	private JButton btnConfirmDlg;
 	private JButton btnInputDlg;
 	private JButton btnCustomDlg;
+	private JButton btnMyFrame;
 
 	/**
 	 * Launch the application.
@@ -44,7 +46,7 @@ public class AppMain07 {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 450, 357);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -124,14 +126,30 @@ public class AppMain07 {
 			//오버라이드 -ActionListener() 인터페이스 구현
 			public void actionPerformed(ActionEvent e) {
 				//내가 만든 다이얼로그 보여주기
-				MyDialog.ShowMyDialog(); //->창이 뜨는 지정된 위치(부모컨포넌트) 설정 안해서 다이얼로그 좌표 위치 에서 창이 뜸.
+				//MyDialog.ShowMyDialog(); //->창이 뜨는 지정된 위치(부모컨포넌트) 설정 안해서 다이얼로그 좌표 위치 에서 창이 뜸.
 				//MyDialog.java파일 코드에 setBounds(100, 100, 450, 300); 여기 x,y좌표 위치에 창이 뜸.
 				//setBounds(100, 100, 450, 300)의 위치 무시 하고 항상 스크린 가운데 뜨게 할 수도 있음.
 				//setBounds(100, 100, 450, 300);좌표 무시하고 항상 스크린의 가운데에 위치하도록 하는 코드
 				//setLocationRelativeTo(null);를 추가(setBounds(100, 100, 450, 300);는 삭제하면 안됨)
+				MyDialog.ShowMyDialog(frame);//->frame을 아규먼트로 넘겨서 호출. -> 부모컨포넌트 주는 것
+				//커스텀 다이얼로그 버튼 눌렀을 때 창을 frame창 따라가면서 뜨게 설정하기 위해서.
+				//-> 마이다이얼로그로 ShowMyDialog(){...}로 가서 파라미터 선언 넣기
+				//public static void ShowMyDialog(Component parentComponent)
+				
 			}
 		});
 		btnCustomDlg.setBounds(12, 187, 410, 44);
 		frame.getContentPane().add(btnCustomDlg);
+		
+		btnMyFrame = new JButton("Custom Frame");
+		
+		btnMyFrame.addActionListener(new ActionListener() { //Custom Frame버튼 클릭시 자바가상머신이 자동으로 호출해서 실행시켜줌
+			public void actionPerformed(ActionEvent e) {
+				//과제 : JFrame을 상속받는 객체 보여주기
+				MyFrame.showMyFrame();
+			}
+		});
+		btnMyFrame.setBounds(12, 241, 410, 44);
+		frame.getContentPane().add(btnMyFrame);
 	}
 }
