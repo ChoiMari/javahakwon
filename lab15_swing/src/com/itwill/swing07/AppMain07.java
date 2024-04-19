@@ -5,11 +5,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import com.itwill.swing07.MyFrame.Notifiable;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AppMain07 {
+public class AppMain07 implements Notifiable {
 
 	private JFrame frame;
 	private JButton btnMsgDlg;
@@ -17,6 +20,20 @@ public class AppMain07 {
 	private JButton btnInputDlg;
 	private JButton btnCustomDlg;
 	private JButton btnMyFrame;
+	
+	//마이 프레임에서 Notifiable이라는 인터페이스 만들고 public class AppMain07 implements Notifiable 하도록 만들었기 때문에
+	// 이제 이게 Notifiable에 있는  notifyMessage 메서드를 오버라이드 하게 된 것.
+	public void notifyMessage(String message) { // MyFrame에서 호출 되도록 만듬.
+		//-> 근데 MyFrame에서 호출하려면 객체 생성 필요함. AppMain07 app = new AppMain07(); 해서 app.이렇게
+		// 근데 이거 안된다고 함... 왜냐면 new할 때마다 새로 객체 생성하기 때문에...
+		// AppMain07실행 중에 객체생성하면 새로 만들어지는 AppMain07객체한테 정보 넘겨준다고..??
+		// 새로운 객체 AppMain07가 아니라 자기를 띄워준 AppMain07객체를 이용해야 된다고..
+		//자기를 띄워준 AppMain07객체의 주소를 알아야 한다고...
+		//해결 방법 : MyFrame.showMyFrame(frame,AppMain07.this); 호출할 때 띄워준 AppMain07.this객체의 주소를 아규먼트로 넘겨줌.
+		
+		//마이프레임에서 notifyMessagea메서드를 호출 할 때 넘겨받은 아규먼트 값으로 버튼에 메세지가 보여지게 함.
+		btnMyFrame.setText(message); // 누군가notifyMessage(String message)메서드를 호출 할 때 btnMyFrame에.setText(message);하겠다
+	}
 
 	/**
 	 * Launch the application.
@@ -146,7 +163,15 @@ public class AppMain07 {
 		btnMyFrame.addActionListener(new ActionListener() { //Custom Frame버튼 클릭시 자바가상머신이 자동으로 호출해서 실행시켜줌
 			public void actionPerformed(ActionEvent e) {
 				//과제 : JFrame을 상속받는 객체 보여주기
-				MyFrame.showMyFrame();
+				MyFrame.showMyFrame(frame,AppMain07.this);
+				//->아규먼트 frame : MYFrame 
+				//->아규먼트 AppMain07.this : AppMain07 타입으로 생성된 객체(의 주소) 현재 객체 AppMain07의 주소.
+				//생성자를 호출하면 그 객체는 항상 this라고 하는 주소값을 가지고 있다고 함.
+				// 주소값을 준 이유: 그 주소값을 알고 있으면 그 주소값에 .하면 그 클래스(타입)에 있는 public으로 공개된 필드,메서드 호출 가능하기 때문.
+				// AppMain07번의 메서드,필드를 마이프레임 클래스에서 사용할 수 있게 하려고.
+				// 마이프레임 클레스에서 "현재 뜬 창의" AppMain07객체의 public 메서드를 호출할 수 있도록.
+				// 마이프레임 클래스에서 AppMain07을 new로 객체 생성해서 쓰면 객체의 주소가 달라져서 안됨(별개의 새로운 객체를 만든는 거라서)
+				// 현재 뜬 창의 AppMain07객체의 주소가 필요함.
 			}
 		});
 		btnMyFrame.setBounds(12, 241, 410, 44);
