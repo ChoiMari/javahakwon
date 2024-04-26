@@ -39,7 +39,7 @@ public class ContactMain05 implements CreateNotify, UpdateNotify {
 	private JFrame frame;
 	private JButton btnCreate;
 	
-	private JTable table = new JTable();
+	private JTable table;// = new JTable();
 	
 	private DefaultTableModel model; //->? 이게 뭐지?
 	private JButton btnUpdate;
@@ -153,7 +153,18 @@ public class ContactMain05 implements CreateNotify, UpdateNotify {
 		scrollPane = new JScrollPane();
 		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
-		//table = new JTable();
+		table = new JTable();
+		
+		
+		// 테이블 컬럼 목록 이름의 폰트 설정
+		table.getTableHeader().setFont(new Font("굴림", Font.PLAIN, 17));
+		
+		// 테이블 데이터 행의 폰트 설정
+		table.setFont(new Font("굴림", Font.PLAIN, 17));
+		
+		//테이블 행 높이(세로 크기) 설정
+		table.setRowHeight(30);
+		
 		model = new DefaultTableModel(null, COLUMN_NAMES);
 		table.setModel(model);
 		scrollPane.setViewportView(table);

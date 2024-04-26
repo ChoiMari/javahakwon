@@ -116,6 +116,16 @@ public class ContactSearchFrame extends JFrame {
 		
 		table = new JTable();
 		
+		
+		// 테이블 컬럼 목록 이름의 폰트 설정
+		table.getTableHeader().setFont(new Font("굴림", Font.PLAIN, 17));
+		
+		// 테이블 데이터 행의 폰트 설정
+		table.setFont(new Font("굴림", Font.PLAIN, 17));
+		
+		//테이블 행 높이(세로 크기) 설정
+		table.setRowHeight(30);
+		
 		model = new DefaultTableModel(null,COLUMN_NAMES);
 		table.setModel(model);
 		
