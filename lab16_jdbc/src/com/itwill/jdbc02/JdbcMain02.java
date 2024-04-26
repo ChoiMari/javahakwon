@@ -42,9 +42,11 @@ public class JdbcMain02 {
 			String writer = sc.nextLine();
 			
 			//PreparedStatement객체의 sql에서 ?부분을 입력받은 내용으로 채움.
-			stmt.setString(1, title); // 1번째 ?에 title변수의 값을 문자열로 채운다
-			stmt.setString(2, content);// 2번째 ?에 title변수의 값을 문자열로 채운다
-			stmt.setString(3, writer);// 3번째 ?에 title변수의 값을 문자열로 채운다
+			//final String sql = "insert into blogs (title, content, writer) values (?,?,?)";
+			//stmt.setString(1, title);의 의미 : sql문장에서 작성한 1번째 ?의 값을 title로 채운다
+			stmt.setString(1, title); // 1번째 ?를 title변수의 값을 문자열로 채운다
+			stmt.setString(2, content);// 2번째 ?를 title변수의 값을 문자열로 채운다
+			stmt.setString(3, writer);// 3번째 ?를 title변수의 값을 문자열로 채운다
 			//sql관련된 것들만 1부터 시작한다고 생각하기
 			
 			//4.sql문장을 DB로 보내서 실행하고 결과 처리하기
