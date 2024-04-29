@@ -13,7 +13,9 @@ public interface OracleJdbc { //상수, 추상 메서드
 	//String URL = "jdbc:oracle:thin:@192.168.20.8:1521:xe";//-- 윤정 하트
 	//String URL = "jdbc:oracle:thin:@192.168.20.1:1521:xe";//->영웅선생님
 	//String URL = "jdbc:oracle:thin:@192.168.20.12:1521:xe";//->민선님
-	String URL = "jdbc:oracle:thin:@localhost:1521:xe";//--local호스트
+	//String URL = "jdbc:oracle:thin:@192.168.20.24:1521:xe";
+	
+	String URL = "jdbc:oracle:thin:@localhost:1521:xe";//--local호스트 . 내꺼
 	//->데이터베이스에 접속하기 위한 라이브러리 정보와 서버주소/포트/SID 정보
 	
 	//->형식에 맞춰서 써주어야 함! 오라클 문서보면 써야한다고 알려져 있다고..
