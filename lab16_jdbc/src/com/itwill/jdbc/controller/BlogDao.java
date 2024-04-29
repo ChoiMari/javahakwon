@@ -1,14 +1,8 @@
 package com.itwill.jdbc.controller;
 
-import static com.itwill.jdbc.OracleJdbc.PASSWORD;
-import static com.itwill.jdbc.OracleJdbc.URL;
-import static com.itwill.jdbc.OracleJdbc.USER;
-import static com.itwill.jdbc.model.Blog.Entity.COL_CREATED_TIME;
-import static com.itwill.jdbc.model.Blog.Entity.COL_ID;
-import static com.itwill.jdbc.model.Blog.Entity.COL_MODIFIED_TIME;
-import static com.itwill.jdbc.model.Blog.Entity.COL_TITLE;
-import static com.itwill.jdbc.model.Blog.Entity.COL_WRITER;
-import static com.itwill.jdbc.model.Blog.Entity.TBL_BLOGS;
+import static com.itwill.jdbc.OracleJdbc.*;
+
+
 import static com.itwill.jdbc.model.Blog.Entity.*;
 
 import java.sql.Connection;
@@ -70,11 +64,28 @@ public class BlogDao {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 
 	private void closeResources(Connection conn, Statement stmt) {
 		closeResources(conn, stmt, null);
 	}
 
+	//ResultSet에서 각 컬럼의 값들을 읽어서 Blog타입 객체를 생성하고 리턴.
+	private Blog makeBlogFromResultSet(ResultSet rs) throws SQLException {
+		//컬럼에 있는 값들 읽음.
+		int id = rs.getInt(COL_ID);
+		String title = rs.getString(COL_TITLE);
+		String content = rs.getString(COL_WRITER);
+		LocalDateTime createdTime = rs.getTimestamp(COL_CREATED_TIME).toLocalDateTime();
+		LocalDateTime modifiedTime = rs.getTimestamp(COL_MODIFIED_TIME).toLocalDateTime();
+
+		Blog blog = new Blog(id, title, content, content, createdTime, modifiedTime);
+		return blog;
+	}
+	
+	
 	// read() 메서드에서 사용할 SQL문장
 	private static final String SQL_SELECT_ALL = String.format("select * from %s order by %s desc", TBL_BLOGS, COL_ID);
 
@@ -100,15 +111,18 @@ public class BlogDao {
 			while (rs.next()) {// 오라클 데이터베이스 테이블에 rs.next() 그 다음 행이 있는지 없는 지 알려주는 메서드
 				//행이 있으면 true ->while문 반복, 없으면 false -> while문 나감
 				
-				//컬럼에 있는 값들 읽음.
-				int id = rs.getInt(COL_ID);
-				String title = rs.getString(COL_TITLE);
-				String content = rs.getString(COL_WRITER);
-				LocalDateTime createdTime = rs.getTimestamp(COL_CREATED_TIME).toLocalDateTime();
-				LocalDateTime modifiedTime = rs.getTimestamp(COL_MODIFIED_TIME).toLocalDateTime();
-
-				Blog blog = new Blog(id, title, content, content, createdTime, modifiedTime);
+				Blog blog = makeBlogFromResultSet(rs);
 				result.add(blog);
+				
+//				//컬럼에 있는 값들 읽음.
+//				int id = rs.getInt(COL_ID);
+//				String title = rs.getString(COL_TITLE);
+//				String content = rs.getString(COL_WRITER);
+//				LocalDateTime createdTime = rs.getTimestamp(COL_CREATED_TIME).toLocalDateTime();
+//				LocalDateTime modifiedTime = rs.getTimestamp(COL_MODIFIED_TIME).toLocalDateTime();
+//
+//				Blog blog = new Blog(id, title, content, content, createdTime, modifiedTime);
+//				result.add(blog);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -202,14 +216,87 @@ public class BlogDao {
 	
 	//콤보박스 3번째 선택 검색 : 제목lower(title) 또는 내용lower(content)에 검색 키워드가 포함된 검색 결과.
 	//select * from 테이블 이름(blogs) where lower(title) like ? or lower(content) like ? order by id desc;
-	private static final String SQL_SELECT_BY_TITLE_OR_CONTENT = String.format(
-			"select * from %s where lower(%s) like ? or lower(%s) like ? order by %S desc;",
+	 // 제목 또는 내용에 검색 키워드가 포함된 검색 결과:
+    // select * from blogs where lower(title) like ? or lower(content) like ? order by id desc
+    private static final String SQL_SELECT_BY_TITLE_OR_CONTENT = String.format(
+            "select * from %s " +
+            "where lower(%s) like ? or lower(%s) like ? " + 
+            "order by %s desc", 
+            TBL_BLOGS, COL_TITLE, COL_CONTENT, COL_ID);
+//	private static final String SQL_SELECT_BY_TITLE_OR_CONTENT = String.format(
+//			"select * from %s " 
+//					+ "where lower(%s) like ? or lower(%s) like ? " 
+//					+ "order by %S desc;",
+//			TBL_BLOGS,
+//			COL_TITLE,
+//			COL_CONTENT,
+//			COL_ID);
+	
+	//작성자에 검색 키워드가 포함된 검색 결과 :
+	//select * from 테이블이름(blogs) where lower(write) like ? order by id desc;
+	private static final String SQL_SELECT_BY_WRITER = String.format(
+			"select * from %s where lower(%s) like ? order by %s desc",
 			TBL_BLOGS,
-			COL_TITLE,
-			COL_CONTENT,
-			COL_ID);
-	
-	
+			COL_WRITER,
+			COL_ID
+			);
+	/**
+	 * 제목, 내용, 제목 또는 내용, 작성자로 검색하는 기능을 가진 메서드
+	 * 검색 타입과 검색어를 전달 받아서, 해당 SQL 문장을 실행하고 그 결과를 리턴하는 메서드
+	 * @param searchType의 아규먼트 값이 0이면 - 제목 검색, 1이면 - 내용 검색, 2이면 - 제목 또는 내용 검색, 3이면 - 작성자 검색
+	 * @param keyword 검색 문자열
+	 * @return 검색 결과 리스트를 리턴해준다. 검색 결과가 없으면 빈 리스트를 호출한 곳으로 리턴해줌.
+	 */
+	public List<Blog> search(int type, String keyword){
+		List<Blog> result = new ArrayList<>();
+		//sql문장 써야해서 객체 연결 필요 Connection객체 있어야 함
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		//***주의 ->like 검색에서 사용할 파라미터
+		String searchKeyword = "%" + keyword.toLowerCase() + "%";
+		//->sql문장 like하려면 앞뒤로 %붙여야 해서. sql의 문장에서 와일드 카드.
+		//?자리에 들어 갈것이 앞뒤로 % 붙여서 ?자리에 넣으려고.
+		
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			switch(type) {
+			case 0 : //제목으로 검색하기
+				stmt = conn.prepareStatement(SQL_SELECT_BY_TITLE);
+				stmt.setString(1, searchKeyword);
+				break;
+				
+			case 1 : //내용으로 검색하기
+				stmt = conn.prepareStatement(SQL_SELECT_BY_CONTENT);
+				stmt.setString(1, searchKeyword);
+				break;
+				
+			case 2 : //제목 또는 내용으로 검색학시
+				stmt = conn.prepareStatement(SQL_SELECT_BY_TITLE_OR_CONTENT);
+				stmt.setString(1, searchKeyword);//첫번째 like에 들어갈 ?  searchKeyword로 채움
+				stmt.setString(2, searchKeyword); //이건 sql 문장의 like에 쓴 물음표가 2개여서 2번 넣어줌.
+				break;
+			case 3 ://작성자로 검색하기
+				stmt = conn.prepareStatement(SQL_SELECT_BY_WRITER);
+				stmt.setString(1, searchKeyword);
+				break;
+			}
+			//여기서 stmt.setString(1, searchKeyword);로 쓰고 case 0,1,3에 있는
+			//stmt.setString(1, searchKeyword);문장은 지워도 됨.
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Blog blog = makeBlogFromResultSet(rs);
+				result.add(blog);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources(conn, stmt, rs);
+		}
+		return result;
+	}
 }
 
 //-------------------------------------------

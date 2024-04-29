@@ -100,7 +100,11 @@ public class BlogMain implements CreateNotify{
 		searchPanel.add(textSearchKeyword);
 		textSearchKeyword.setColumns(10);
 		
+		//검색단추 클릭시 실행
 		btnSearch = new JButton("검색");
+		btnSearch.addActionListener((e)->search());
+		
+		
 		btnSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		searchPanel.add(btnSearch);
 		
@@ -108,6 +112,8 @@ public class BlogMain implements CreateNotify{
 		frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 		
 		btnReadAll = new JButton("목록보기");
+		btnReadAll.addActionListener((e)->initializeTable());
+		
 		btnReadAll.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		buttonPanel.add(btnReadAll);
 		
@@ -125,6 +131,9 @@ public class BlogMain implements CreateNotify{
 		buttonPanel.add(btnCreate);
 		
 		btnDetails = new JButton("상세보기");
+		//상세보기 버튼 클릭시 실행.
+		btnDetails.addActionListener((e)->showDetailsFrame());
+		
 		btnDetails.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		buttonPanel.add(btnDetails);
 		
@@ -147,20 +156,62 @@ public class BlogMain implements CreateNotify{
 		scrollPane.setViewportView(table);
 	}
 	
+	private void showDetailsFrame(){
+		//TODO
+	}
+	
+	
+	private void search() {
+		int type = comboBox.getSelectedIndex();//콤보박스에서 선택된 아이템의 인덱스
+		String keyword = textSearchKeyword.getText();//검색어
+		if(keyword.equals("")) {
+			JOptionPane.showMessageDialog(frame,
+					"검색어를 입력하세요.",
+					"경고",
+					JOptionPane.WARNING_MESSAGE);
+			
+			textSearchKeyword.requestFocus();
+			//->검색어 입력 JTextField에 포커스를 줌(커서 깜박깜박).
+			
+			return;
+		}
+		//DAO 메서드를 호출해서 검색 결과를 가져옴
+		List<Blog> blogs = dao.search(type, keyword);
+		resetTable(blogs); //테이블 리셋.
+	}
+	
+	
+	
 	private void initializeTable() {
 		//DAO를 사용해서 DB 테이블에서 검색.
 		List<Blog> blogs = dao.read();
 		
+		//테이블 리셋  
+		resetTable(blogs);
+		
+//		//검색한 내용을 JTable에 보여줌 -> JTable의 테이블 모델을 재설정.
+//		tableModel = new DefaultTableModel(null, COLUMN_NAMES);//테이블 모델 리셋 - 데이터를 지움
+//		for(Blog b : blogs) { 
+//			//DB 테이블에서 검색한 레코드를 JTable에서 사용할 행 데이터로 변환
+//			Object[] row = {
+//					b.getId(),
+//					b.getTitle(),
+//					b.getWriter(),
+//					b.getModifiedTime()
+//					
+//			};
+//			tableModel.addRow(row); // 테이블 모델에 행 데이터를 추가
+//		}
+//		table.setModel(tableModel);//JTable의 모델을 다시 세팅.
+	}
+	
+	private void resetTable(List<Blog> blogs) { 
 		//검색한 내용을 JTable에 보여줌 -> JTable의 테이블 모델을 재설정.
-		tableModel = new DefaultTableModel(null, COLUMN_NAMES);//테이블 모델 리셋 - 데이터를 지움
-		for(Blog b : blogs) { 
-			//DB 테이블에서 검색한 레코드를 JTable에서 사용할 행 데이터로 변환
-			Object[] row = {
-					b.getId(),
-					b.getTitle(),
-					b.getWriter(),
-					b.getModifiedTime()
-					
+		tableModel = new DefaultTableModel(null, COLUMN_NAMES);// 테이블 모델 리셋 - 데이터를 지움
+		for (Blog b : blogs) {
+			// DB 테이블에서 검색한 레코드를 JTable에서 사용할 행 데이터로 변환
+			Object[] row = { b.getId(), b.getTitle(), b.getWriter(), b.getModifiedTime()
+
 			};
 			tableModel.addRow(row); // 테이블 모델에 행 데이터를 추가
 		}
