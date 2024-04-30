@@ -12,7 +12,7 @@ public interface OracleJdbc { //상수, 추상 메서드
 	//String URL = "jdbc:oracle:thin:@192.168.20.11:1521:xe";// --> 학원친구..다영 귀염
 	//String URL = "jdbc:oracle:thin:@192.168.20.8:1521:xe";//-- 윤정 하트
 	//String URL = "jdbc:oracle:thin:@192.168.20.1:1521:xe";//->영웅선생님
-	//String URL = "jdbc:oracle:thin:@192.168.20.12:1521:xe";//->민선님
+	//String URL = "jdbc:oracle:thin:@192.168.20.12:1521:xe";//->민선님 >_<
 	//String URL = "jdbc:oracle:thin:@192.168.20.24:1521:xe";
 	
 	String URL = "jdbc:oracle:thin:@localhost:1521:xe";//--local호스트 . 내꺼
