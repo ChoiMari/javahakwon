@@ -6,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -20,6 +24,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
 import com.itwill.project01.controller.MemberDao;
+
+import oracle.jdbc.OracleDriver;
+
+import static com.itwill.project01.view.OracleJdbc2.*;
+import static com.itwill.project01.model.Membership.Member.*;
 
 public class FrogPizzaJoinMembership extends JFrame {
 
@@ -307,7 +316,9 @@ public class FrogPizzaJoinMembership extends JFrame {
 		//회원 가입 완료 버튼 클릭시 실행 되는 코드
 		btnJoinCompletion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+//				 String gettextJoinPassword = new String(textJoinPassword.getPassword());
+//				 System.out.println(gettextJoinPassword);
+				join();
 				dispose();
 				
 			}
@@ -318,6 +329,49 @@ public class FrogPizzaJoinMembership extends JFrame {
 		btnJoinCompletion.setBounds(157, 325, 97, 23);
 		panelJoinMembership.add(btnJoinCompletion);
 	}
+	
+	private void join() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            // 오라클 드라이버(라이브러리) 등록
+            DriverManager.registerDriver(new OracleDriver());
+            
+            // 오라클 DB 접속
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            final String sql = String.format(
+                    "insert into %s (%s, %s, %s, %s, %s) values (?, ?, ?, ?, ?)", 
+                    TBL_MEMBERSHIP, COL_ID, COL_PASSWORD, COL_NAME, COL_EMAIL, COL_PHONE_NUMBER);
+            
+          
+            stmt = conn.prepareStatement(sql);
+            
+            //비밀번호 텍스트 필드에 입력한 값 - 문자열로 변환 해서 저장.
+           String gettextJoinPassword = new String(textJoinPassword.getPassword());
+            
+            // PreparedStatement 객체의 SQL에서 ? 부분을 입력받은 내용으로 채움.
+            stmt.setString(1,textJoinId.getText()); // 첫번째 ?에 textJoinId.getText() 변수의 값을 문자열로 채움.
+            stmt.setString(2, gettextJoinPassword);
+            stmt.setString(3, textJoinName.getText());
+            stmt.setString(4, textJoinEmail.getText());
+            stmt.setString(5, textJoinPhone.getText());
+            
+            // SQL 문장을 DB로 보내서 실행 & 결과 처리
+            int result = stmt.executeUpdate();
+           // System.out.println(result + "개 행이 삽입됨.");
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 리소스 해제
+            try {
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 		
-		
+	}
 }
+
