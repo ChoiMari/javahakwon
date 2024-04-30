@@ -330,6 +330,8 @@ public class FrogPizzaJoinMembership extends JFrame {
 		panelJoinMembership.add(btnJoinCompletion);
 	}
 	
+	
+	// 가입완료 버튼 클릭시 호출되는 메서드 -> 오라클 DB MEMBERSHIP_TB 테이블에 텍스트필드에 저장한 입력값을 읽어서 저장시킴.
 	private void join() {
         Connection conn = null;
         PreparedStatement stmt = null;
