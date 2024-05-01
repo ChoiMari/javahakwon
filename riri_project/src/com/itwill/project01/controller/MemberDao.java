@@ -60,6 +60,8 @@ public class MemberDao {
 			}
 		}
 	
+	
+	
 //	 //이메일 확인
 //	
 //			public void emailCheck(String email) throws Exception {

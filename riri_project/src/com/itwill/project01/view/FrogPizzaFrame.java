@@ -28,8 +28,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class FrogPizzaFrame {
-
-	//private static final String[] COLUMN_NAMES = {"피자","장df"}
+	
+	//테이블에 넣을 컬럼 상수 선언.
+	private static final String[] COLUMN_NAMES = {"피자","피자$가격","음료","음료$가격","사이드","사이드$가격","요리사","인기도"};
+	private DefaultTableModel model;
 	
 	private JFrame frame;
 	private JButton btnPrFrogPizza;
@@ -209,11 +211,14 @@ public class FrogPizzaFrame {
 		scrollPane.setBounds(0, 619, 739, 246);
 		panelOrderMenuBackground.add(scrollPane);
 		
-		table = new JTable();
+		//사용자가 메뉴 클릭하면 메뉴 추가 
+		table = new JTable();//테이블 생성
 		
-		//TODO
-
+		//TODO - 테이블에 컬럼 집어 넣음.
+		model = new DefaultTableModel(null,COLUMN_NAMES);
+		table.setModel(model);
 		scrollPane.setViewportView(table);
+		
 		
 		JButton btnPaymentButton = new JButton("주문 하기");
 		//주문하기 버튼 클릭시 실행 되는 코드
