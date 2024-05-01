@@ -49,16 +49,32 @@ public class MemberDao {
 	
 //메서드
 	
-//	//텍스트 필드에서 숫자만 입력했는지 확인해주는 메서드 -> 전화번호 입력에 사용.
-//	public static boolean isIntegerNumeric(String s) {  
-//		try {
-//			Integer.parseInt(s);    
-//			return true;  
-//			} 
-//		catch(NumberFormatException e) {
-//			return false;  
+	//텍스트 필드에서 숫자만 입력했는지 확인해주는 메서드 -> 전화번호 입력에 사용.
+	public static boolean isIntegerNumeric(String s) {  
+		try {
+			Integer.parseInt(s);    
+			return true;  
+			} 
+		catch(Exception e) {
+			return false;  
+			}
+		}
+	
+//	 //이메일 확인
+//	
+//			public void emailCheck(String email) throws Exception {
+//	
+//				boolean check = Pattern.matches(
+//	
+//						"@", email);
+//	
+//				if (!check) {
+//					
+//					throw new Exception("@ 포함한 이메일 형식으로 작성해 주세요");
+//					}
+//	
 //			}
-//		}
+
 //	
 //	public static boolean isDoubleNumeric(String s) {
 //		try { 
