@@ -14,6 +14,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import com.jgoodies.forms.layout.FormLayout;
+import com.itwill.project01.controller.OrderMenuDao;
+import com.itwill.project01.model.FrogPizzaMenu;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
@@ -24,6 +26,8 @@ import java.awt.CardLayout;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +35,11 @@ public class FrogPizzaFrame {
 	
 	//테이블에 넣을 컬럼 상수 선언.
 	private static final String[] COLUMN_NAMES = {"피자","피자$가격","음료","음료$가격","사이드","사이드$가격","요리사","인기도"};
-	private DefaultTableModel model;
+	private DefaultTableModel orderModel;
+	
+	//OrderMenuDao의 getInstance()메서드를 호출해서 싱글턴으로 만든(객체생성 1번만 되게)객체를 생성함.
+	//몇번을 호출하든 같은 주소의 OrderMenuDao의 객체가 호출됨.
+	private OrderMenuDao orderMenuDao = OrderMenuDao.getInstance();
 	
 	private JFrame frame;
 	private JButton btnPrFrogPizza;
@@ -65,7 +73,7 @@ public class FrogPizzaFrame {
 	private JButton btnDrinkMenu;
 	private JPanel panelOrderMenuBackground;
 	private JPanel panelPizzaMenu;
-	private JTable table;
+	private JTable tableOrderMenu;
 	private JTextField textTotalsum;
 
 	/**
@@ -135,6 +143,15 @@ public class FrogPizzaFrame {
 		panelPizzaMenu.setLayout(null);
 		
 		btnPrFrogPizza = new JButton("프리미엄 개구리피자");
+		
+		//프리미엄 개구리피자 버튼 클릭시 실행되는 코드
+		btnPrFrogPizza.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//나는 버튼 클릭하면 테이블에 피자 이름,가격,요리사,인기도 나오게 하고 싶어!
+				showPizzaNameAndPriceTableOrderMenu(e);
+			}
+		});
 		btnPrFrogPizza.setBounds(0, 0, 200, 200);
 		panelPizzaMenu.add(btnPrFrogPizza);
 		
@@ -186,6 +203,14 @@ public class FrogPizzaFrame {
 		btnNewButton_18_1.setBounds(402, 402, 200, 200);
 		panelPizzaMenu.add(btnNewButton_18_1);
 		
+		JButton btnNewButton_18_1_1 = new JButton("바나나 피자");
+		btnNewButton_18_1_1.setBounds(603, 402, 200, 200);
+		panelPizzaMenu.add(btnNewButton_18_1_1);
+		
+		JButton btnNewButton_18_1_1_1 = new JButton("마라맛 피자");
+		btnNewButton_18_1_1_1.setBounds(804, 402, 200, 200);
+		panelPizzaMenu.add(btnNewButton_18_1_1_1);
+		
 		panelDrinkMenu = new JPanel();
 		panelDrinkMenu.setBounds(0, 0, 1258, 618);
 		panelOrderMenuBackground.add(panelDrinkMenu);
@@ -212,12 +237,12 @@ public class FrogPizzaFrame {
 		panelOrderMenuBackground.add(scrollPane);
 		
 		//사용자가 메뉴 클릭하면 메뉴 추가 
-		table = new JTable();//테이블 생성
+		tableOrderMenu = new JTable();//테이블 생성
 		
 		//TODO - 테이블에 컬럼 집어 넣음.
-		model = new DefaultTableModel(null,COLUMN_NAMES);
-		table.setModel(model);
-		scrollPane.setViewportView(table);
+		orderModel = new DefaultTableModel(null,COLUMN_NAMES);
+		tableOrderMenu.setModel(orderModel);
+		scrollPane.setViewportView(tableOrderMenu);
 		
 		
 		JButton btnPaymentButton = new JButton("주문 하기");
@@ -266,4 +291,64 @@ public class FrogPizzaFrame {
 		frame.getContentPane().add(panelMain);
 		panelMain.setLayout(null);
 	}
-}
+
+	/**
+	 * 호출하면 tableOrderMenu 테이블에 피자이름,가격,요리사,인기도 추가시켜주는 메서드
+//	 * @param ClickBtnPrFrogPizza 개구리피자버튼을 클릭할때의 정보를 아규먼트로 전달받음.
+//	 * @return String 타입의 피자 이름을 호출한 곳으로 리턴해줌. 
+	 */
+	private void showPizzaNameAndPriceTableOrderMenu(ActionEvent ClickBtnPrFrogPizza) {
+		 
+		List<String> orderFrogPizzaName = new ArrayList <>(); //테이블 행에 넣을 리스트를 만듬.
+		
+		//"select %s, %s, %s, %s from %s where %s = ?" sql문장에 ?넣을 값을 아규먼트로 넣어서 호출함. 
+		//개구리 피자의 모든 컬럼의 정보를 리턴받아서 FrogPizzaMenu타입의 PizzaNamePriceCookPop에 저장시킴.
+		//String PizzaNamePriceCookPop = orderMenuDao.readPizzaName("♡개구리피자♡");
+//		frogPizzaMenu.add(0, PizzaNamePriceCookPop);
+		//orderFrogPizzaName.add(PizzaNamePriceCookPop);
+		
+//		orderModel.addRow(orderFrogPizzaName);
+		
+		
+//		for (FrogPizzaMenu f : frogPizzaMenu) {
+//			// DB 테이블에서 검색한 레코드를 JTable에서 사용할 행 데이터로 변환.
+//			Object[] row = {
+//					f.getPizzaName(),
+//					f.getPizzaPrice(),
+//					f.getPizzaCook(),
+//					f.getPizzaPopularity()
+//					};
+//		orderModel.addRow(row);;
+//			}
+//		tableOrderMenu.setModel(orderModel);
+		}
+	
+	private void initializeTable() {
+
+		List<FrogPizzaMenu> frogPizzaMenu = orderMenuDao.frogPizzaMenuReadAll();
+		resetTableOrderMenu(frogPizzaMenu); // 테이블 리셋
+	}
+
+	
+    /**
+     * tableOrderMenu 테이블을 리셋 시켜주는 메서드
+     * @param blogs
+     */
+	private void resetTableOrderMenu (List<FrogPizzaMenu> frogPizzaMenu) {
+		// 검색한 내용을 JTable에 보여줌 - JTable의 테이블 모델을 재설정.
+		orderModel = new DefaultTableModel(null, COLUMN_NAMES); // 테이블 모델 리셋.
+		for (FrogPizzaMenu f : frogPizzaMenu) {
+			// DB 테이블에서 검색한 레코드를 JTable에서 사용할 행 데이터로 변환.
+			Object[] row = {
+					f.getPizzaName(),
+					f.getPizzaPrice(),
+					f.getPizzaCook(),
+					f.getPizzaPopularity()
+					};
+			orderModel.addRow(row); // 테이블 모델에 행 데이터를 추가.
+		}
+		tableOrderMenu.setModel(orderModel); // JTable의 모델을 다시 세팅.
+	}
+		
+	
+}//클래스 끝

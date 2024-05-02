@@ -5,3 +5,5 @@ SIDE_KCAL          NUMBER(10,2)    CHECK (SIDE_KCAL >= 0),
 SIDE_COOK          VARCHAR2(30),
 SIDE_POPULARITY    NUMBER(10)
 );
+
+commit;
