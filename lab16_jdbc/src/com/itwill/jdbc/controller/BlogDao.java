@@ -283,7 +283,7 @@ public class BlogDao {
             stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
-            if (rs.next()) {
+            if (rs.next()) { //가져올게 1개면 if 없으면 실행 안되게
                 blog = makeBlogFromResultSet(rs);
             }
             

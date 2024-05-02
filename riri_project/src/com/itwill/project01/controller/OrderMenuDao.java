@@ -126,16 +126,17 @@ public class OrderMenuDao {
             rs = stmt.executeQuery();
             
             if (rs.next()) {
-            	String pizzaName = rs.getString(FrogPizzaMenu.COL_PIZZA_NAME);
+            	dbGetfrogPizzaMenu = makeFrogPizzaMenuFromResultSet(rs);
+//            	String pizzaName = rs.getString(FrogPizzaMenu.COL_PIZZA_NAME);
 //                int pizzaPrice = rs.getInt(FrogPizzaMenu.COL_PIZZA_PRICE);
 //                double pizzaKacl = rs.getDouble(FrogPizzaMenu.COL_PIZZA_KCAL);
 //                String pizzacook = rs.getString(FrogPizzaMenu.COL_PIZZA_COOK);
 //                int pizzaPopularity = rs.getInt(FrogPizzaMenu.COL_PIZZA_POPULARITY);
-                //아규먼트로 전달받은 피자이름의 모든 컬럼의 행들의 정보로 필드 초기화.
-                FrogPizzaMenu resultFrogPizzaMenu = new FrogPizzaMenu(pizzaName);//, pizzaPrice, pizzaKacl, pizzacook, pizzaPopularity);
-                //거기서 이름만 뽑아서 저장하고 호출한 곳으로 리턴해줌.
+//                //아규먼트로 전달받은 피자이름의 모든 컬럼의 행들의 정보로 필드 초기화.
+//                FrogPizzaMenu resultFrogPizzaMenu = new FrogPizzaMenu(pizzaName, pizzaPrice, pizzaKacl, pizzacook, pizzaPopularity);
+//                //거기서 이름만 뽑아서 저장하고 호출한 곳으로 리턴해줌.
                 //dbGetfrogPizzaMenu = resultFrogPizzaMenu.getPizzaName();
-                
+                //TODO
             }
            
             

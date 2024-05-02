@@ -299,28 +299,32 @@ public class FrogPizzaFrame {
 	 */
 	private void showPizzaNameAndPriceTableOrderMenu(ActionEvent ClickBtnPrFrogPizza) {
 		 
-		List<String> orderFrogPizzaName = new ArrayList <>(); //테이블 행에 넣을 리스트를 만듬.
+		List<FrogPizzaMenu> orderFrogPizzaName = new ArrayList <>(); //테이블 행에 넣을 리스트를 만듬.
 		FrogPizzaMenu frogPizzaMenu = orderMenuDao.readPizzaName("♡개구리피자♡");
 		//"select %s, %s, %s, %s from %s where %s = ?" sql문장에 ?넣을 값을 아규먼트로 넣어서 호출함. 
 		//개구리 피자의 모든 컬럼의 정보를 리턴받아서 FrogPizzaMenu타입의 PizzaNamePriceCookPop에 저장시킴.
 		//String PizzaNamePriceCookPop = orderMenuDao.readPizzaName("♡개구리피자♡");
 //		frogPizzaMenu.add(0, PizzaNamePriceCookPop);
 		//orderFrogPizzaName.add(PizzaNamePriceCookPop);
-		
+		orderFrogPizzaName.add(frogPizzaMenu);
 //		orderModel.addRow(orderFrogPizzaName);
 		
-		
-//		for (FrogPizzaMenu f : frogPizzaMenu) {
-//			// DB 테이블에서 검색한 레코드를 JTable에서 사용할 행 데이터로 변환.
-//			Object[] row = {
-//					f.getPizzaName(),
-//					f.getPizzaPrice(),
-//					f.getPizzaCook(),
-//					f.getPizzaPopularity()
-//					};
-//		orderModel.addRow(row);;
-//			}
-//		tableOrderMenu.setModel(orderModel);
+		// {"피자","피자$가격","음료","음료$가격","사이드","사이드$가격","요리사","인기도"};
+		for (FrogPizzaMenu f : orderFrogPizzaName) {
+			// DB 테이블에서 검색한 레코드를 JTable에서 사용할 행 데이터로 변환.
+			Object[] row = {
+					f.getPizzaName(),
+					f.getPizzaPrice(),
+					"",
+					"",
+					"",
+					"",		
+					f.getPizzaCook(),
+					f.getPizzaPopularity()
+					};
+		orderModel.addRow(row);;
+			}
+		tableOrderMenu.setModel(orderModel);
 		}
 	
 	private void initializeTable() {
