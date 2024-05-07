@@ -47,6 +47,7 @@ public class OrderingFrame extends JFrame {
 		setTitle("주문 하기");
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
