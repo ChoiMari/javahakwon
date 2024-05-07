@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.itwill.project01.model.OrderMenuAll;
+
+
 import static com.itwill.project01.model.OrderMenuAll.*;
 import static com.itwill.project01.view.OracleJdbc2.*;
 
@@ -57,6 +59,14 @@ public class OrderMenuDao {
         }
     }
     
+    /**
+     * CRUD 메서드들에서 사용했던 리소스들을 해제.
+     * @param conn Connection 객체
+     * @param stmt Statement 객체
+     */
+    private void closeResources(Connection conn, Statement stmt) {
+        closeResources(conn, stmt, null);
+    }
     
     
     private static final String SQL_SELECT_SIDE_MENU_CK = String.format(
@@ -449,5 +459,42 @@ public class OrderMenuDao {
 //        //FROG_PIZZA_MENU_TB 테이블이 가진 모든 컬럼의 행들을 select하고 저장시켜서 그 결과를 리턴함.
 //    }
 //    
+	
+	 // delete(int id) 메서드에서 사용할 SQL: delete from blogs where id = ?
+    private static final String SQL_DELETE = "dlelte from ORDER_CONFIRMATION_TB where ORDER_PIZZA_NAME = ?";
+//    		String.format(
+//            "delete from %s where %s = ?", 
+//            TBL_BLOGS, COL_ID);
+//    
+    /**
+     * 테이블에서 ORDER_PIZZA_NAME에 해당하는 레코드(행)를 삭제.
+     * @param ORDER_PIZZA_NAME 삭제하려는 레코드 조건
+     * @return 테이블에서 삭제된 행의 개수.
+     */
+    public int delete(String pizzaName) {
+        int result = 0;
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            stmt = conn.prepareStatement(SQL_DELETE);
+            stmt.setString(1, pizzaName);
+            result = stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, stmt);
+        }
+        
+        return result;
+    }
+	
+	
+	
+	
+	
+	
 
 }//클래스 끝.

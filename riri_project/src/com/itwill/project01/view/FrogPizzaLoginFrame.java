@@ -27,6 +27,9 @@ import java.awt.Toolkit;
 
 import javax.swing.SwingConstants;
 
+import com.itwill.project01.controller.LoginMemberDao;
+import com.itwill.project01.controller.OrderMenuDao;
+import com.itwill.project01.model.LoginMember;
 import com.itwill.project01.model.Membership;
 
 import oracle.jdbc.OracleDriver;
@@ -43,11 +46,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
 public class FrogPizzaLoginFrame {
 
+	private LoginMemberDao loginMemberDao =LoginMemberDao.getInstance();
+	
 	private JFrame frame;
 	private JTextField textId;
 	private JLabel labelTitleLogo;
@@ -183,6 +190,22 @@ public class FrogPizzaLoginFrame {
 				//JOptionPane.showMessageDialog(panelLogin, "로그인 성공");
 				//주문 프로그램창 메서드 호출 하고 로그인화면은 안보이게 설정하기.
 			
+				
+	
+				//TODO : 로그인한 아이디로 DB에 저장된 회원정보 찾아서 아규먼트로 넘겨주기.
+				String loginId = textId.getText();
+				//아규먼트 넘겨받은 클래스에서 정보 필드로 선언해서 저장해놓기.
+				//아이디를 아규먼트로 받아서 회원정보 돌려주는 건 LoginMemberDao테이블에 있는 
+				//loginMemberProfile(String loginId)메서드
+				//회원정보를 담을 리스트 만듬
+				//List<Membership> loginIdMemberProfileList  = new ArrayList<>();
+				//loginIdMemberProfile의 loginMemberProfile(loginId)메서드가 리턴해준 회원정보를 저장.
+				//loginIdMemberProfileList = loginMemberDao.loginMemberProfileList(loginId);
+				//이 회원정보를 다시 또 오라클의 새로운 로그인한 회원정보 테이블에 저장함.
+				//LOGIN_MEMBER_TB이 테이블로 저장하기
+				Membership loginMembership = loginMemberDao.loginMemberProfile(loginId);
+				//loginMemberDao.loginInsert(loginMembership);
+				
 				frame.setVisible(false);
 				FrogPizzaFrame.showFrogPizzaFrame();
 			}

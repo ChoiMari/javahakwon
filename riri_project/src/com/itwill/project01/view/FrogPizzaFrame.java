@@ -3,21 +3,16 @@ package com.itwill.project01.view;
 import java.awt.*;
 import javax.swing.*;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import com.itwill.project01.controller.OrderMenuDao;
 
 
 import com.itwill.project01.model.OrderMenuAll;
 
-import javax.swing.GroupLayout;
+import oracle.jdbc.OracleDriver;
+
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +20,11 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.ImageIcon;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class FrogPizzaFrame {
 	
@@ -50,6 +47,8 @@ public class FrogPizzaFrame {
 	//몇번을 호출하든 같은 주소의 OrderMenuDao의 객체가 호출됨.
 	private OrderMenuDao orderMenuDao = OrderMenuDao.getInstance();
 	
+	private OrderingFrame dao = OrderingFrame.getInstance();
+	
 	//아규먼트로 넘겨받은 메뉴이름정보 저장해서 사용하려고 필드선언
 	private String ckPizzaName;
 	private String cKDinkName;
@@ -69,7 +68,25 @@ public class FrogPizzaFrame {
 //			g.drawImage(imgFrogPizzaMain,0,0,null);
 //		}
 //	}
+	//////////
+    //-----> singleton
+    private static FrogPizzaFrame instance = null;
+    
+
+    
+    public static FrogPizzaFrame getInstance() {
+        if (instance == null) {
+            instance = new FrogPizzaFrame();
+        }
+        
+        return instance;
+    }
+    //<----- singleton
 	
+	
+	
+	
+	////////////
 	
 	
 	private JFrame frame;
@@ -141,6 +158,8 @@ public class FrogPizzaFrame {
 	private JLabel lblOrderConfirmationB;
 	private JTable tableOrderConfirmation;
 	private JScrollPane scrollPane_3;
+	private JButton btnDrinkOrderCancle;
+	private JButton btnSideOrderCancle;
 
 	/**
 	 * Launch the application.
@@ -192,25 +211,6 @@ public class FrogPizzaFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		panelOrderConfirmation = new JPanel();
-		
-		panelOrderConfirmation.setLayout(null);
-		panelOrderConfirmation.setBounds(226, 0, 1018, 961);
-		frame.getContentPane().add(panelOrderConfirmation);
-		
-		lblOrderConfirmationB = new JLabel("");
-		
-		lblOrderConfirmationB.setIcon(new ImageIcon(".\\image\\주문내역배경.png"));
-		lblOrderConfirmationB.setBounds(0, 0, 1018, 961);
-		panelOrderConfirmation.add(lblOrderConfirmationB);
-		
-		scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(35, 97, 944, 577);
-		panelOrderConfirmation.add(scrollPane_3);
-		
-		tableOrderConfirmation = new JTable();
-		scrollPane_3.setViewportView(tableOrderConfirmation);
-		
 		panelMainMenuBackground = new JPanel();
 		panelMainMenuBackground.setBounds(226, 0, 1018, 961);
 		frame.getContentPane().add(panelMainMenuBackground);
@@ -234,6 +234,9 @@ public class FrogPizzaFrame {
 		
 		btnSideMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panelOrderMenuBackground.setVisible(true);
+				
+				
 				panelSideMenu.setVisible(true);
 				btnSideConsommeSeasonedPotatoes.setVisible(true);
 				btnSideGreenSalad.setVisible(true);
@@ -1008,11 +1011,17 @@ public class FrogPizzaFrame {
 		btnPaymentButton.setContentAreaFilled(false);
 		btnPaymentButton.setBorderPainted(false);
 		btnPaymentButton.setFocusPainted(false);
-		btnPaymentButton.setIcon(new ImageIcon("C:\\study\\workspace\\riri_project\\image\\개구리버튼.png"));
+		btnPaymentButton.setIcon(new ImageIcon(".\\image\\개구리버튼.png"));
 		//주문하기 버튼 클릭시 실행 되는 코드
 		btnPaymentButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OrderingFrame.showOrderingFrame();
+				OrderingFrame.showOrderingFrame(FrogPizzaFrame.this);
+				
+//				//테이블 초기화
+//				pizzaModel.setNumRows(0);
+//				drinkModel.setNumRows(0);
+//				sideModel.setNumRows(0);
+				//TODO
 				
 			}
 		});
@@ -1032,7 +1041,7 @@ public class FrogPizzaFrame {
 		textTotalsum.setColumns(10);
 		
 		lblPaymentAmount = new JLabel("");
-		lblPaymentAmount.setIcon(new ImageIcon("C:\\study\\workspace\\riri_project\\image\\결제금액.png"));
+		lblPaymentAmount.setIcon(new ImageIcon(".\\image\\결제금액.png"));
 		lblPaymentAmount.setFont(new Font("HY헤드라인M", Font.PLAIN, 20));
 		lblPaymentAmount.setBounds(790, 657, 100, 30);
 		panelOrderMenuBackground.add(lblPaymentAmount);
@@ -1345,6 +1354,37 @@ public class FrogPizzaFrame {
 				
 			}
 		});
+		
+		JButton btnPizzaOrderCancle = new JButton("피자주문취소");
+		btnPizzaOrderCancle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deletePizza();
+				orderSum();
+				
+			}
+		});
+		
+		btnSideOrderCancle = new JButton("사이드주문취소");
+		btnSideOrderCancle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteSide();
+				orderSum();
+			}
+		});
+		btnSideOrderCancle.setBounds(50, 760, 120, 23);
+		panelSelectBtn.add(btnSideOrderCancle);
+		
+		btnDrinkOrderCancle = new JButton("음료주문취소");
+		btnDrinkOrderCancle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteDrink();
+				orderSum();
+			}
+		});
+		btnDrinkOrderCancle.setBounds(50, 730, 120, 23);
+		panelSelectBtn.add(btnDrinkOrderCancle);
+		btnPizzaOrderCancle.setBounds(50, 700, 120, 23);
+		panelSelectBtn.add(btnPizzaOrderCancle);
 		btnOrderMenuButton.setBounds(0, 97, 226, 96);
 		panelSelectBtn.add(btnOrderMenuButton);
 		
@@ -1447,6 +1487,25 @@ public class FrogPizzaFrame {
 		lblMainBackgroundImage.setBounds(0, 0, 1244, 961);
 		panelMain.add(lblMainBackgroundImage);
 		
+		panelOrderConfirmation = new JPanel();
+		
+		panelOrderConfirmation.setLayout(null);
+		panelOrderConfirmation.setBounds(226, 0, 1018, 961);
+		frame.getContentPane().add(panelOrderConfirmation);
+		
+		lblOrderConfirmationB = new JLabel("");
+		
+		lblOrderConfirmationB.setIcon(new ImageIcon(".\\image\\주문내역배경.png"));
+		lblOrderConfirmationB.setBounds(0, 0, 1018, 961);
+		panelOrderConfirmation.add(lblOrderConfirmationB);
+		
+		scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(35, 97, 944, 577);
+		panelOrderConfirmation.add(scrollPane_3);
+		
+		tableOrderConfirmation = new JTable();
+		scrollPane_3.setViewportView(tableOrderConfirmation);
+		
 		//ImagePanel panelMain =new ImagePanel(new ImageIcon(".\\image\\피자메인판넬.png").getImage());
 	
 	}
@@ -1457,7 +1516,7 @@ public class FrogPizzaFrame {
 		this.cKSideName = sideName;
 		List<OrderMenuAll> orderFrogSide = new ArrayList<>();
 		orderFrogSide = orderMenuDao.ckFrogSideMenuRead(sideName);
-		System.out.println(orderFrogSide);
+		//System.out.println(orderFrogSide);
 		for(OrderMenuAll o : orderFrogSide) {
 			Object[] row = {
 					o.getSideName(),
@@ -1477,7 +1536,7 @@ public class FrogPizzaFrame {
 	List<OrderMenuAll> orderFrogPizza = new ArrayList<>();
 	orderFrogPizza = orderMenuDao.ckFrogPizzaMenuRead(pizzaName);
 	// TODO 프린트 주석 나중에 지우기
-	System.out.println(orderFrogPizza);
+	//System.out.println(orderFrogPizza);
 		for (OrderMenuAll o : orderFrogPizza) {
 		
 		Object[] row = {
@@ -1498,7 +1557,7 @@ public class FrogPizzaFrame {
 		List<OrderMenuAll> orderFrogDrink = new ArrayList<>();
 		orderFrogDrink = orderMenuDao.ckFrogDrinkMenuRead(drinkName);
 		// TODO 프린트 주석 나중에 지우기
-		System.out.println(orderFrogDrink);
+		//System.out.println(orderFrogDrink);
 		for (OrderMenuAll o : orderFrogDrink) {
 			Object[] row = {
 					o.getDrinkName(),
@@ -1607,4 +1666,180 @@ public class FrogPizzaFrame {
 		textTotalsum.setText(" " + orderSum);
 		return;
 	}
+	
+	
+	//TODO
+//    private void deletePizza() { //피자 주문 취소 : 피자 테이블에서 선택해서 버튼 누르면 이거 호출되서 취소
+//        int index = tableOrderPizzaMenu.getSelectedRow(); // 테이블에서 선택된 행의 인덱스
+//        if (index == -1) { // JTable에서 선택된 행이 없을 때
+//            JOptionPane.showMessageDialog(
+//                    frame, 
+//                    "삭제할 행을 먼저 선택하세요.", 
+//                    "경고", 
+//                    JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+//        
+//        int confirm = JOptionPane.showConfirmDialog(
+//                frame, 
+//                "해당 주문을 취소하시겠습니까?", 
+//                "취소 확인", 
+//                JOptionPane.YES_NO_OPTION);
+//        if (confirm == JOptionPane.YES_OPTION) {
+//            // 선택된 행에서 피자 이름 읽음.getValueAt메서드는 오브젝트 객체를 리셋함.
+//            String pizzaName = pizzaModel.getValueAt(index, 0).toString();
+//        	
+//        	
+//        	
+//            // DAO의 delete 메서드 호출. - 오라클 DB에서 선택된거 삭제함
+//            //int result = orderMenuDao.delete(pizzaName);
+//           // if (result == 1) {
+//                initializeTable(); // 테이블을 새로고침.
+//                JOptionPane.showMessageDialog(frame, "삭제 성공!");
+//        	//}
+//              //else {
+//               // JOptionPane.showMessageDialog(frame, "삭제 실패!");
+//            //}
+//        }
+//        
+//    }
+//	
+	
+	
+	
+//	//주문취소 코드시작
+//    private void initializeTable() {
+//        // DAO를 사용해서 DB 테이블에서 검색.
+//    	List<OrderMenuAll> orderPizza = orderMenuDao.ckFrogPizzaMenuRead(ckPizzaName);
+//        resetTable(orderPizza); // 테이블 리셋
+//    }
+//	
+//	
+//	 private void resetTable(List<OrderMenuAll> orderPizza) {
+//	        // 검색한 내용을 JTable에 보여줌 - JTable의 테이블 모델을 재설정.
+//	       pizzaModel = new DefaultTableModel(null, COLUMN_PIZZA); // 테이블 모델 리셋.
+//	        for (OrderMenuAll o : orderPizza) {
+//	            // DB 테이블에서 검색한 레코드를 JTable에서 사용할 행 데이터로 변환.
+//	            Object[] row = {
+//	                    o.getPizzaName(),
+//	                    o.getPizzaPrice(),
+//	                    o.getPizzaCook()
+//	            };
+//	            pizzaModel.addRow(row); // 테이블 모델에 행 데이터를 추가.
+//	        }
+//	        tableOrderPizzaMenu.setModel(pizzaModel); // JTable의 모델을 다시 세팅.
+//	    }
+//	 
+	 ////////////////////////
+	 private void deletePizza() {
+	        int index = tableOrderPizzaMenu.getSelectedRow(); // 테이블에서 선택된 행의 인덱스
+	       // System.out.println(index);
+	        if (index == -1) { // JTable에서 선택된 행이 없을 때
+	            JOptionPane.showMessageDialog(
+	                    frame, 
+	                    "취소할 피자테이블의 행을 선택하세요.", 
+	                    "선택오류", 
+	                    JOptionPane.WARNING_MESSAGE);
+	            return;
+	        }
+	        
+	        int confirm = JOptionPane.showConfirmDialog(
+	                frame, 
+	                "정말 취소할까요?", 
+	                "취소 확인", 
+	                JOptionPane.YES_NO_OPTION);
+	        if (confirm == JOptionPane.YES_OPTION) {
+	            // 선택된 행에서 블로그 번호(id)를 읽음.
+	           // Integer id = (Integer) pizzaModel.getValueAt(index, 0);
+	           pizzaModel.removeRow(index);
+	            
+	            // DAO의 delete 메서드 호출.
+	           // int result = dao.delete(id);
+	            //if (result == 1) {
+	                //initializeTable(); // 테이블을 새로고침.
+	                JOptionPane.showMessageDialog(frame, "해당 메뉴를 취소 하였습니다.");
+	            //} else {
+	            //    JOptionPane.showMessageDialog(frame, "삭제 실패!");
+	           // }
+	        }
+	        
+	    }
+	 
+	 private void deleteDrink() {
+	        int index = tableOrderDrink.getSelectedRow(); // 테이블에서 선택된 행의 인덱스
+	       // System.out.println(index);
+	        if (index == -1) { // JTable에서 선택된 행이 없을 때
+	            JOptionPane.showMessageDialog(
+	                    frame, 
+	                    "취소할 음료테이블의 행을 선택하세요.", 
+	                    "선택오류", 
+	                    JOptionPane.WARNING_MESSAGE);
+	            return;
+	        }
+	        
+	        int confirm = JOptionPane.showConfirmDialog(
+	                frame, 
+	                "정말 취소할까요?", 
+	                "취소 확인", 
+	                JOptionPane.YES_NO_OPTION);
+	        if (confirm == JOptionPane.YES_OPTION) {
+	            // 선택된 행에서 블로그 번호(id)를 읽음.
+	           // Integer id = (Integer) pizzaModel.getValueAt(index, 0);
+	           drinkModel.removeRow(index);
+	            
+	            // DAO의 delete 메서드 호출.
+	           // int result = dao.delete(id);
+	            //if (result == 1) {
+	                //initializeTable(); // 테이블을 새로고침.
+	                JOptionPane.showMessageDialog(frame, "해당 메뉴를 취소 하였습니다.");
+	            //} else {
+	            //    JOptionPane.showMessageDialog(frame, "삭제 실패!");
+	           // }
+	        }
+	        
+	    }
+	 
+	 private void deleteSide() {
+	        int index = tableOrderSide.getSelectedRow(); // 테이블에서 선택된 행의 인덱스
+	       // System.out.println(index);
+	        if (index == -1) { // JTable에서 선택된 행이 없을 때
+	            JOptionPane.showMessageDialog(
+	                    frame, 
+	                    "취소할 사이드 테이블의 행을 선택하세요.", 
+	                    "선택오류", 
+	                    JOptionPane.WARNING_MESSAGE);
+	            return;
+	        }
+	        
+	        int confirm = JOptionPane.showConfirmDialog(
+	                frame, 
+	                "정말 취소할까요?", 
+	                "취소 확인", 
+	                JOptionPane.YES_NO_OPTION);
+	        if (confirm == JOptionPane.YES_OPTION) {
+	            // 선택된 행에서 블로그 번호(id)를 읽음.
+	           // Integer id = (Integer) pizzaModel.getValueAt(index, 0);
+	           sideModel.removeRow(index);
+	            
+	            // DAO의 delete 메서드 호출.
+	           // int result = dao.delete(id);
+	            //if (result == 1) {
+	                //initializeTable(); // 테이블을 새로고침.
+	                JOptionPane.showMessageDialog(frame, "해당 메뉴를 취소 하였습니다.");
+	            //} else {
+	            //    JOptionPane.showMessageDialog(frame, "삭제 실패!");
+	           // }
+	        }
+	        
+	    }
+	 
+	 public void delete() {
+			pizzaModel.setNumRows(0);
+			drinkModel.setNumRows(0);
+			sideModel.setNumRows(0);
+	 }
+	 
+	 
+
+	 
 }//클래스 끝
