@@ -9,7 +9,6 @@ public class FrogPizzaMenu {
 	
 	//데이터베이스 MEMBERSHIP_TB 테이블의 컬럼 이름들을 상수로 선언
 	public static final String COL_PIZZA_NAME = "PIZZA_NAME"; //- primary key
-	public static final String COL_PIZZA_PRICE= "PIZZA_PRICE"; //음수안됨
 	
 	//public static final생략하면 가시성(보여지는 범위) 어디까지일까? 
 	//->답 : 패키지범위(수식어 없으면 패키지범위가 디폴트) 같은 패키지 안에서만 보임
@@ -18,7 +17,7 @@ public class FrogPizzaMenu {
 	//인터페이스에서 선언한 상수는(public범위) 그래서 import가능
 	//public으로 공개하지 않으면 안보임.
 	// 여기서는 public static final생략하면 안된다고 함. 
-	
+	public static final String COL_PIZZA_PRICE = "PIZZA_PRICE";
 	public static final String COL_PIZZA_KCAL = "PIZZA_KCAL"; //음수 안되고 소수점 2자리만 가능
 	public static final String COL_PIZZA_COOK = "PIZZA_COOK"; 
 	public static final String COL_PIZZA_POPULARITY = "PIZZA_POPULARITY"; 
