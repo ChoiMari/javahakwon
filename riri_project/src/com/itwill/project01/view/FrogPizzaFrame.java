@@ -1569,7 +1569,7 @@ public class FrogPizzaFrame {
 		frame.getContentPane().add(panelOrderConfirmation);
 		
 		scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(35, 97, 944, 577);
+		scrollPane_3.setBounds(35, 97, 944, 800);
 		panelOrderConfirmation.add(scrollPane_3);
 		
 		tableOrderConfirmation = new JTable();
