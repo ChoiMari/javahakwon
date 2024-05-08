@@ -1,12 +1,24 @@
 package com.itwill.project01.view;
 
+import static com.itwill.project01.model.LoginMember.COL_LOGIN_EMAIL;
+import static com.itwill.project01.model.LoginMember.COL_LOGIN_ID;
+import static com.itwill.project01.model.LoginMember.COL_LOGIN_JOIN_DATE;
+import static com.itwill.project01.model.LoginMember.COL_LOGIN_NAME;
+import static com.itwill.project01.model.LoginMember.COL_LOGIN_PASSWORD;
+import static com.itwill.project01.model.LoginMember.COL_LOGIN_PHONE;
+import static com.itwill.project01.model.LoginMember.TBL_LOGIN_MEMBER_TB;
+import static com.itwill.project01.view.OracleJdbc2.PASSWORD;
+import static com.itwill.project01.view.OracleJdbc2.URL;
+import static com.itwill.project01.view.OracleJdbc2.USER;
+
+import static com.itwill.project01.model.OrderTb.*;
+
 import java.awt.*;
 import javax.swing.*;
 
 
 import com.itwill.project01.controller.OrderMenuDao;
-
-
+import com.itwill.project01.model.Membership;
 import com.itwill.project01.model.OrderMenuAll;
 
 import oracle.jdbc.OracleDriver;
@@ -23,8 +35,15 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class FrogPizzaFrame {
 	
@@ -70,17 +89,17 @@ public class FrogPizzaFrame {
 //	}
 	//////////
     //-----> singleton
-    private static FrogPizzaFrame instance = null;
-    
-
-    
-    public static FrogPizzaFrame getInstance() {
-        if (instance == null) {
-            instance = new FrogPizzaFrame();
-        }
-        
-        return instance;
-    }
+//    private static FrogPizzaFrame instance = null;
+//    
+//
+//    
+//    public static FrogPizzaFrame getInstance() {
+//        if (instance == null) {
+//            instance = new FrogPizzaFrame();
+//        }
+//        
+//        return instance;
+//    }
     //<----- singleton
 	
 	
@@ -112,7 +131,7 @@ public class FrogPizzaFrame {
 	private JButton btnOrderMenuButton;
 	private JButton btnOrderDetailsButton;
 	private JButton btnMyProfileButton;
-	private JButton btnFrogButton;
+	private JButton btnLogOut;
 	private JPanel panelMain;
 	private JPanel panelMainMenuBackground;
 	private JButton btnSideMenu;
@@ -161,14 +180,23 @@ public class FrogPizzaFrame {
 	private JButton btnDrinkOrderCancle;
 	private JButton btnSideOrderCancle;
 
+	//아규먼트로 받은 로그인한 아이디 저장하려고 선언한 필드
+	private String loginId;
+	//로그인한 아이디의 회원정보 아규먼트로 받아서 저장하려고 선언한 필드
+	private Membership loginMembership;
+	private static FrogPizzaLoginFrame frogPizzaLoginFrame;
+	
+	private JLabel lblIdName;
+	private JLabel lblToday;
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void showFrogPizzaFrame() {
+	public static void showFrogPizzaFrame(String loginId, FrogPizzaLoginFrame frogPizzaLoginFrame,Membership loginMembership) {//로그인한 아이디 아규먼트로 넘겨받음.
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrogPizzaFrame window = new FrogPizzaFrame(); 
+					FrogPizzaFrame window = new FrogPizzaFrame(loginId, frogPizzaLoginFrame, loginMembership); 
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -181,8 +209,12 @@ public class FrogPizzaFrame {
 	 * Create the application.
 	 */
 	//생성자
-	public FrogPizzaFrame() {
+	public FrogPizzaFrame(String loginId, FrogPizzaLoginFrame frogPizzaLoginFrame, Membership loginMembership) {
+		this.loginId = loginId;
+		this.frogPizzaLoginFrame = frogPizzaLoginFrame;
+		this.loginMembership = loginMembership;
 		initialize();
+	
 	}
 
 
@@ -1015,6 +1047,15 @@ public class FrogPizzaFrame {
 		//주문하기 버튼 클릭시 실행 되는 코드
 		btnPaymentButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				int rowPizzaResult = tableOrderPizzaMenu.getRowCount();
+				int rowDrinkResult = tableOrderDrink.getRowCount();
+				int rowSideResult = tableOrderSide.getRowCount();
+				
+				if(rowPizzaResult == 0 && rowDrinkResult == 0 && rowSideResult == 0) {
+					JOptionPane.showMessageDialog(frame, "주문 메뉴를 선택해주세요", "선택없음오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				OrderingFrame.showOrderingFrame(FrogPizzaFrame.this);
 				
 //				//테이블 초기화
@@ -1461,9 +1502,31 @@ public class FrogPizzaFrame {
 		btnMyProfileButton.setBounds(47, 415, 97, 23);
 		panelSelectBtn.add(btnMyProfileButton);
 		
-		btnFrogButton = new JButton("개구리");
-		btnFrogButton.setBounds(47, 443, 97, 23);
-		panelSelectBtn.add(btnFrogButton);
+		btnLogOut = new JButton("로그아웃");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//frogPizzaLoginFrame.showLogin();
+				logOut();
+			}
+		});
+		btnLogOut.setBounds(47, 443, 97, 23);
+		panelSelectBtn.add(btnLogOut);
+		
+		lblIdName = new JLabel("");
+		lblIdName.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		String showLoginId = loginId + "님 피자를 주문해주세요";
+		lblIdName.setText(showLoginId);
+		
+		lblIdName.setBounds(30, 825, 200, 30);
+		panelSelectBtn.add(lblIdName);
+		
+		lblToday = new JLabel("");
+		LocalDate now = LocalDate.now();         
+		String showToday = now + "";
+		lblToday.setText(showToday);
+		lblToday.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		lblToday.setBounds(30, 800, 200, 30);
+		panelSelectBtn.add(lblToday);
 		
 		lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(".\\image\\로고메인.png"));
@@ -1837,9 +1900,353 @@ public class FrogPizzaFrame {
 			pizzaModel.setNumRows(0);
 			drinkModel.setNumRows(0);
 			sideModel.setNumRows(0);
+			
+			orderSum();
 	 }
 	 
-	 
+	 public void logOut() {
+		 frame.setVisible(false);
+		 frogPizzaLoginFrame.showLogin();
+	 }
 
+	 
+//	 //주문하기 -> 매장 or 포장 클릭시 실행되는 메서드. 
+//	 //테이블에서 선택된 값들 읽어옴.
+//	 public void saveOrder() {
+//		 String getPizzaName = "";
+//		 int getPizzaPrice = 0;
+//		 String getPizzaCook = "";
+//		 
+//		 String getDrinkName = "";
+//		 int getDrinkPrice = 0;
+//		 
+//		 String getSideName = "";
+//		 int getSidePrice = 0;
+//		 
+//		 int pizzaSum = 0;//피자 총액
+//		 int drinkSum = 0;//음료 총액
+//		 int sideSum = 0;//사이드 총액
+//		 int total = 0;//전체 총액
+//		 
+//		 //주문한 피자 정보를 저장하기 위한 리스트.
+//		 List<String> orderPizzaResult =new ArrayList<>();
+//		 //주문한 음료 정보를 저장하기 위한 리스트.
+//		 List<String> orderDrinkResult =new ArrayList<>();
+//		 //주문한 사이드 정보를 저장하기 위한 리스트.
+//		 List<String> orderSideResult =new ArrayList<>();
+//		
+//				for(int p = 0;p <= tableOrderPizzaMenu.getRowCount()-1;p++) {
+//		 			getPizzaName = tableOrderPizzaMenu.getValueAt(p, 0).toString();
+//					getPizzaPrice = (Integer)tableOrderPizzaMenu.getValueAt(p, 1);
+//					getPizzaCook = tableOrderPizzaMenu.getValueAt(p, 2).toString();
+//					
+//					pizzaSum += getPizzaPrice;
+//					
+//					orderPizzaResult.add(getPizzaName + getPizzaPrice + getPizzaCook);
+//					
+//					//System.out.println(getPizzaName+getPizzaPrice+getPizzaCook);
+////					for(int d = 0;d <= tableOrderDrink.getRowCount()-1;d++) {
+////						result2 = tableOrderDrink.getValueAt(d, 1).toString();
+////
+////
+////						for(int s = 0;s <= tableOrderSide.getRowCount()-1;s++) {
+////							result3 = tableOrderSide.getValueAt(s, 1).toString();
+////
+////
+////						}
+////					}
+//						
+//				}
+////				
+//				for(int i = 0;i <= tableOrderDrink.getRowCount()-1;i++) {
+//					getDrinkName = tableOrderDrink.getValueAt(i, 0).toString();
+//					getDrinkPrice = (Integer)tableOrderDrink.getValueAt(i, 1);
+//					//System.out.println(getDrinkName+getDrinkPrice);
+//					drinkSum += getDrinkPrice;
+//					
+//					orderDrinkResult.add(getDrinkName+getDrinkPrice);
+//				}
+////				
+//				for(int i = 0;i <= tableOrderSide.getRowCount()-1;i++) {
+//					getSideName = tableOrderSide.getValueAt(i, 0).toString();
+//					getSidePrice = (Integer)tableOrderSide.getValueAt(i, 1);
+//					
+//					sideSum += getSidePrice;
+//					
+//					orderSideResult.add(getSideName+getSidePrice);
+//				}
+////				
+//			total = pizzaSum + drinkSum + sideSum;//주문 총액
+//
+//	 }//메서드 끝
+	 
+	 
+	 
+	 //매장에서 식사시 DB에 저장시키는 코드.
+	 //데이터 베이스에 저장.
+	 private static final String SQL_ORDERMENU_INSERT = 
+	 String.format(
+	            "insert into %s (%s, %s, %s, %s, %s) values (?,?,?,?,?)"
+	           // 접속날짜는 로그인시 자동으로 기본값으로 들어감 
+	    	,TBL_ORDER_TB,COL_ORDER_ID,//COL_LOGIN_NAME,COL_LOGIN_PHONE,COL_ORDER_EMAIL,COL_ORDER_JOIN_DATE,
+	    	COL_ORDER_PIZZA,COL_ORDER_DRINK,COL_ORDER_SIDE,COL_ORDER_TOTAL
+			 
+			 );
+
+//insert문장 다시적기.->저장시키고,>select문장 만들어서 주문내역뽑아서 테이블에저장
+	    public void loginInsertRestaurantEat() {//파라미터..(OrderMenuAll orderMenuAll),(Membership loginMembership)
+			 String getPizzaName = "";
+			 int getPizzaPrice = 0;
+			 String getPizzaCook = "";
+			 
+			 String getDrinkName = "";
+			 int getDrinkPrice = 0;
+			 
+			 String getSideName = "";
+			 int getSidePrice = 0;
+			 
+			 int pizzaSum = 0;//피자 총액
+			 int drinkSum = 0;//음료 총액
+			 int sideSum = 0;//사이드 총액
+			 int total = 0;//전체 총액
+			 
+			 //주문한 피자 정보를 저장하기 위한 리스트.
+			 List<String> orderPizzaResult =new ArrayList<>();
+			String oooderPizza = "";
+			 //주문한 음료 정보를 저장하기 위한 리스트.
+			 List<String> orderDrinkResult =new ArrayList<>();
+			 String oooderDrink = "";
+			 //주문한 사이드 정보를 저장하기 위한 리스트.
+			 List<String> orderSideResult =new ArrayList<>();
+			 String oooderSide = "";
+			
+					for(int p = 0;p <= tableOrderPizzaMenu.getRowCount()-1;p++) {
+			 			getPizzaName = tableOrderPizzaMenu.getValueAt(p, 0).toString();
+						getPizzaPrice = (Integer)tableOrderPizzaMenu.getValueAt(p, 1);
+						getPizzaCook = tableOrderPizzaMenu.getValueAt(p, 2).toString();
+						
+						pizzaSum += getPizzaPrice;
+						
+						orderPizzaResult.add(getPizzaName + getPizzaPrice + getPizzaCook);
+						for(String s: orderPizzaResult) {
+							oooderPizza += (s + " ");
+						}
+							
+					}
+//					
+					for(int i = 0;i <= tableOrderDrink.getRowCount()-1;i++) {
+						getDrinkName = tableOrderDrink.getValueAt(i, 0).toString();
+						getDrinkPrice = (Integer)tableOrderDrink.getValueAt(i, 1);
+						//System.out.println(getDrinkName+getDrinkPrice);
+						drinkSum += getDrinkPrice;
+						
+						orderDrinkResult.add(getDrinkName+getDrinkPrice);
+						for(String s: orderDrinkResult) {
+							oooderDrink += (s + " ");
+						}
+							
+					}
+					
+//					}
+//					
+					for(int i = 0;i <= tableOrderSide.getRowCount()-1;i++) {
+						getSideName = tableOrderSide.getValueAt(i, 0).toString();
+						getSidePrice = (Integer)tableOrderSide.getValueAt(i, 1);
+						
+						sideSum += getSidePrice;
+						
+						orderSideResult.add(getSideName+getSidePrice);
+						for(String s: orderSideResult) {
+							oooderSide += (s + " ");
+						}
+							
+					}
+//					}
+//					
+				total = pizzaSum + drinkSum + sideSum;//주문 총액
+	        
+	        Connection conn = null;
+	        PreparedStatement stmt = null;
+	        try {
+	            conn = DriverManager.getConnection(URL, USER, PASSWORD); // DB 접속.
+	            stmt = conn.prepareStatement(SQL_ORDERMENU_INSERT); // Statement 객체 생성.
+	            stmt.setString(1, loginId); // Statement의 첫번째 ? 채움.
+//	            stmt.setString(2, loginMembership.getName()); // Statement의 두번째 ? 채움.
+//	            stmt.setString(3, loginMembership.getPhone()); // Statement의 세번째 ? 채움.
+//	            stmt.setString(4, loginMembership.getEmail());
+//	            stmt.setTimestamp(5, Timestamp.valueOf(loginMembership.getJoinDate()));
+	            stmt.setString(2,oooderPizza);
+	            stmt.setString(3,oooderDrink);
+	            stmt.setString(4,oooderSide);
+	            stmt.setString(5,total+"");
+	            //Timestamp.valueOf()메서드 안에 아규먼트로 LocalDateTime타입을 넣으면 타임스템프타입으로 변환해줌.
+	            stmt.executeUpdate(); // SQL 실행.
+	            
+	           // LocalDateTime createdTime = rs.getTimestamp(COL_CREATED_TIME).toLocalDateTime();
+	            
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            closeResources(conn, stmt);
+	        }
+	        
+	        return;
+	    }
+	    
+	    /**
+	     * CRUD 메서드들에서 사용했던 리소스들을 해제.
+	     * @param conn Connection 객체
+	     * @param stmt Statement 객체
+	     * @param rs ResultSet 객체
+	     */
+	    private void closeResources(Connection conn, Statement stmt, ResultSet rs) {
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    /**
+	     * CRUD 메서드들에서 사용했던 리소스들을 해제.
+	     * @param conn Connection 객체
+	     * @param stmt Statement 객체
+	     */
+	    private void closeResources(Connection conn, Statement stmt) {
+	        closeResources(conn, stmt, null);
+	    }
+	    //////////////////////////////////////////////////////
+	    
+	    //포장하기 선택시 DB에 저장되는 코드
+		 //데이터 베이스에 저장.
+	    private static final String SQL_PACKAING_INSERT = "insert into PACKAING_ORDER_TB (order_id,order_pizza,order_drink,order_side,order_total) values (?,?,?,?,?)";
+	    //String.format(
+//	            "insert into %s (%s, %s, %s, %s, %s) values (?,?,?,?,?)"
+//	           // 접속날짜는 로그인시 자동으로 기본값으로 들어감 
+//	    	,TBL_PACKAING_ORDER_TB,//COL_LOGIN_NAME,COL_LOGIN_PHONE,COL_ORDER_EMAIL,COL_ORDER_JOIN_DATE,
+//	    	COL_ORDER_ID,COL_ORDER_PIZZA,COL_ORDER_DRINK,COL_ORDER_SIDE,COL_ORDER_TOTAL
+//			 
+//			 );
+	    //"insert into PACKAING_ORDER_TB (order_id,order_pizza,order_drink,order_side,order_total) "
+//	    		+ "values (?,?,?,?,?)";
+	    		
+//	    		String.format(
+//		            "insert into %s (%s, %s, %s, %s, %s) values (?,?,?,?,?)"
+//		           // 접속날짜는 로그인시 자동으로 기본값으로 들어감 
+//		    	,PACKAING_ORDER_TB//COL_LOGIN_NAME,COL_LOGIN_PHONE,COL_ORDER_EMAIL,COL_ORDER_JOIN_DATE,
+//		    	,COL_ORDER_PIZZA,COL_ORDER_DRINK,COL_ORDER_SIDE,COL_ORDER_TOTAL
+//				 
+//				 );
+
+	//insert문장 다시적기.->저장시키고,>select문장 만들어서 주문내역뽑아서 테이블에저장
+	    /**
+	     * 포장하기 선택하면 오라클에 주문정보가 저장되는 메서드.
+	     */
+		    public void loginInsertPackaging() {//파라미터..(OrderMenuAll orderMenuAll),(Membership loginMembership)
+				 String getPizzaName = "";
+				 int getPizzaPrice = 0;
+				 String getPizzaCook = "";
+				 
+				 String getDrinkName = "";
+				 int getDrinkPrice = 0;
+				 
+				 String getSideName = "";
+				 int getSidePrice = 0;
+				 
+				 int pizzaSum = 0;//피자 총액
+				 int drinkSum = 0;//음료 총액
+				 int sideSum = 0;//사이드 총액
+				 int total = 0;//전체 총액
+				 
+				 //주문한 피자 정보를 저장하기 위한 리스트.
+				 List<String> orderPizzaResult =new ArrayList<>();
+				String oooderPizza = "";
+				 //주문한 음료 정보를 저장하기 위한 리스트.
+				 List<String> orderDrinkResult =new ArrayList<>();
+				 String oooderDrink = "";
+				 //주문한 사이드 정보를 저장하기 위한 리스트.
+				 List<String> orderSideResult =new ArrayList<>();
+				 String oooderSide = "";
+				
+						for(int p = 0;p <= tableOrderPizzaMenu.getRowCount()-1;p++) {
+				 			getPizzaName = tableOrderPizzaMenu.getValueAt(p, 0).toString();
+							getPizzaPrice = (Integer)tableOrderPizzaMenu.getValueAt(p, 1);
+							getPizzaCook = tableOrderPizzaMenu.getValueAt(p, 2).toString();
+							
+							pizzaSum += getPizzaPrice;
+							
+							orderPizzaResult.add(getPizzaName + getPizzaPrice + getPizzaCook);
+							for(String s: orderPizzaResult) {
+								oooderPizza += (s + " ");
+							}
+								
+						}
+//						
+						for(int i = 0;i <= tableOrderDrink.getRowCount()-1;i++) {
+							getDrinkName = tableOrderDrink.getValueAt(i, 0).toString();
+							getDrinkPrice = (Integer)tableOrderDrink.getValueAt(i, 1);
+							//System.out.println(getDrinkName+getDrinkPrice);
+							drinkSum += getDrinkPrice;
+							
+							orderDrinkResult.add(getDrinkName+getDrinkPrice);
+							for(String s: orderDrinkResult) {
+								oooderDrink += (s + " ");
+							}
+								
+						}
+						
+//						}
+//						
+						for(int i = 0;i <= tableOrderSide.getRowCount()-1;i++) {
+							getSideName = tableOrderSide.getValueAt(i, 0).toString();
+							getSidePrice = (Integer)tableOrderSide.getValueAt(i, 1);
+							
+							sideSum += getSidePrice;
+							
+							orderSideResult.add(getSideName+getSidePrice);
+							for(String s: orderSideResult) {
+								oooderSide += (s + " ");
+							}
+								
+						}
+//						}
+//						
+					total = pizzaSum + drinkSum + sideSum;//주문 총액
+		        
+		        Connection conn = null;
+		        PreparedStatement stmt = null;
+		        try {
+		            conn = DriverManager.getConnection(URL, USER, PASSWORD); // DB 접속.
+		            stmt = conn.prepareStatement(SQL_PACKAING_INSERT); // Statement 객체 생성.
+		            stmt.setString(1, loginId); // Statement의 첫번째 ? 채움.
+//		            stmt.setString(2, loginMembership.getName()); // Statement의 두번째 ? 채움.
+//		            stmt.setString(3, loginMembership.getPhone()); // Statement의 세번째 ? 채움.
+//		            stmt.setString(4, loginMembership.getEmail());
+//		            stmt.setTimestamp(5, Timestamp.valueOf(loginMembership.getJoinDate()));
+		            stmt.setString(2,oooderPizza);
+		            stmt.setString(3,oooderDrink);
+		            stmt.setString(4,oooderSide);
+		            stmt.setString(5,total+"");
+		            //Timestamp.valueOf()메서드 안에 아규먼트로 LocalDateTime타입을 넣으면 타임스템프타입으로 변환해줌.
+		            stmt.executeUpdate(); // SQL 실행.
+		            
+		           // LocalDateTime createdTime = rs.getTimestamp(COL_CREATED_TIME).toLocalDateTime();
+		            
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        } finally {
+		            closeResources(conn, stmt);
+		        }
+		        
+		        return;
+		    }
+	    
+	    
+	    
+	    
+	    
+	    
 	 
 }//클래스 끝

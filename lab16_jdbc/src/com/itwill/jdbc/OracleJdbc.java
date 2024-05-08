@@ -15,6 +15,8 @@ public interface OracleJdbc { //상수, 추상 메서드
 	//String URL = "jdbc:oracle:thin:@192.168.20.12:1521:xe";//->민선님 >_<
 	//String URL = "jdbc:oracle:thin:@192.168.20.24:1521:xe";
 	
+	//내꺼
+	//String URL = "jdbc:oracle:thin:@192.168.20.10:1521:xe";
 	String URL = "jdbc:oracle:thin:@localhost:1521:xe";//--local호스트 . 내꺼
 	//->데이터베이스에 접속하기 위한 라이브러리 정보와 서버주소/포트/SID 정보
 	

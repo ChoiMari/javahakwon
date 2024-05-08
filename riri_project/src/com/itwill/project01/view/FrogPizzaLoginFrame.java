@@ -207,7 +207,7 @@ public class FrogPizzaLoginFrame {
 				//loginMemberDao.loginInsert(loginMembership);
 				
 				frame.setVisible(false);
-				FrogPizzaFrame.showFrogPizzaFrame();
+				FrogPizzaFrame.showFrogPizzaFrame(loginId, FrogPizzaLoginFrame.this,loginMembership );
 			}
 		});
 		btnLogin.setFont(new Font("돋움", Font.PLAIN, 15));
@@ -397,6 +397,15 @@ public class FrogPizzaLoginFrame {
         }
 		
 	}
+	
+	 public void showLogin() {
+		 frame.setVisible(true);
+		 textId.setText("");
+		 textPassword.setText("");
+	 }
+	 
+	
+	
 }
 
 

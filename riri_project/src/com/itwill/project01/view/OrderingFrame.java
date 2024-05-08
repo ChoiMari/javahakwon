@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
+import com.itwill.project01.model.Membership;
 
 import oracle.jdbc.OracleDriver;
 
@@ -57,6 +57,8 @@ public class OrderingFrame extends JFrame {
 	private JButton btnPackaging;
 	private JPanel panelEatinByChoice;
 
+	//아규먼트로 받은값 저장 필드
+	//private Membership loginMembership;
 	/**
 	 * Launch the application.
 	 */
@@ -79,8 +81,10 @@ public class OrderingFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public OrderingFrame(FrogPizzaFrame frogPizzaFrame) {
-		initialize();
+		
 		this.frogPizzaFrame = frogPizzaFrame;
+		initialize();
+		
 
 	}
 	
@@ -110,6 +114,9 @@ public class OrderingFrame extends JFrame {
 		btnShopEat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(contentPane, "주문이 완료 되었습니다.","주문확인",JOptionPane.PLAIN_MESSAGE);
+				//TODO 테이블에 있는 주문내역 저장하기. - 
+				frogPizzaFrame.loginInsertRestaurantEat();
+				
 				checkOrder();
 
 				//TODO 테이블 리셋
@@ -125,6 +132,8 @@ public class OrderingFrame extends JFrame {
 		btnPackaging.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(contentPane,"주문이 완료 되었습니다.","주문확인",JOptionPane.PLAIN_MESSAGE);
+				//TODO 테이블에 있는 주문내역 저장하기. - 
+				frogPizzaFrame.loginInsertPackaging();
 				
 				checkOrder();
 				//테이블 리셋

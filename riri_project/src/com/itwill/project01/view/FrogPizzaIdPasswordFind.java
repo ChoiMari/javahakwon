@@ -223,7 +223,7 @@ public class FrogPizzaIdPasswordFind extends JFrame {
 		panelFindPassword.add(btnFindId2);
 		
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\study\\workspace\\riri_project\\image\\비밀번호찾기배경.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(".\\image\\비밀번호찾기배경.png"));
 		lblNewLabel_1.setBounds(0, 0, 278, 294);
 		panelFindPassword.add(lblNewLabel_1);
 	}
