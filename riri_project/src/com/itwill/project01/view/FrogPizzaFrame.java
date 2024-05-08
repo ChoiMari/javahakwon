@@ -245,9 +245,12 @@ public class FrogPizzaFrame {
 		//창 아이콘
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		//Image img = kit.getImage(".\\image\\아이콘.png");
-		Image img = kit.getImage(getClass().getClassLoader().getResource(".\\image\\아이콘.png"));
+		//Image img = kit.getImage(getClass().getClassLoader().getResource(".\\image\\아이콘.png"));
 		//getClass().getClassLoader().getResource("arrow1.png")
-		frame.setIconImage(img);
+		//frame.setIconImage(img);
+		
+		Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/com/itwill/project01/image/아이콘.png"));
+        frame.setIconImage(img);
 		
 		frame.setLocationRelativeTo(null);//화면 중앙에 뜨게 설정
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
