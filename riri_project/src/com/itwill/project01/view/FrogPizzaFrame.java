@@ -1337,14 +1337,6 @@ public class FrogPizzaFrame {
 		lblNewLabel.setBounds(0, 0, 1018, 96);
 		panelMainMenuBackground.add(lblNewLabel);
 		
-		lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setBounds(848, 21, 57, 15);
-		panelMainMenuBackground.add(lblNewLabel_3);
-		
-		lblNewLabel_5 = new JLabel("New label");
-		lblNewLabel_5.setBounds(848, 46, 57, 15);
-		panelMainMenuBackground.add(lblNewLabel_5);
-		
 		//TODO - 테이블에 컬럼 집어 넣음.
 		//orderModel = new DefaultTableModel(null,COLUMN_NAMES);
 		
@@ -1413,7 +1405,11 @@ public class FrogPizzaFrame {
 			}
 		});
 		
-		JButton btnPizzaOrderCancle = new JButton("피자주문취소");
+		JButton btnPizzaOrderCancle = new JButton("");
+		btnPizzaOrderCancle.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자주문취소.png")));
+		btnPizzaOrderCancle.setContentAreaFilled(false);
+		btnPizzaOrderCancle.setBorderPainted(false);
+		btnPizzaOrderCancle.setFocusPainted(false);
 		btnPizzaOrderCancle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deletePizza();
@@ -1422,26 +1418,34 @@ public class FrogPizzaFrame {
 			}
 		});
 		
-		btnSideOrderCancle = new JButton("사이드주문취소");
+		btnSideOrderCancle = new JButton("");
+		btnSideOrderCancle.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/사이드주문취소.png")));
+		btnSideOrderCancle.setContentAreaFilled(false);
+		btnSideOrderCancle.setBorderPainted(false);
+		btnSideOrderCancle.setFocusPainted(false);
 		btnSideOrderCancle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deleteSide();
 				orderSum();
 			}
 		});
-		btnSideOrderCancle.setBounds(50, 760, 120, 23);
+		btnSideOrderCancle.setBounds(50, 780, 120, 24);
 		panelSelectBtn.add(btnSideOrderCancle);
 		
-		btnDrinkOrderCancle = new JButton("음료주문취소");
+		btnDrinkOrderCancle = new JButton("");
+		btnDrinkOrderCancle.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/음료주문취소.png")));
+		btnDrinkOrderCancle.setContentAreaFilled(false);
+		btnDrinkOrderCancle.setBorderPainted(false);
+		btnDrinkOrderCancle.setFocusPainted(false);
 		btnDrinkOrderCancle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deleteDrink();
 				orderSum();
 			}
 		});
-		btnDrinkOrderCancle.setBounds(50, 730, 120, 23);
+		btnDrinkOrderCancle.setBounds(50, 750, 120, 24);
 		panelSelectBtn.add(btnDrinkOrderCancle);
-		btnPizzaOrderCancle.setBounds(50, 700, 120, 23);
+		btnPizzaOrderCancle.setBounds(50, 720, 120, 24);
 		panelSelectBtn.add(btnPizzaOrderCancle);
 		btnOrderMenuButton.setBounds(0, 97, 226, 96);
 		panelSelectBtn.add(btnOrderMenuButton);
@@ -1519,14 +1523,19 @@ public class FrogPizzaFrame {
 		btnOrderDetailsButton.setBounds(0, 192, 226, 96);
 		panelSelectBtn.add(btnOrderDetailsButton);
 		
-		btnLogOut = new JButton("로그아웃");
+		btnLogOut = new JButton("");
+		btnLogOut.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/로그아웃.png")));
+		btnLogOut.setContentAreaFilled(false);
+		btnLogOut.setBorderPainted(false);
+		btnLogOut.setFocusPainted(false);
+		
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//frogPizzaLoginFrame.showLogin();
 				logOut();
 			}
 		});
-		btnLogOut.setBounds(47, 443, 97, 23);
+		btnLogOut.setBounds(50, 350, 97, 24);
 		panelSelectBtn.add(btnLogOut);
 		
 		lblIdName = new JLabel("");
@@ -1534,7 +1543,7 @@ public class FrogPizzaFrame {
 		String showLoginId = lloginId + "님 피자를 주문해주세요";
 		lblIdName.setText(showLoginId);
 		
-		lblIdName.setBounds(30, 825, 200, 30);
+		lblIdName.setBounds(30, 310, 200, 30);
 		panelSelectBtn.add(lblIdName);
 		
 		lblToday = new JLabel("");
@@ -1542,7 +1551,7 @@ public class FrogPizzaFrame {
 		String showToday = now + "";
 		lblToday.setText(showToday);
 		lblToday.setFont(new Font("맑은 고딕", Font.BOLD, 14));
-		lblToday.setBounds(30, 800, 200, 30);
+		lblToday.setBounds(30, 290, 200, 30);
 		panelSelectBtn.add(lblToday);
 		
 		lblNewLabel_4 = new JLabel("");
@@ -2432,8 +2441,6 @@ public class FrogPizzaFrame {
 	    
 			
 			private static final String SQL_SELECT_ORDER_MENU_PK = "select * from PACKAING_ORDER_TB where ORDER_ID = ?";
-			private JLabel lblNewLabel_3;
-			private JLabel lblNewLabel_5;
 //					String.format(
 //					"select * from %s where %s = ?", // 주의 여기 sql문장에서는 ;안 붙여야함
 //					TBL_PACKAING_ORDER_TB, COL_ORDER_ID);
