@@ -1453,7 +1453,7 @@ public class FrogPizzaFrame {
 		btnOrderDetailsButton = new JButton("");
 		btnOrderDetailsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showOrderHistory(lloginId);
+				//showOrderHistory(lloginId);
 				//showOrderHistory2(lloginId);
 				//showOrderTable(lloginId);
 				
@@ -2318,8 +2318,47 @@ public class FrogPizzaFrame {
 		        
 		        return;
 		    }
+	    ///////
+		    
+		    
+		    
+//		    ////////////////////////////////////////////////////////////////////////////////////////////
+//			public List<OrderTb> showOrderHistory55 (String loginId) {
+////				showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
+//				//this.loginId = loginId;
+//				List<OrderTb> orderHistory = new ArrayList<>();
+//				orderHistory = orderTbRead(loginId);
+//				// TODO 프린트 주석 나중에 지우기
+//				//System.out.println(orderFrogDrink);
+//				for (OrderTb o : orderHistory) {
+//					Object[] row = {
+//							o.getOrderId(),
+//							o.getOrderPizza(),
+//							o.getOrderDrink(),
+//							o.getOrderSide(),
+//							o.getOrderTotal(),
+//							//o.getOrderMealMethod(),
+//							o.getOrderTime()
+////							,
+////							o.getDrinkName(),
+////							o.getDrinkPrice(),
+////							o.getSideName(),
+////							o.getSidePrice(),
+////							o.getPizzaCook(),
+////							o.getPizzaPopularity() 
+//							};
+//					//orderModel.addRow(row);
+//					panelHidig();
+//				}
+//				return orderHistory;
+//				}
 	    
-	    
+		    
+		    
+		    
+		    
+		    
+		    
 	    ///////////////////////////////////
 		    //주문내역 테이블에 행 추가하기
 			public List<OrderTb> showOrderHistory(String loginId) {
@@ -2408,85 +2447,85 @@ public class FrogPizzaFrame {
 			
 			
 			/////////////////
-		    //주문내역 테이블에 행 추가하기 --포장하기
-			public List<OrderTb> showOrderHistory2 (String loginId) {
-//				showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
-				//this.loginId = loginId;
-				List<OrderTb> orderHistory = new ArrayList<>();
-				orderHistory = orderTbRead2(loginId);
-				// TODO 프린트 주석 나중에 지우기
-				//System.out.println(orderFrogDrink);
-				for (OrderTb o : orderHistory) {
-					Object[] row = {
-							o.getOrderId(),
-							o.getOrderPizza(),
-							o.getOrderDrink(),
-							o.getOrderSide(),
-							o.getOrderTotal(),
-							o.getOrderMealMethod(),
-							o.getOrderTime()
-//							,
-//							o.getDrinkName(),
-//							o.getDrinkPrice(),
-//							o.getSideName(),
-//							o.getSidePrice(),
-//							o.getPizzaCook(),
-//							o.getPizzaPopularity() 
-							};
-					orderModel.addRow(row);
-					panelHidig();
-				}
-				return orderHistory;
-				}
+//		    //주문내역 테이블에 행 추가하기 --포장하기
+//			public List<OrderTb> showOrderHistory2 (String loginId) {
+////				showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
+//				//this.loginId = loginId;
+//				List<OrderTb> orderHistory = new ArrayList<>();
+//				orderHistory = orderTbRead2(loginId);
+//				// TODO 프린트 주석 나중에 지우기
+//				//System.out.println(orderFrogDrink);
+//				for (OrderTb o : orderHistory) {
+//					Object[] row = {
+//							o.getOrderId(),
+//							o.getOrderPizza(),
+//							o.getOrderDrink(),
+//							o.getOrderSide(),
+//							o.getOrderTotal(),
+//							o.getOrderMealMethod(),
+//							o.getOrderTime()
+////							,
+////							o.getDrinkName(),
+////							o.getDrinkPrice(),
+////							o.getSideName(),
+////							o.getSidePrice(),
+////							o.getPizzaCook(),
+////							o.getPizzaPopularity() 
+//							};
+//					orderModel.addRow(row);
+//					panelHidig();
+//				}
+//				return orderHistory;
+//				}
 	    
 			
-			private static final String SQL_SELECT_ORDER_MENU_PK = "select * from PACKAING_ORDER_TB where ORDER_ID = ?";
-//					String.format(
-//					"select * from %s where %s = ?", // 주의 여기 sql문장에서는 ;안 붙여야함
-//					TBL_PACKAING_ORDER_TB, COL_ORDER_ID);
-				// "select * from FROG_DRINK_MENU_TB where DRINK_NAME = ?";
-			
-			public List<OrderTb> orderTbRead2(String loginId) {
-				
-					List<OrderTb> result = new ArrayList<>();
-
-					Connection conn = null;
-					PreparedStatement stmt = null;
-					ResultSet rs = null;
-
-					try {
-						// 데이터베이스에 접속.
-						conn = DriverManager.getConnection(URL, USER, PASSWORD);
-						// 실행할 SQL 문장을 갖고 있는 PreparedStatement 객체를 생성.
-						stmt = conn.prepareStatement(SQL_SELECT_ORDER_MENU_PK);
-						
-						stmt.setString(1, loginId);
-						// SQL 문장을 데이터베이스로 전송해서 실행.
-						rs = stmt.executeQuery();
-						// 결과 처리.
-						while (rs.next()) {
-//			            	FrogPizzaMenu frogPizzaMenu = makeFrogPizzaMenuFromResultSet(rs);
-							String id = rs.getString(COL_ORDER_ID);
-							String pizza = rs.getString(COL_ORDER_PIZZA);
-							String drink = rs.getString(COL_ORDER_DRINK);
-							String Side = rs.getString(COL_ORDER_SIDE);
-							String total = rs.getString(COL_ORDER_TOTAL);
-							String meal = rs.getString(COL_ORDER_MEAL_METHOD);
-							LocalDateTime orderTime = rs.getTimestamp(COL_ORDER_TIME).toLocalDateTime();
-							
-							
-							OrderTb getorder = new OrderTb(id, pizza, drink, Side, total, meal, orderTime);
-							result.add(getorder); // 이름이 result인 리스트에 추가함.
-						}
-
-					} catch (SQLException e) {
-						e.printStackTrace();
-					} finally {
-						closeResources(conn, stmt, rs);
-					}
-					//panelHidig();
-					return result;
-			}
+//			private static final String SQL_SELECT_ORDER_MENU_PK = "select * from PACKAING_ORDER_TB where ORDER_ID = ?";
+////					String.format(
+////					"select * from %s where %s = ?", // 주의 여기 sql문장에서는 ;안 붙여야함
+////					TBL_PACKAING_ORDER_TB, COL_ORDER_ID);
+//				// "select * from FROG_DRINK_MENU_TB where DRINK_NAME = ?";
+//			
+//			public List<OrderTb> orderTbRead2(String loginId) {
+//				
+//					List<OrderTb> result = new ArrayList<>();
+//
+//					Connection conn = null;
+//					PreparedStatement stmt = null;
+//					ResultSet rs = null;
+//
+//					try {
+//						// 데이터베이스에 접속.
+//						conn = DriverManager.getConnection(URL, USER, PASSWORD);
+//						// 실행할 SQL 문장을 갖고 있는 PreparedStatement 객체를 생성.
+//						stmt = conn.prepareStatement(SQL_SELECT_ORDER_MENU_PK);
+//						
+//						stmt.setString(1, loginId);
+//						// SQL 문장을 데이터베이스로 전송해서 실행.
+//						rs = stmt.executeQuery();
+//						// 결과 처리.
+//						while (rs.next()) {
+////			            	FrogPizzaMenu frogPizzaMenu = makeFrogPizzaMenuFromResultSet(rs);
+//							String id = rs.getString(COL_ORDER_ID);
+//							String pizza = rs.getString(COL_ORDER_PIZZA);
+//							String drink = rs.getString(COL_ORDER_DRINK);
+//							String Side = rs.getString(COL_ORDER_SIDE);
+//							String total = rs.getString(COL_ORDER_TOTAL);
+//							String meal = rs.getString(COL_ORDER_MEAL_METHOD);
+//							LocalDateTime orderTime = rs.getTimestamp(COL_ORDER_TIME).toLocalDateTime();
+//							
+//							
+//							OrderTb getorder = new OrderTb(id, pizza, drink, Side, total, meal, orderTime);
+//							result.add(getorder); // 이름이 result인 리스트에 추가함.
+//						}
+//
+//					} catch (SQLException e) {
+//						e.printStackTrace();
+//					} finally {
+//						closeResources(conn, stmt, rs);
+//					}
+//					//panelHidig();
+//					return result;
+//			}
 
 
 			

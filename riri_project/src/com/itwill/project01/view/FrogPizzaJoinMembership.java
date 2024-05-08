@@ -384,6 +384,10 @@ public class FrogPizzaJoinMembership extends JFrame {
 						}
 							idIdCheck(); if(overlapId) {return;} //아이디 중복 확인
 						    emailEmailCheck(); if(overlapEmail) {return;} //이메일 중복 확인
+//				            if(textJoinEmail.getText().equals("")) {
+//				            	JOptionPane.showMessageDialog(panelJoinMembership, "이메일을 입력하세요.");
+//				            	return;
+//				            }
 							join();//데이터베이스에 저장
 							JOptionPane.showMessageDialog(panelJoinMembership, "회원 가입이 되었습니다.");
 							dispose();//창닫기
@@ -486,6 +490,8 @@ public class FrogPizzaJoinMembership extends JFrame {
             	overlapEmail = true;
             	return;
             }
+            
+
 
         } 
         } catch (SQLException e) {
