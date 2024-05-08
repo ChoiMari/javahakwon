@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.itwill.project01.model.OrderMenuAll;
-
+import com.itwill.project01.model.OrderTb;
 
 import static com.itwill.project01.model.OrderMenuAll.*;
 import static com.itwill.project01.view.OracleJdbc2.*;
@@ -491,7 +491,7 @@ public class OrderMenuDao {
         return result;
     }
 	
-	
+	//오라클 DB에 저장된 주문내역 테이블 정보를 가져오는 메서드.
 	
 	
 	

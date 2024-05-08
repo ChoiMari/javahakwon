@@ -20,6 +20,7 @@ import javax.swing.*;
 import com.itwill.project01.controller.OrderMenuDao;
 import com.itwill.project01.model.Membership;
 import com.itwill.project01.model.OrderMenuAll;
+import com.itwill.project01.model.OrderTb;
 
 import oracle.jdbc.OracleDriver;
 
@@ -32,6 +33,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -43,6 +46,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class FrogPizzaFrame {
@@ -52,12 +56,18 @@ public class FrogPizzaFrame {
 	private static final String[] COLUMN_DRINK = {"음료","음료$가격"};
 	private static final String[] COLUMN_SIDE = {"사이드","사이드$가격"};
 	
+	//주문내역 테이블에 넣을 컬럼 상수 선언.
+	private static final String[] COLUMN_ORDER_HISTORY = {"아이디","피자주문내역","음료주문내역","사이드주문내역","주문금액","주문시간"};
+	//주문내역 테이블에 쓸 테이블 모델 필드선언
+	private DefaultTableModel orderModel;
 	//주문 확인 메뉴에 넣을 테이블 컬럼 상수 선언
 	//private static final String[] COLUNM_ORDER_CHECK = {"주문일자","아이디","이름","PIZZA_KCAL","DRINK_KCAL","PIZZA_KCAL"};
 	
 	private DefaultTableModel pizzaModel;
 	private DefaultTableModel drinkModel;
 	private DefaultTableModel sideModel;
+	
+	
 	
 	//행 정렬 하려고 필드 설정
 	private DefaultTableCellRenderer celAlignCenter;
@@ -130,7 +140,6 @@ public class FrogPizzaFrame {
 	private JPanel panelSelectBtn;
 	private JButton btnOrderMenuButton;
 	private JButton btnOrderDetailsButton;
-	private JButton btnMyProfileButton;
 	private JButton btnLogOut;
 	private JPanel panelMain;
 	private JPanel panelMainMenuBackground;
@@ -148,7 +157,6 @@ public class FrogPizzaFrame {
 	private JPanel panelSideMenu;
 	private JButton btnSideSpaghettiFullOfPepperoni;
 	private JPanel panelShoppinBasket;
-	private JButton btnNewButton_6;
 	
 	private JTable tableOrderSide;
 	
@@ -181,7 +189,7 @@ public class FrogPizzaFrame {
 	private JButton btnSideOrderCancle;
 
 	//아규먼트로 받은 로그인한 아이디 저장하려고 선언한 필드
-	private String loginId;
+	public String lloginId;
 	//로그인한 아이디의 회원정보 아규먼트로 받아서 저장하려고 선언한 필드
 	private Membership loginMembership;
 	private static FrogPizzaLoginFrame frogPizzaLoginFrame;
@@ -210,7 +218,7 @@ public class FrogPizzaFrame {
 	 */
 	//생성자
 	public FrogPizzaFrame(String loginId, FrogPizzaLoginFrame frogPizzaLoginFrame, Membership loginMembership) {
-		this.loginId = loginId;
+		lloginId = loginId;
 		this.frogPizzaLoginFrame = frogPizzaLoginFrame;
 		this.loginMembership = loginMembership;
 		initialize();
@@ -1056,7 +1064,7 @@ public class FrogPizzaFrame {
 					JOptionPane.showMessageDialog(frame, "주문 메뉴를 선택해주세요", "선택없음오류", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				OrderingFrame.showOrderingFrame(FrogPizzaFrame.this);
+				OrderingFrame.showOrderingFrame(FrogPizzaFrame.this, lloginId);
 				
 //				//테이블 초기화
 //				pizzaModel.setNumRows(0);
@@ -1092,10 +1100,6 @@ public class FrogPizzaFrame {
 		panelShoppinBasket.setLayout(null);
 		panelShoppinBasket.setBounds(0, 0, 1258, 618);
 		panelOrderMenuBackground.add(panelShoppinBasket);
-		
-		btnNewButton_6 = new JButton("개구리 주머니");
-		btnNewButton_6.setBounds(0, 0, 95, 23);
-		panelShoppinBasket.add(btnNewButton_6);
 		
 		lblNewLabel_6 = new JLabel("");
 		lblNewLabel_6.setIcon(new ImageIcon(".\\image\\피자메인판넬.png"));
@@ -1191,7 +1195,7 @@ public class FrogPizzaFrame {
 		//실행시 사용자가 컬럼이동 불가
 		tableOrderSide.getTableHeader().setReorderingAllowed(false); 
 		
-		btnShoppinBasket = new JButton("개구리주머니");
+		btnShoppinBasket = new JButton("");
 		btnShoppinBasket.setContentAreaFilled(false);
 		btnShoppinBasket.setBorderPainted(false);
 		btnShoppinBasket.setFocusPainted(false);
@@ -1328,6 +1332,14 @@ public class FrogPizzaFrame {
 		lblNewLabel.setBounds(0, 0, 1018, 96);
 		panelMainMenuBackground.add(lblNewLabel);
 		
+		lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setBounds(848, 21, 57, 15);
+		panelMainMenuBackground.add(lblNewLabel_3);
+		
+		lblNewLabel_5 = new JLabel("New label");
+		lblNewLabel_5.setBounds(848, 46, 57, 15);
+		panelMainMenuBackground.add(lblNewLabel_5);
+		
 		//TODO - 테이블에 컬럼 집어 넣음.
 		//orderModel = new DefaultTableModel(null,COLUMN_NAMES);
 		
@@ -1432,10 +1444,14 @@ public class FrogPizzaFrame {
 		btnOrderDetailsButton = new JButton("");
 		btnOrderDetailsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				showOrderHistory(lloginId);
+				//showOrderHistory2(lloginId);
+				//showOrderTable(lloginId);
+				
 				
 				panelOrderConfirmation.setVisible(true);
 				lblOrderConfirmationB.setVisible(true);
-				
+				//showOrderHistory(lloginId);
 				
 				
 				panelMainMenuBackground.setVisible(false);
@@ -1498,10 +1514,6 @@ public class FrogPizzaFrame {
 		btnOrderDetailsButton.setBounds(0, 192, 226, 96);
 		panelSelectBtn.add(btnOrderDetailsButton);
 		
-		btnMyProfileButton = new JButton("내정보");
-		btnMyProfileButton.setBounds(47, 415, 97, 23);
-		panelSelectBtn.add(btnMyProfileButton);
-		
 		btnLogOut = new JButton("로그아웃");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1514,7 +1526,7 @@ public class FrogPizzaFrame {
 		
 		lblIdName = new JLabel("");
 		lblIdName.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		String showLoginId = loginId + "님 피자를 주문해주세요";
+		String showLoginId = lloginId + "님 피자를 주문해주세요";
 		lblIdName.setText(showLoginId);
 		
 		lblIdName.setBounds(30, 825, 200, 30);
@@ -1556,18 +1568,68 @@ public class FrogPizzaFrame {
 		panelOrderConfirmation.setBounds(226, 0, 1018, 961);
 		frame.getContentPane().add(panelOrderConfirmation);
 		
-		lblOrderConfirmationB = new JLabel("");
-		
-		lblOrderConfirmationB.setIcon(new ImageIcon(".\\image\\주문내역배경.png"));
-		lblOrderConfirmationB.setBounds(0, 0, 1018, 961);
-		panelOrderConfirmation.add(lblOrderConfirmationB);
-		
 		scrollPane_3 = new JScrollPane();
 		scrollPane_3.setBounds(35, 97, 944, 577);
 		panelOrderConfirmation.add(scrollPane_3);
 		
 		tableOrderConfirmation = new JTable();
+		
+		//정렬
+//		TableRowSorter<TableModel> sorter = new TableRowSorter<>(tableOrderConfirmation.getModel());
+//		tableOrderConfirmation.setRowSorter(sorter);
+		//frame.pack();
+		
+		//사용자가 메뉴 클릭하면 메뉴 추가 
+				
+				//컬럼 폰트 크기
+		tableOrderConfirmation.getTableHeader().setFont(new Font("굴림",Font.PLAIN, 20));
+		tableOrderConfirmation.setRowHeight(26);//행높이
+		tableOrderConfirmation.setFont(new Font("굴림", Font.PLAIN, 15));
+		orderModel = new DefaultTableModel(null, COLUMN_ORDER_HISTORY);
+				
+		tableOrderConfirmation.setModel(orderModel);
+		
+		
+		
+		//private static final String[] COLUMN_ORDER_HISTORY = {"아이디","피자주문내역","음료주문내역","사이드주문내역","주문금액합계","식사방식","주문시간"};
+				//컬럼 너비조절
+		tableOrderConfirmation.getColumn("아이디").setPreferredWidth(5);
+		tableOrderConfirmation.getColumn("피자주문내역").setPreferredWidth(90);
+		tableOrderConfirmation.getColumn("음료주문내역").setPreferredWidth(90);
+		tableOrderConfirmation.getColumn("사이드주문내역").setPreferredWidth(90);
+		tableOrderConfirmation.getColumn("주문금액").setPreferredWidth(5);
+//		tableOrderConfirmation.getColumn("식사방식").setPreferredWidth(30);
+		tableOrderConfirmation.getColumn("주문시간").setPreferredWidth(100);
+				//table.getColumn("컬럼이름").setPreferredWidth(크기숫자로지정);
+				
+				
+				//행 정렬
+				celAlignCenter = new DefaultTableCellRenderer();
+				celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+				tableOrderConfirmation.getColumn("아이디").setCellRenderer(celAlignCenter);
+//				tableOrderConfirmation.getColumn("피자주문내역").setCellRenderer(celAlignCenter);
+//				tableOrderConfirmation.getColumn("음료주문내역").setCellRenderer(celAlignCenter);
+//				tableOrderConfirmation.getColumn("사이드주문내역").setCellRenderer(celAlignCenter);
+//				tableOrderConfirmation.getColumn("주문금액합계").setCellRenderer(celAlignCenter);
+//				tableOrderConfirmation.getColumn("식사방식").setCellRenderer(celAlignCenter);
+//				tableOrderConfirmation.getColumn("주문시간").setCellRenderer(celAlignCenter);
+				
+				DefaultTableCellRenderer celAlignRIGHT = new DefaultTableCellRenderer();
+				celAlignRIGHT.setHorizontalAlignment(JLabel.RIGHT);
+				tableOrderConfirmation.getColumn("주문금액").setCellRenderer(celAlignRIGHT);
+//				tableOrderPizzaMenu.getColumn("피자$가격").setCellRenderer(celAlignCenter);
+				//TODO
+				//scrollPane.setViewportView(tableOrderPizzaMenu);
+				
+				//실행시 사용자가 테이블 컬럼 이동 불가
+		tableOrderConfirmation.getTableHeader().setReorderingAllowed(false); 
 		scrollPane_3.setViewportView(tableOrderConfirmation);
+		
+		lblOrderConfirmationB = new JLabel("");
+		
+		lblOrderConfirmationB.setIcon(new ImageIcon(".\\image\\주문내역배경.png"));
+		lblOrderConfirmationB.setBounds(0, 0, 1018, 961);
+		panelOrderConfirmation.add(lblOrderConfirmationB);
 		
 		//ImagePanel panelMain =new ImagePanel(new ImageIcon(".\\image\\피자메인판넬.png").getImage());
 	
@@ -2070,7 +2132,7 @@ public class FrogPizzaFrame {
 	        try {
 	            conn = DriverManager.getConnection(URL, USER, PASSWORD); // DB 접속.
 	            stmt = conn.prepareStatement(SQL_ORDERMENU_INSERT); // Statement 객체 생성.
-	            stmt.setString(1, loginId); // Statement의 첫번째 ? 채움.
+	            stmt.setString(1, lloginId); // Statement의 첫번째 ? 채움.
 //	            stmt.setString(2, loginMembership.getName()); // Statement의 두번째 ? 채움.
 //	            stmt.setString(3, loginMembership.getPhone()); // Statement의 세번째 ? 채움.
 //	            stmt.setString(4, loginMembership.getEmail());
@@ -2220,7 +2282,7 @@ public class FrogPizzaFrame {
 		        try {
 		            conn = DriverManager.getConnection(URL, USER, PASSWORD); // DB 접속.
 		            stmt = conn.prepareStatement(SQL_PACKAING_INSERT); // Statement 객체 생성.
-		            stmt.setString(1, loginId); // Statement의 첫번째 ? 채움.
+		            stmt.setString(1, lloginId); // Statement의 첫번째 ? 채움.
 //		            stmt.setString(2, loginMembership.getName()); // Statement의 두번째 ? 채움.
 //		            stmt.setString(3, loginMembership.getPhone()); // Statement의 세번째 ? 채움.
 //		            stmt.setString(4, loginMembership.getEmail());
@@ -2244,9 +2306,296 @@ public class FrogPizzaFrame {
 		    }
 	    
 	    
+	    ///////////////////////////////////
+		    //주문내역 테이블에 행 추가하기
+			public List<OrderTb> showOrderHistory(String loginId) {
+//				showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
+				//this.loginId = loginId;
+				List<OrderTb> orderHistory = new ArrayList<>();
+				orderHistory = orderTbRead(loginId);
+				// TODO 프린트 주석 나중에 지우기
+				//System.out.println(orderFrogDrink);
+				for (OrderTb o : orderHistory) {
+					Object[] row = {
+							o.getOrderId(),
+							o.getOrderPizza(),
+							o.getOrderDrink(),
+							o.getOrderSide(),
+							o.getOrderTotal(),
+							//o.getOrderMealMethod(),
+							o.getOrderTime()
+//							,
+//							o.getDrinkName(),
+//							o.getDrinkPrice(),
+//							o.getSideName(),
+//							o.getSidePrice(),
+//							o.getPizzaCook(),
+//							o.getPizzaPopularity() 
+							};
+					orderModel.addRow(row);
+					panelHidig();
+				}
+				return orderHistory;
+				}
 	    
+			
+			private static final String SQL_SELECT_ORDER_MENU_RS = String.format(
+					"select * from %s where %s = ?", // 주의 여기 sql문장에서는 ;안 붙여야함
+					TBL_ORDER_TB, COL_ORDER_ID);
+				// "select * from FROG_DRINK_MENU_TB where DRINK_NAME = ?";
+			
+			public List<OrderTb> orderTbRead(String loginId) {
+				
+					List<OrderTb> result = new ArrayList<>();
+
+					Connection conn = null;
+					PreparedStatement stmt = null;
+					ResultSet rs = null;
+
+					try {
+						// 데이터베이스에 접속.
+						conn = DriverManager.getConnection(URL, USER, PASSWORD);
+						// 실행할 SQL 문장을 갖고 있는 PreparedStatement 객체를 생성.
+						stmt = conn.prepareStatement(SQL_SELECT_ORDER_MENU_RS);
+						stmt.setString(1, loginId);
+						// SQL 문장을 데이터베이스로 전송해서 실행.
+						rs = stmt.executeQuery();
+						// 결과 처리.
+						while (rs.next()) {
+//			            	FrogPizzaMenu frogPizzaMenu = makeFrogPizzaMenuFromResultSet(rs);
+							String id = rs.getString(COL_ORDER_ID);
+							String pizza = rs.getString(COL_ORDER_PIZZA);
+							String drink = rs.getString(COL_ORDER_DRINK);
+							String Side = rs.getString(COL_ORDER_SIDE);
+							String total = rs.getString(COL_ORDER_TOTAL);
+							String meal = rs.getString(COL_ORDER_MEAL_METHOD);
+							LocalDateTime orderTime = rs.getTimestamp(COL_ORDER_TIME).toLocalDateTime();
+							
+							
+							OrderTb getorder = new OrderTb(id, pizza, drink, Side, total, meal, orderTime);
+							result.add(getorder); // 이름이 result인 리스트에 추가함.
+						}
+
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						closeResources(conn, stmt, rs);
+					}
+					//panelHidig();
+					return result;
+			}
 	    
-	    
-	    
+			//테이블 추가시 판넬 안보이게 하는 메서드
+			private void panelHidig() {
+				panelOrderConfirmation.setVisible(false);
+			} 
 	 
+			
+			
+			
+			/////////////////
+		    //주문내역 테이블에 행 추가하기 --포장하기
+			public List<OrderTb> showOrderHistory2 (String loginId) {
+//				showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
+				//this.loginId = loginId;
+				List<OrderTb> orderHistory = new ArrayList<>();
+				orderHistory = orderTbRead2(loginId);
+				// TODO 프린트 주석 나중에 지우기
+				//System.out.println(orderFrogDrink);
+				for (OrderTb o : orderHistory) {
+					Object[] row = {
+							o.getOrderId(),
+							o.getOrderPizza(),
+							o.getOrderDrink(),
+							o.getOrderSide(),
+							o.getOrderTotal(),
+							o.getOrderMealMethod(),
+							o.getOrderTime()
+//							,
+//							o.getDrinkName(),
+//							o.getDrinkPrice(),
+//							o.getSideName(),
+//							o.getSidePrice(),
+//							o.getPizzaCook(),
+//							o.getPizzaPopularity() 
+							};
+					orderModel.addRow(row);
+					panelHidig();
+				}
+				return orderHistory;
+				}
+	    
+			
+			private static final String SQL_SELECT_ORDER_MENU_PK = "select * from PACKAING_ORDER_TB where ORDER_ID = ?";
+			private JLabel lblNewLabel_3;
+			private JLabel lblNewLabel_5;
+//					String.format(
+//					"select * from %s where %s = ?", // 주의 여기 sql문장에서는 ;안 붙여야함
+//					TBL_PACKAING_ORDER_TB, COL_ORDER_ID);
+				// "select * from FROG_DRINK_MENU_TB where DRINK_NAME = ?";
+			
+			public List<OrderTb> orderTbRead2(String loginId) {
+				
+					List<OrderTb> result = new ArrayList<>();
+
+					Connection conn = null;
+					PreparedStatement stmt = null;
+					ResultSet rs = null;
+
+					try {
+						// 데이터베이스에 접속.
+						conn = DriverManager.getConnection(URL, USER, PASSWORD);
+						// 실행할 SQL 문장을 갖고 있는 PreparedStatement 객체를 생성.
+						stmt = conn.prepareStatement(SQL_SELECT_ORDER_MENU_PK);
+						
+						stmt.setString(1, loginId);
+						// SQL 문장을 데이터베이스로 전송해서 실행.
+						rs = stmt.executeQuery();
+						// 결과 처리.
+						while (rs.next()) {
+//			            	FrogPizzaMenu frogPizzaMenu = makeFrogPizzaMenuFromResultSet(rs);
+							String id = rs.getString(COL_ORDER_ID);
+							String pizza = rs.getString(COL_ORDER_PIZZA);
+							String drink = rs.getString(COL_ORDER_DRINK);
+							String Side = rs.getString(COL_ORDER_SIDE);
+							String total = rs.getString(COL_ORDER_TOTAL);
+							String meal = rs.getString(COL_ORDER_MEAL_METHOD);
+							LocalDateTime orderTime = rs.getTimestamp(COL_ORDER_TIME).toLocalDateTime();
+							
+							
+							OrderTb getorder = new OrderTb(id, pizza, drink, Side, total, meal, orderTime);
+							result.add(getorder); // 이름이 result인 리스트에 추가함.
+						}
+
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						closeResources(conn, stmt, rs);
+					}
+					//panelHidig();
+					return result;
+			}
+
+
+			
+
+//			public void showOrderTable(String loginId) {
+//					List<OrderTb> orderResult = new ArrayList<>();
+////					showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
+//					//this.loginId = loginId;
+//					List<OrderTb> orderHistory = new ArrayList<>();
+//					orderHistory = orderTbRead(loginId);
+//					List<OrderTb> orderHistory2 = new ArrayList<>();
+//					orderHistory = orderTbRead2(loginId);
+//					// TODO 프린트 주석 나중에 지우기
+//					//System.out.println(orderFrogDrink);
+//					for (OrderTb o : orderHistory) {
+//						orderResult.add(o);
+//						}
+//					for (OrderTb o2 : orderHistory2) {
+//						orderResult.add(o2);
+//					}
+//					
+//					for (OrderTb o3 : orderResult) {
+//						Object[] row = {
+//								o3.getOrderId(),
+//								o3.getOrderPizza(),
+//								o3.getOrderDrink(),
+//								o3.getOrderSide(),
+//								o3.getOrderTotal(),
+//								o3.getOrderMealMethod(),
+//								o3.getOrderTime()
+//								};
+//						orderModel.addRow(row);
+//					}
+//					//tableOrderConfirmation.setModel(orderModel);
+//			}
+////								,
+////								o.getDrinkName(),
+////								o.getDrinkPrice(),
+////								o.getSideName(),
+////								o.getSidePrice(),
+////								o.getPizzaCook(),
+////								o.getPizzaPopularity() 
+//								};
+//						orderModel.addRow(row2);
+					
+					
+//						Object[] row = {
+//								o.getOrderId(),
+//								o.getOrderPizza(),
+//								o.getOrderDrink(),
+//								o.getOrderSide(),
+//								o.getOrderTotal(),
+//								o.getOrderMealMethod(),
+//								o.getOrderTime()
+////								,
+//								o.getDrinkName(),
+//								o.getDrinkPrice(),
+//								o.getSideName(),
+//								o.getSidePrice(),
+//								o.getPizzaCook(),
+//								o.getPizzaPopularity() 
+//								};
+//						for (OrderTb o2 : orderHistory2) {
+//							Object[] row2 = {
+//									o2.getOrderId(),
+//									o2.getOrderPizza(),
+//									o2.getOrderDrink(),
+//									o2.getOrderSide(),
+//									o2.getOrderTotal(),
+//									o2.getOrderMealMethod(),
+//									o2.getOrderTime()
+////									,
+////									o.getDrinkName(),
+////									o.getDrinkPrice(),
+////									o.getSideName(),
+////									o.getSidePrice(),
+////									o.getPizzaCook(),
+////									o.getPizzaPopularity() 
+//									};
+//							
+//							orderModel.addRow(row2);
+//							//tableOrderConfirmation.
+//							//panelHidig();
+//						}
+						//orderModel.addRow(row);
+//						orderResult.add(row);
+//					}
+//						tableOrderConfirmation.setModel(orderModel);
+			
+				
+//					showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
+					//this.loginId = loginId;
+//					List<OrderTb> orderHistory2 = new ArrayList<>();
+//					orderHistory = orderTbRead2(loginId);
+					// TODO 프린트 주석 나중에 지우기
+					//System.out.println(orderFrogDrink);
+//					for (OrderTb o2 : orderHistory2) {
+//						Object[] row2 = {
+//								o2.getOrderId(),
+//								o2.getOrderPizza(),
+//								o2.getOrderDrink(),
+//								o2.getOrderSide(),
+//								o2.getOrderTotal(),
+//								o2.getOrderMealMethod(),
+//								o2.getOrderTime()
+////								,
+////								o.getDrinkName(),
+////								o.getDrinkPrice(),
+////								o.getSideName(),
+////								o.getSidePrice(),
+////								o.getPizzaCook(),
+////								o.getPizzaPopularity() 
+//								};
+//						orderModel.addRow(row2);
+//						tableOrderConfirmation.
+//						//panelHidig();
+//					}
+						//tableOrderConfirmation.setModel(orderModel);
+					
+//		
+//					}
+			
+			
 }//클래스 끝

@@ -59,14 +59,18 @@ public class OrderingFrame extends JFrame {
 
 	//아규먼트로 받은값 저장 필드
 	//private Membership loginMembership;
+	
+	
+	//아규먼트로 로그인 값 받아와야함
+	private String loginId;
 	/**
 	 * Launch the application.
 	 */
-	public static void showOrderingFrame(FrogPizzaFrame frogPizzaFrame) {
+	public static void showOrderingFrame(FrogPizzaFrame frogPizzaFrame, String loginId) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OrderingFrame frame = new OrderingFrame(frogPizzaFrame);
+					OrderingFrame frame = new OrderingFrame(frogPizzaFrame, loginId);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,9 +84,10 @@ public class OrderingFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OrderingFrame(FrogPizzaFrame frogPizzaFrame) {
+	public OrderingFrame(FrogPizzaFrame frogPizzaFrame,String loginId) {
 		
 		this.frogPizzaFrame = frogPizzaFrame;
+		this.loginId = loginId;
 		initialize();
 		
 
@@ -116,6 +121,8 @@ public class OrderingFrame extends JFrame {
 				JOptionPane.showMessageDialog(contentPane, "주문이 완료 되었습니다.","주문확인",JOptionPane.PLAIN_MESSAGE);
 				//TODO 테이블에 있는 주문내역 저장하기. - 
 				frogPizzaFrame.loginInsertRestaurantEat();
+				//테이블에 검색해서 보여줌
+				frogPizzaFrame.showOrderHistory(loginId);
 				
 				checkOrder();
 
@@ -133,7 +140,12 @@ public class OrderingFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(contentPane,"주문이 완료 되었습니다.","주문확인",JOptionPane.PLAIN_MESSAGE);
 				//TODO 테이블에 있는 주문내역 저장하기. - 
-				frogPizzaFrame.loginInsertPackaging();
+//				frogPizzaFrame.loginInsertPackaging();
+//				//테이블에 검색해서 보여줌.
+//				frogPizzaFrame.showOrderHistory2(loginId);
+				frogPizzaFrame.loginInsertRestaurantEat();
+				//테이블에 검색해서 보여줌
+				frogPizzaFrame.showOrderHistory(loginId);
 				
 				checkOrder();
 				//테이블 리셋

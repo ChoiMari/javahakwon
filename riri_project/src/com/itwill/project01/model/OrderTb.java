@@ -1,6 +1,7 @@
 package com.itwill.project01.model;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 public class OrderTb { // 오라클에서 insert시 기본값으로 매장에서 식사하기 들어가는 클래스
 	//필드 선언
@@ -14,7 +15,7 @@ public class OrderTb { // 오라클에서 insert시 기본값으로 매장에서
 	private String orderTotal;
 	//필요시에 식사방법,주문시간만들기
 	private String orderMealMethod;
-	private LocalDate orderTime;
+	private LocalDateTime orderTime;
 	
 	//상수 선언
 	public static final String TBL_ORDER_TB = "FROG_ORDER_TB";//매장에서 먹기
@@ -41,7 +42,7 @@ public class OrderTb { // 오라클에서 insert시 기본값으로 매장에서
 
 
 	public OrderTb(String orderId, String orderPizza, String orderDrink, String orderSide, String orderTotal,
-			String orderMealMethod, LocalDate orderTime) {
+			String orderMealMethod, LocalDateTime orderTime) {
 		this.orderId = orderId;
 		this.orderPizza = orderPizza;
 		this.orderDrink = orderDrink;
@@ -51,6 +52,7 @@ public class OrderTb { // 오라클에서 insert시 기본값으로 매장에서
 		this.orderTime = orderTime;
 	}
 
+	
 
 	public String getOrderId() {
 		return orderId;
@@ -112,12 +114,12 @@ public class OrderTb { // 오라클에서 insert시 기본값으로 매장에서
 	}
 
 
-	public LocalDate getOrderTime() {
+	public LocalDateTime getOrderTime() {
 		return orderTime;
 	}
 
 
-	public void setOrderTime(LocalDate orderTime) {
+	public void setOrderTime(LocalDateTime orderTime) {
 		this.orderTime = orderTime;
 	}
 
