@@ -103,7 +103,8 @@ public class FrogPizzaJoinMembership extends JFrame {
 		setTitle("Frog Pizza 회원 가입"); //창 타이틀 문구
 		//창 아이콘
 		Toolkit kit = Toolkit.getDefaultToolkit();
-		Image img = kit.getImage(".\\image\\아이콘.png");
+		Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/com/itwill/project01/image/아이콘.png"));
+				//getImage(".\\image\\아이콘.png");
 		setIconImage(img);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //창의 x눌러도 현재 창만 닫게 설정함.
@@ -128,17 +129,20 @@ public class FrogPizzaJoinMembership extends JFrame {
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel.setIcon(new ImageIcon(".\\image\\개인정보 동의서.png"));
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개인정보 동의서.png")));
+		//(new ImageIcon(".\\image\\개인정보 동의서.png"));
 		lblNewLabel.setBounds(32, 56, 220, 40);
 		panelTermsConditions.add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(".\\image\\이용약관문구.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/이용약관문구.png")));
+		//(new ImageIcon(".\\image\\이용약관문구.png"));
 		lblNewLabel_1.setBounds(32, 21, 220, 40);
 		panelTermsConditions.add(lblNewLabel_1);
 		
 		btnNextButton = new JButton("");
-		btnNextButton.setIcon(new ImageIcon(".\\image\\다음버튼.png"));
+		btnNextButton.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/다음버튼.png")));
+		//(new ImageIcon(".\\image\\다음버튼.png"));
 		btnNextButton.setVisible(false);
 		btnNextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -173,12 +177,14 @@ public class FrogPizzaJoinMembership extends JFrame {
 		
 		lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setFont(new Font("HY견고딕", Font.PLAIN, 14));
-		lblNewLabel_3.setIcon(new ImageIcon(".\\image\\동의체크배경.png"));
+		lblNewLabel_3.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/동의체크배경.png")));
+		//(new ImageIcon(".\\image\\동의체크배경.png"));
 		lblNewLabel_3.setBounds(32, 234, 190, 30);
 		panelTermsConditions.add(lblNewLabel_3);
 		
 		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(".\\image\\이용약관배경.png"));
+		lblNewLabel_2.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/이용약관배경.png")));
+		//(new ImageIcon(".\\image\\이용약관배경.png"));
 		lblNewLabel_2.setBounds(0, 0, 306, 374);
 		panelTermsConditions.add(lblNewLabel_2);
 		
@@ -354,7 +360,8 @@ public class FrogPizzaJoinMembership extends JFrame {
 				panelJoinMembership.add(textJoinEmail);
 				
 				btnJoinCompletion = new JButton("");
-				btnJoinCompletion.setIcon(new ImageIcon(".\\image\\가입완료버튼.png"));
+				btnJoinCompletion.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/가입완료버튼.png")));
+				//(new ImageIcon(".\\image\\가입완료버튼.png"));
 				btnJoinCompletion.setContentAreaFilled(false);
 				btnJoinCompletion.setBorderPainted(false);
 				btnJoinCompletion.setFocusPainted(false);
@@ -409,7 +416,8 @@ public class FrogPizzaJoinMembership extends JFrame {
 				btnIdCheck.setBorderPainted(false);
 				btnIdCheck.setFocusPainted(false);
 				
-				btnIdCheck.setIcon(new ImageIcon(".\\image\\중복체크.png"));
+				btnIdCheck.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/중복체크.png")));
+				//(new ImageIcon(".\\image\\중복체크.png"));
 				btnIdCheck.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						idCheck();
@@ -425,7 +433,8 @@ public class FrogPizzaJoinMembership extends JFrame {
 				btnPreviousScreen.setBorderPainted(false);
 				btnPreviousScreen.setFocusPainted(false);
 				
-				btnPreviousScreen.setIcon(new ImageIcon(".\\image\\이전화면버튼.png"));
+				btnPreviousScreen.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/이전화면버튼.png")));
+				//(new ImageIcon(".\\image\\이전화면버튼.png"));
 				btnPreviousScreen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						panelJoinMembership.setVisible(false);
@@ -442,7 +451,8 @@ public class FrogPizzaJoinMembership extends JFrame {
 				panelJoinMembership.add(chckbxDuplicateCheck);
 				
 				lblNewLabel_4 = new JLabel("");
-				lblNewLabel_4.setIcon(new ImageIcon(".\\image\\회원가입배경.png"));
+				lblNewLabel_4.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/회원가입배경.png")));
+				//(new ImageIcon(".\\image\\회원가입배경.png"));
 				lblNewLabel_4.setBounds(0, 0, 306, 374);
 				panelJoinMembership.add(lblNewLabel_4);
 	}
@@ -581,7 +591,7 @@ public class FrogPizzaJoinMembership extends JFrame {
 		return result;
 	}
 	if(emailNullCheck) {
-		
+		JOptionPane.showMessageDialog(panelJoinMembership, "이메일을 입력하세요.");
 		return result;
 	}
 	if(atCheck == false) {

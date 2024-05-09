@@ -76,7 +76,7 @@ public class FrogPizzaFrame {
 	//몇번을 호출하든 같은 주소의 OrderMenuDao의 객체가 호출됨.
 	private OrderMenuDao orderMenuDao = OrderMenuDao.getInstance();
 	
-	private OrderingFrame dao = OrderingFrame.getInstance();
+	//private OrderingFrame dao = OrderingFrame.getInstance();
 	
 	//아규먼트로 넘겨받은 메뉴이름정보 저장해서 사용하려고 필드선언
 	private String ckPizzaName;
@@ -265,17 +265,20 @@ public class FrogPizzaFrame {
 		btnSideMenu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSideMenu.setIcon(new ImageIcon(".\\image\\사이드드래그.png"));
+				btnSideMenu.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/사이드드래그.png")));
+				//(new ImageIcon(".\\image\\사이드드래그.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSideMenu.setIcon(new ImageIcon(".\\image\\사이드버튼.png"));
+				btnSideMenu.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/사이드버튼.png")));
+				//(new ImageIcon(".\\image\\사이드버튼.png"));
 			}
 		});
 		btnSideMenu.setContentAreaFilled(false);
 		btnSideMenu.setBorderPainted(false);
 		btnSideMenu.setFocusPainted(false);
-		btnSideMenu.setIcon(new ImageIcon(".\\image\\사이드버튼.png"));
+		btnSideMenu.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/사이드버튼.png")));
+		//(new ImageIcon(".\\image\\사이드버튼.png"));
 		
 		btnSideMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -334,15 +337,18 @@ public class FrogPizzaFrame {
 		btnPrFrogPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnPrFrogPizza.setIcon(new ImageIcon(".\\image\\개구리피자이름가격.png"));
+				btnPrFrogPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리피자이름가격.png")));
+				//(new ImageIcon(".\\image\\개구리피자이름가격.png"));
 				
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnPrFrogPizza.setIcon(new ImageIcon(".\\image\\개구리피자.png"));
+				btnPrFrogPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리피자.png")));
+				//(new ImageIcon(".\\image\\개구리피자.png"));
 			}
 		});
-		btnPrFrogPizza.setIcon(new ImageIcon(".\\image\\개구리피자.png"));
+		btnPrFrogPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리피자.png")));
+		//(new ImageIcon(".\\image\\개구리피자.png"));
 		btnPrFrogPizza.setContentAreaFilled(false);
 		btnPrFrogPizza.setBorderPainted(false);
 		btnPrFrogPizza.setFocusPainted(false);
@@ -370,12 +376,14 @@ public class FrogPizzaFrame {
 		btnBulgogiPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnBulgogiPizza.setIcon(new ImageIcon(".\\image\\불고기피자이름가격.png"));
+				btnBulgogiPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/불고기피자이름가격.png")));
+				//(new ImageIcon(".\\image\\불고기피자이름가격.png"));
 				
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnBulgogiPizza.setIcon(new ImageIcon(".\\image\\불고기피자.png"));
+				btnBulgogiPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/불고기피자.png")));
+				//(new ImageIcon(".\\image\\불고기피자.png"));
 			}
 		});
 
@@ -389,7 +397,8 @@ public class FrogPizzaFrame {
 			}
 		});
 		
-		btnBulgogiPizza.setIcon(new ImageIcon(".\\image\\불고기피자.png"));
+		btnBulgogiPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/불고기피자.png")));
+		//(new ImageIcon(".\\image\\불고기피자.png"));
 		btnBulgogiPizza.setContentAreaFilled(false);
 		btnBulgogiPizza.setBorderPainted(false);
 		btnBulgogiPizza.setFocusPainted(false);
@@ -401,15 +410,18 @@ public class FrogPizzaFrame {
 		btnMushroom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnMushroom.setIcon(new ImageIcon(".\\image\\버섯피자이름가격.png"));
+				btnMushroom.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/버섯피자이름가격.png")));
+				//(new ImageIcon(".\\image\\버섯피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnMushroom.setIcon(new ImageIcon(".\\image\\버섯피자.png"));
+				btnMushroom.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/버섯피자.png")));
+				//(new ImageIcon(".\\image\\버섯피자.png"));
 			}
 		});
 		
-		btnMushroom.setIcon(new ImageIcon(".\\image\\버섯피자.png"));
+		btnMushroom.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/버섯피자.png")));
+		//(new ImageIcon(".\\image\\버섯피자.png"));
 		
 		btnMushroom.setContentAreaFilled(false);//-> 버튼 배경 채우기 안함.이게 사실상 투명으로
 		btnMushroom.setBorderPainted(false); //->버튼의 외곽선 없애줌
@@ -432,16 +444,19 @@ public class FrogPizzaFrame {
 		btnTomatoPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnTomatoPizza.setIcon(new ImageIcon(".\\image\\토마토피자이름가격.png"));
+				btnTomatoPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/토마토피자이름가격.png")));
+				//(new ImageIcon(".\\image\\토마토피자이름가격.png"));
 				
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnTomatoPizza.setIcon(new ImageIcon(".\\image\\토마토피자.png"));
+				btnTomatoPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/토마토피자.png")));
+				//(new ImageIcon(".\\image\\토마토피자.png"));
 			}
 		});
-		btnTomatoPizza.setIcon(new ImageIcon(".\\image\\토마토피자.png"));
+		btnTomatoPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/토마토피자.png")));
+		//(new ImageIcon(".\\image\\토마토피자.png"));
 		btnTomatoPizza.setContentAreaFilled(false);
 		btnTomatoPizza.setBorderPainted(false);
 		btnTomatoPizza.setFocusPainted(false);
@@ -460,14 +475,17 @@ public class FrogPizzaFrame {
 		btnShrimpPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnShrimpPizza.setIcon(new ImageIcon(".\\image\\슈림프피자이름가격.png"));
+				btnShrimpPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/슈림프피자이름가격.png")));
+				//(new ImageIcon(".\\image\\슈림프피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnShrimpPizza.setIcon(new ImageIcon(".\\image\\슈림프피자.png"));
+				btnShrimpPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/슈림프피자.png")));
+				//(new ImageIcon(".\\image\\슈림프피자.png"));
 			}
 		});
-		btnShrimpPizza.setIcon(new ImageIcon(".\\image\\슈림프피자.png"));
+		btnShrimpPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/슈림프피자.png")));
+		//(new ImageIcon(".\\image\\슈림프피자.png"));
 		btnShrimpPizza.setContentAreaFilled(false);
 		btnShrimpPizza.setBorderPainted(false); //->버튼의 외곽선 없애줌
 		btnShrimpPizza.setFocusPainted(false);//->선택되었을때 생기는 얇은 점선 테두리 사용 안함이라는데
@@ -487,14 +505,17 @@ public class FrogPizzaFrame {
 		btnPepperoniPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnPepperoniPizza.setIcon(new ImageIcon(".\\image\\페퍼로니피자이름가격.png"));
+				btnPepperoniPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/페퍼로니피자이름가격.png")));
+				//(new ImageIcon(".\\image\\페퍼로니피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnPepperoniPizza.setIcon(new ImageIcon(".\\image\\페퍼로니피자.png"));
+				btnPepperoniPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/페퍼로니피자.png")));
+				//(new ImageIcon(".\\image\\페퍼로니피자.png"));
 			}
 		});
-		btnPepperoniPizza.setIcon(new ImageIcon(".\\image\\페퍼로니피자.png"));
+		btnPepperoniPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/페퍼로니피자.png")));
+		//(new ImageIcon(".\\image\\페퍼로니피자.png"));
 		btnPepperoniPizza.setContentAreaFilled(false);
 		btnPepperoniPizza.setFocusPainted(false);
 		btnPepperoniPizza.setBorderPainted(false);
@@ -514,17 +535,20 @@ public class FrogPizzaFrame {
 		btnPotatoPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnPotatoPizza.setIcon(new ImageIcon(".\\image\\포테이토피자이름가격.png"));
+				btnPotatoPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/포테이토피자이름가격.png")));
+				//(new ImageIcon(".\\image\\포테이토피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnPotatoPizza.setIcon(new ImageIcon(".\\image\\포테이토피자.png"));
+				btnPotatoPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/포테이토피자.png")));
+				//(new ImageIcon(".\\image\\포테이토피자.png"));
 			}
 		});
 		btnPotatoPizza.setContentAreaFilled(false);
 		btnPotatoPizza.setBorderPainted(false);
 		btnPotatoPizza.setFocusPainted(false);
-		btnPotatoPizza.setIcon(new ImageIcon(".\\image\\포테이토피자.png"));
+		btnPotatoPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/포테이토피자.png")));
+		//(new ImageIcon(".\\image\\포테이토피자.png"));
 		btnPotatoPizza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String pizzaName = "포테이토피자";
@@ -539,14 +563,17 @@ public class FrogPizzaFrame {
 		btnCheesePizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnCheesePizza.setIcon(new ImageIcon(".\\image\\치즈피자이름가격.png"));
+				btnCheesePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/치즈피자이름가격.png")));
+				//(new ImageIcon(".\\image\\치즈피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnCheesePizza.setIcon(new ImageIcon(".\\image\\치즈피자.png"));
+				btnCheesePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/치즈피자.png")));
+				//(new ImageIcon(".\\image\\치즈피자.png"));
 			}
 		});
-		btnCheesePizza.setIcon(new ImageIcon(".\\image\\치즈피자.png"));
+		btnCheesePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/치즈피자.png")));
+		//(new ImageIcon(".\\image\\치즈피자.png"));
 		btnCheesePizza.setContentAreaFilled(false);
 		btnCheesePizza.setBorderPainted(false);
 		btnCheesePizza.setFocusPainted(false);
@@ -565,17 +592,20 @@ public class FrogPizzaFrame {
 		btnVegetablePizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnVegetablePizza.setIcon(new ImageIcon(".\\image\\야채피자이름가격.png"));
+				btnVegetablePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/야채피자이름가격.png")));
+				//(new ImageIcon(".\\image\\야채피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnVegetablePizza.setIcon(new ImageIcon(".\\image\\야채피자.png"));
+				btnVegetablePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/야채피자.png")));
+				//(new ImageIcon(".\\image\\야채피자.png"));
 			}
 			
 		});
 		
 		btnVegetablePizza.setContentAreaFilled(false);
-		btnVegetablePizza.setIcon(new ImageIcon(".\\image\\야채피자.png"));
+		btnVegetablePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/야채피자.png")));
+		//(new ImageIcon(".\\image\\야채피자.png"));
 		btnVegetablePizza.setBorderPainted(false); //->버튼의 외곽선 없애줌
 		btnVegetablePizza.setFocusPainted(false);//->선택되었을때 생기는 얇은 점선 테두리 사용 안함이라는데
 		
@@ -593,17 +623,20 @@ public class FrogPizzaFrame {
 		btnSweetPotatoPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSweetPotatoPizza.setIcon(new ImageIcon(".\\image\\고구마피자이름가격.png"));
+				btnSweetPotatoPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/고구마피자이름가격.png")));
+				//(new ImageIcon(".\\image\\고구마피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSweetPotatoPizza.setIcon(new ImageIcon(".\\image\\고구마피자.png"));
+				btnSweetPotatoPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/고구마피자.png")));
+				//(new ImageIcon(".\\image\\고구마피자.png"));
 			}
 		});
 		btnSweetPotatoPizza.setContentAreaFilled(false);
 		btnSweetPotatoPizza.setBorderPainted(false);
 		btnSweetPotatoPizza.setFocusPainted(false);
-		btnSweetPotatoPizza.setIcon(new ImageIcon(".\\image\\고구마피자.png"));
+		btnSweetPotatoPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/고구마피자.png")));
+		//(new ImageIcon(".\\image\\고구마피자.png"));
 		btnSweetPotatoPizza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String pizzaName = "고구마피자";
@@ -618,14 +651,17 @@ public class FrogPizzaFrame {
 		btnPineapplePizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnPineapplePizza.setIcon(new ImageIcon(".\\image\\파인애플피자이름가격.png"));
+				btnPineapplePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/파인애플피자이름가격.png")));
+				//(new ImageIcon(".\\image\\파인애플피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnPineapplePizza.setIcon(new ImageIcon(".\\image\\파인애플피자.png"));
+				btnPineapplePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/파인애플피자.png")));
+				//(new ImageIcon(".\\image\\파인애플피자.png"));
 			}
 		});
-		btnPineapplePizza.setIcon(new ImageIcon(".\\image\\파인애플피자.png"));
+		btnPineapplePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/파인애플피자.png")));
+		//(new ImageIcon(".\\image\\파인애플피자.png"));
 		btnPineapplePizza.setContentAreaFilled(false);
 		btnPineapplePizza.setFocusPainted(false);
 		btnPineapplePizza.setBorderPainted(false);
@@ -644,18 +680,21 @@ public class FrogPizzaFrame {
 		btnWesternSpinachPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnWesternSpinachPizza.setIcon(new ImageIcon(".\\image\\루꼴라피자이름가격.png"));
+				btnWesternSpinachPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/루꼴라피자이름가격.png")));
+				//(new ImageIcon(".\\image\\루꼴라피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnWesternSpinachPizza.setIcon(new ImageIcon(".\\image\\루꼴라피자.png"));
+				btnWesternSpinachPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/루꼴라피자.png")));
+				//(new ImageIcon(".\\image\\루꼴라피자.png"));
 			}
 		});
 		btnWesternSpinachPizza.setContentAreaFilled(false);
 		btnWesternSpinachPizza.setBorderPainted(false);
 		btnWesternSpinachPizza.setFocusPainted(false);
 		
-		btnWesternSpinachPizza.setIcon(new ImageIcon(".\\image\\루꼴라피자.png"));
+		btnWesternSpinachPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/루꼴라피자.png")));
+		//(new ImageIcon(".\\image\\루꼴라피자.png"));
 		btnWesternSpinachPizza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String pizzaName = "루꼴라피자";
@@ -670,18 +709,21 @@ public class FrogPizzaFrame {
 		btnMintChocolatePizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnMintChocolatePizza.setIcon(new ImageIcon(".\\image\\민트초코피자이름가격.png"));
+				btnMintChocolatePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/민트초코피자이름가격.png")));
+				//(new ImageIcon(".\\image\\민트초코피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnMintChocolatePizza.setIcon(new ImageIcon(".\\image\\민초피자.png"));
+				btnMintChocolatePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/민초피자.png")));
+				//(new ImageIcon(".\\image\\민초피자.png"));
 			}
 		});
 		btnMintChocolatePizza.setContentAreaFilled(false);
 		btnMintChocolatePizza.setBorderPainted(false);
 		btnMintChocolatePizza.setFocusPainted(false);
 		
-		btnMintChocolatePizza.setIcon(new ImageIcon(".\\image\\민초피자.png"));
+		btnMintChocolatePizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/민초피자.png")));
+		//(new ImageIcon(".\\image\\민초피자.png"));
 		btnMintChocolatePizza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String pizzaName = "민트초코피자";
@@ -696,14 +738,17 @@ public class FrogPizzaFrame {
 		btnBananaPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnBananaPizza.setIcon(new ImageIcon(".\\image\\바나나피자이름가격.png"));
+				btnBananaPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/바나나피자이름가격.png")));
+				//(new ImageIcon(".\\image\\바나나피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnBananaPizza.setIcon(new ImageIcon(".\\image\\바나나피자.png"));
+				btnBananaPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/바나나피자.png")));
+				//(new ImageIcon(".\\image\\바나나피자.png"));
 			}
 		});
-		btnBananaPizza.setIcon(new ImageIcon(".\\image\\바나나피자.png"));
+		btnBananaPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/바나나피자.png")));
+		//(new ImageIcon(".\\image\\바나나피자.png"));
 		btnBananaPizza.setContentAreaFilled(false);
 		btnBananaPizza.setBorderPainted(false);
 		btnBananaPizza.setFocusPainted(false);
@@ -721,14 +766,17 @@ public class FrogPizzaFrame {
 		btnMalaFlavorPizza.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnMalaFlavorPizza.setIcon(new ImageIcon(".\\image\\마라맛피자이름가격.png"));
+				btnMalaFlavorPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/마라맛피자이름가격.png")));
+				//(new ImageIcon(".\\image\\마라맛피자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnMalaFlavorPizza.setIcon(new ImageIcon(".\\image\\마라맛피자.png"));
+				btnMalaFlavorPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/마라맛피자.png")));
+				//(new ImageIcon(".\\image\\마라맛피자.png"));
 			}
 		});
-		btnMalaFlavorPizza.setIcon(new ImageIcon(".\\image\\마라맛피자.png"));
+		btnMalaFlavorPizza.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/마라맛피자.png")));
+		//(new ImageIcon(".\\image\\마라맛피자.png"));
 		btnMalaFlavorPizza.setContentAreaFilled(false);
 		btnMalaFlavorPizza.setFocusPainted(false);
 		btnMalaFlavorPizza.setBorderPainted(false);
@@ -745,7 +793,8 @@ public class FrogPizzaFrame {
 		
 		lblOrderPizzaBackgroundImage = new JLabel("");
 		
-		lblOrderPizzaBackgroundImage.setIcon(new ImageIcon(".\\image\\피자배경.png"));
+		lblOrderPizzaBackgroundImage.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자배경.png")));
+		//(new ImageIcon(".\\image\\피자배경.png"));
 		lblOrderPizzaBackgroundImage.setBounds(0, 0, 1258, 618);
 		panelPizzaMenu.add(lblOrderPizzaBackgroundImage);
 		
@@ -760,17 +809,20 @@ public class FrogPizzaFrame {
 		btnDrinkFrogAde.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnDrinkFrogAde.setIcon(new ImageIcon(".\\image\\개구리에이드이름가격.png"));
+				btnDrinkFrogAde.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리에이드이름가격.png")));
+				//(new ImageIcon(".\\image\\개구리에이드이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnDrinkFrogAde.setIcon(new ImageIcon(".\\image\\개구리에이드.png"));
+				btnDrinkFrogAde.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리에이드.png")));
+				//(new ImageIcon(".\\image\\개구리에이드.png"));
 			}
 		});
 		btnDrinkFrogAde.setContentAreaFilled(false);
 		btnDrinkFrogAde.setBorderPainted(false);
 		btnDrinkFrogAde.setFocusPainted(false);
-		btnDrinkFrogAde.setIcon(new ImageIcon(".\\image\\개구리에이드.png"));
+		btnDrinkFrogAde.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리에이드.png")));
+		//(new ImageIcon(".\\image\\개구리에이드.png"));
 		btnDrinkFrogAde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String drinkName = "☆개구리에이드☆";
@@ -787,17 +839,20 @@ public class FrogPizzaFrame {
 		btnDrinkCoke.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnDrinkCoke.setIcon(new ImageIcon(".\\image\\콜라이름가격.png"));
+				btnDrinkCoke.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/콜라이름가격.png")));
+				//(new ImageIcon(".\\image\\콜라이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnDrinkCoke.setIcon(new ImageIcon(".\\image\\콜라.png"));
+				btnDrinkCoke.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/콜라.png")));
+				//(new ImageIcon(".\\image\\콜라.png"));
 			}
 		});
 		btnDrinkCoke.setContentAreaFilled(false);
 		btnDrinkCoke.setBorderPainted(false);
 		btnDrinkCoke.setFocusPainted(false);
-		btnDrinkCoke.setIcon(new ImageIcon(".\\image\\콜라.png"));
+		btnDrinkCoke.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/콜라.png")));
+		//(new ImageIcon(".\\image\\콜라.png"));
 		btnDrinkCoke.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String drinkName = "콜라500ml";
@@ -814,17 +869,20 @@ public class FrogPizzaFrame {
 		btnDrinkZeroCoke.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnDrinkZeroCoke.setIcon(new ImageIcon(".\\image\\제로콜라이름가격.png"));
+				btnDrinkZeroCoke.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/제로콜라이름가격.png")));
+				//(new ImageIcon(".\\image\\제로콜라이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnDrinkZeroCoke.setIcon(new ImageIcon(".\\image\\제로콜라.png"));
+				btnDrinkZeroCoke.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/제로콜라.png")));
+				//(new ImageIcon(".\\image\\제로콜라.png"));
 			}
 		});
 		btnDrinkZeroCoke.setContentAreaFilled(false);
 		btnDrinkZeroCoke.setBorderPainted(false);
 		btnDrinkZeroCoke.setFocusPainted(false);
-		btnDrinkZeroCoke.setIcon(new ImageIcon(".\\image\\제로콜라.png"));
+		btnDrinkZeroCoke.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/제로콜라.png")));
+		//(new ImageIcon(".\\image\\제로콜라.png"));
 		btnDrinkZeroCoke.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String drinkName = "제로콜라500ml";
@@ -841,14 +899,17 @@ public class FrogPizzaFrame {
 		btnDrinkSprite.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnDrinkSprite.setIcon(new ImageIcon(".\\image\\스프라이트이름가격.png"));
+				btnDrinkSprite.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/스프라이트이름가격.png")));
+				//(new ImageIcon(".\\image\\스프라이트이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnDrinkSprite.setIcon(new ImageIcon(".\\image\\스프라이트.png"));
+				btnDrinkSprite.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/스프라이트.png")));
+				//(new ImageIcon(".\\image\\스프라이트.png"));
 			}
 		});
-		btnDrinkSprite.setIcon(new ImageIcon(".\\image\\스프라이트.png"));
+		btnDrinkSprite.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/스프라이트.png")));
+		//(new ImageIcon(".\\image\\스프라이트.png"));
 		btnDrinkSprite.setContentAreaFilled(false);
 		btnDrinkSprite.setBorderPainted(false);
 		btnDrinkSprite.setFocusPainted(false);
@@ -863,7 +924,8 @@ public class FrogPizzaFrame {
 		panelDrinkMenu.add(btnDrinkSprite);
 		
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(".\\image\\피자배경.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자배경.png")));
+		//(new ImageIcon(".\\image\\피자배경.png"));
 		lblNewLabel_1.setBounds(0, 0, 1018, 618);
 		panelDrinkMenu.add(lblNewLabel_1);
 		
@@ -881,14 +943,17 @@ public class FrogPizzaFrame {
 		btnSideSpaghettiFullOfPepperoni.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSideSpaghettiFullOfPepperoni.setIcon(new ImageIcon(".\\image\\페퍼로니가득스파게티이름가격.png"));
+				btnSideSpaghettiFullOfPepperoni.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/페퍼로니가득스파게티이름가격.png")));
+				//(new ImageIcon(".\\image\\페퍼로니가득스파게티이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSideSpaghettiFullOfPepperoni.setIcon(new ImageIcon(".\\image\\페퍼로니가득스파게티.png"));
+				btnSideSpaghettiFullOfPepperoni.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/페퍼로니가득스파게티.png")));
+				//(new ImageIcon(".\\image\\페퍼로니가득스파게티.png"));
 			}
 		});
-		btnSideSpaghettiFullOfPepperoni.setIcon(new ImageIcon(".\\image\\페퍼로니가득스파게티.png"));
+		btnSideSpaghettiFullOfPepperoni.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/페퍼로니가득스파게티.png")));
+		//(new ImageIcon(".\\image\\페퍼로니가득스파게티.png"));
 		btnSideSpaghettiFullOfPepperoni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String sideName = "페퍼로니가득스파게티";
@@ -905,17 +970,20 @@ public class FrogPizzaFrame {
 		btnSidePastaFullOfBacon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSidePastaFullOfBacon.setIcon(new ImageIcon(".\\image\\베이컨가득까르보나라이름가격.png"));
+				btnSidePastaFullOfBacon.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/베이컨가득까르보나라이름가격.png")));
+				//(new ImageIcon(".\\image\\베이컨가득까르보나라이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSidePastaFullOfBacon.setIcon(new ImageIcon(".\\image\\베이컨가득까르보나라.png"));
+				btnSidePastaFullOfBacon.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/베이컨가득까르보나라.png")));
+				//(new ImageIcon(".\\image\\베이컨가득까르보나라.png"));
 			}
 		});
 		btnSidePastaFullOfBacon.setContentAreaFilled(false);
 		btnSidePastaFullOfBacon.setBorderPainted(false);
 		btnSidePastaFullOfBacon.setFocusPainted(false);
-		btnSidePastaFullOfBacon.setIcon(new ImageIcon(".\\image\\베이컨가득까르보나라.png"));
+		btnSidePastaFullOfBacon.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/베이컨가득까르보나라.png")));
+		//(new ImageIcon(".\\image\\베이컨가득까르보나라.png"));
 		btnSidePastaFullOfBacon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String sideName = "베이컨가득까르보나라";
@@ -935,14 +1003,17 @@ public class FrogPizzaFrame {
 		btnSideConsommeSeasonedPotatoes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSideConsommeSeasonedPotatoes.setIcon(new ImageIcon(".\\image\\콘소메양념감자이름가격.png"));
+				btnSideConsommeSeasonedPotatoes.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/콘소메양념감자이름가격.png")));
+				//(new ImageIcon(".\\image\\콘소메양념감자이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSideConsommeSeasonedPotatoes.setIcon(new ImageIcon(".\\image\\콘소메양념감자.png"));
+				btnSideConsommeSeasonedPotatoes.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/콘소메양념감자.png")));
+				//(new ImageIcon(".\\image\\콘소메양념감자.png"));
 			}
 		});
-		btnSideConsommeSeasonedPotatoes.setIcon(new ImageIcon(".\\image\\콘소메양념감자.png"));
+		btnSideConsommeSeasonedPotatoes.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/콘소메양념감자.png")));
+		//(new ImageIcon(".\\image\\콘소메양념감자.png"));
 		btnSideConsommeSeasonedPotatoes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String sideName = "콘소메양념감자";
@@ -962,14 +1033,17 @@ public class FrogPizzaFrame {
 		btnSideSweetRiceCheeseBalls.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSideSweetRiceCheeseBalls.setIcon(new ImageIcon(".\\image\\찰지츠볼이름가격.png"));
+				btnSideSweetRiceCheeseBalls.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/찰지츠볼이름가격.png")));
+				//(new ImageIcon(".\\image\\찰지츠볼이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSideSweetRiceCheeseBalls.setIcon(new ImageIcon(".\\image\\찰치즈볼.png"));
+				btnSideSweetRiceCheeseBalls.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/찰치즈볼.png")));
+				//(new ImageIcon(".\\image\\찰치즈볼.png"));
 			}
 		});
-		btnSideSweetRiceCheeseBalls.setIcon(new ImageIcon(".\\image\\찰치즈볼.png"));
+		btnSideSweetRiceCheeseBalls.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/찰치즈볼.png")));
+				//(".\\image\\찰치즈볼.png"));
 		btnSideSweetRiceCheeseBalls.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String sideName = "찰치즈볼";
@@ -986,17 +1060,20 @@ public class FrogPizzaFrame {
 		btnSideGreenSalad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSideGreenSalad.setIcon(new ImageIcon(".\\image\\그린샐러드이름가격.png"));
+				btnSideGreenSalad.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/그린샐러드이름가격.png")));
+				//(new ImageIcon(".\\image\\그린샐러드이름가격.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSideGreenSalad.setIcon(new ImageIcon(".\\image\\그린샐러드.png"));
+				btnSideGreenSalad.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/그린샐러드.png")));
+				//(new ImageIcon(".\\image\\그린샐러드.png"));
 			}
 		});
 		btnSideGreenSalad.setContentAreaFilled(false);
 		btnSideGreenSalad.setBorderPainted(false);
 		btnSideGreenSalad.setFocusPainted(false);
-		btnSideGreenSalad.setIcon(new ImageIcon(".\\image\\그린샐러드.png"));
+		btnSideGreenSalad.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/그린샐러드.png")));
+		//(new ImageIcon(".\\image\\그린샐러드.png"));
 		btnSideGreenSalad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String sideName = "그린샐러드";
@@ -1008,7 +1085,8 @@ public class FrogPizzaFrame {
 		panelSideMenu.add(btnSideGreenSalad);
 		
 		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(".\\image\\피자배경.png"));
+		lblNewLabel_2.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자배경.png")));
+		//(new ImageIcon(".\\image\\피자배경.png"));
 		lblNewLabel_2.setBounds(0, 0, 1018, 618);
 		panelSideMenu.add(lblNewLabel_2);
 		
@@ -1056,7 +1134,8 @@ public class FrogPizzaFrame {
 		btnPaymentButton.setContentAreaFilled(false);
 		btnPaymentButton.setBorderPainted(false);
 		btnPaymentButton.setFocusPainted(false);
-		btnPaymentButton.setIcon(new ImageIcon(".\\image\\개구리버튼.png"));
+		btnPaymentButton.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리버튼.png")));
+		//(new ImageIcon(".\\image\\개구리버튼.png"));
 		//주문하기 버튼 클릭시 실행 되는 코드
 		btnPaymentButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1095,7 +1174,8 @@ public class FrogPizzaFrame {
 		textTotalsum.setColumns(10);
 		
 		lblPaymentAmount = new JLabel("");
-		lblPaymentAmount.setIcon(new ImageIcon(".\\image\\결제금액.png"));
+		lblPaymentAmount.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/결제금액.png")));
+		//(new ImageIcon(".\\image\\결제금액.png"));
 		lblPaymentAmount.setFont(new Font("HY헤드라인M", Font.PLAIN, 20));
 		lblPaymentAmount.setBounds(790, 657, 100, 30);
 		panelOrderMenuBackground.add(lblPaymentAmount);
@@ -1103,11 +1183,12 @@ public class FrogPizzaFrame {
 		panelShoppinBasket = new JPanel();
 		panelShoppinBasket.setVisible(false);
 		panelShoppinBasket.setLayout(null);
-		panelShoppinBasket.setBounds(0, 0, 1258, 618);
+		panelShoppinBasket.setBounds(0, 0, 1018, 618);
 		panelOrderMenuBackground.add(panelShoppinBasket);
 		
 		lblNewLabel_6 = new JLabel("");
-		lblNewLabel_6.setIcon(new ImageIcon(".\\image\\피자메인판넬.png"));
+		lblNewLabel_6.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리주인장.png")));
+		//(new ImageIcon(".\\image\\피자메인판넬.png"));
 		lblNewLabel_6.setBounds(0, 0, 1018, 618);
 		panelShoppinBasket.add(lblNewLabel_6);
 		
@@ -1191,8 +1272,9 @@ public class FrogPizzaFrame {
 		
 		
 		lblOrderTableBackgroundImage = new JLabel("");
-		lblOrderTableBackgroundImage.setIcon(new ImageIcon(".\\image\\피자메인판넬.png"));
-		lblOrderTableBackgroundImage.setBounds(0, 0, 1258, 865);
+		lblOrderTableBackgroundImage.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자메인판넬.png")));
+		//(new ImageIcon(".\\image\\피자메인판넬.png"));
+		lblOrderTableBackgroundImage.setBounds(0, 0, 1018, 961);
 		panelOrderMenuBackground.add(lblOrderTableBackgroundImage);
 		btnSideMenu.setBounds(509, 0, 255, 96);
 		panelMainMenuBackground.add(btnSideMenu);
@@ -1201,15 +1283,27 @@ public class FrogPizzaFrame {
 		tableOrderSide.getTableHeader().setReorderingAllowed(false); 
 		
 		btnShoppinBasket = new JButton("");
+		btnShoppinBasket.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnShoppinBasket.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리주인장버튼드래그.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnShoppinBasket.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리주인장버튼.png")));
+			}
+		});
+		btnShoppinBasket.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/개구리주인장버튼.png")));
 		btnShoppinBasket.setContentAreaFilled(false);
 		btnShoppinBasket.setBorderPainted(false);
 		btnShoppinBasket.setFocusPainted(false);
 		btnShoppinBasket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panelShoppinBasket.setVisible(true);
 				panelPizzaMenu.setVisible(false);
 				panelDrinkMenu.setVisible(false);
 				panelSideMenu.setVisible(false);
-				panelShoppinBasket.setVisible(true);
+				
 			}
 		});
 		btnShoppinBasket.setBounds(762, 0, 255, 96);
@@ -1219,17 +1313,20 @@ public class FrogPizzaFrame {
 		btnPizzaMenu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnPizzaMenu.setIcon(new ImageIcon(".\\image\\피자드래그.png"));
+				btnPizzaMenu.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자드래그.png")));
+				//(new ImageIcon(".\\image\\피자드래그.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnPizzaMenu.setIcon(new ImageIcon(".\\image\\피자버튼.png"));
+				btnPizzaMenu.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자버튼.png")));
+				//(new ImageIcon(".\\image\\피자버튼.png"));
 			}
 		});
 		btnPizzaMenu.setContentAreaFilled(false);
 		btnPizzaMenu.setBorderPainted(false);
 		btnPizzaMenu.setFocusPainted(false);
-		btnPizzaMenu.setIcon(new ImageIcon(".\\image\\피자버튼.png"));
+		btnPizzaMenu.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자버튼.png")));
+		//(new ImageIcon(".\\image\\피자버튼.png"));
 		
 		btnPizzaMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1278,17 +1375,20 @@ public class FrogPizzaFrame {
 		btnDrinkMenu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnDrinkMenu.setIcon(new ImageIcon(".\\image\\음료드래그.png"));
+				btnDrinkMenu.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/음료드래그.png")));
+				//(new ImageIcon(".\\image\\음료드래그.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnDrinkMenu.setIcon(new ImageIcon(".\\image\\음료버튼.png"));
+				btnDrinkMenu.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/음료버튼.png")));
+				//(new ImageIcon(".\\image\\음료버튼.png"));
 			}
 		});
 		btnDrinkMenu.setContentAreaFilled(false);
 		btnDrinkMenu.setBorderPainted(false);
 		btnDrinkMenu.setFocusPainted(false);
-		btnDrinkMenu.setIcon(new ImageIcon(".\\image\\음료버튼.png"));
+		btnDrinkMenu.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/음료버튼.png")));
+		//(new ImageIcon(".\\image\\음료버튼.png"));
 		
 		btnDrinkMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1333,7 +1433,8 @@ public class FrogPizzaFrame {
 		panelMainMenuBackground.add(btnDrinkMenu);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(".\\image\\메뉴선택배경.png"));
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/메뉴선택배경.png")));
+		//(new ImageIcon(".\\image\\메뉴선택배경.png"));
 		lblNewLabel.setBounds(0, 0, 1018, 96);
 		panelMainMenuBackground.add(lblNewLabel);
 		
@@ -1349,17 +1450,20 @@ public class FrogPizzaFrame {
 		btnOrderMenuButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnOrderMenuButton.setIcon(new ImageIcon(".\\image\\메뉴드래그.png"));
+				btnOrderMenuButton.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/메뉴드래그.png")));
+				//(new ImageIcon(".\\image\\메뉴드래그.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnOrderMenuButton.setIcon(new ImageIcon(".\\image\\메뉴보기버튼.png"));
+				btnOrderMenuButton.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/메뉴보기버튼.png")));
+				//(new ImageIcon(".\\image\\메뉴보기버튼.png"));
 			}
 		});
 		btnOrderMenuButton.setContentAreaFilled(false);
 		btnOrderMenuButton.setBorderPainted(false);
 		btnOrderMenuButton.setFocusPainted(false);
-		btnOrderMenuButton.setIcon(new ImageIcon(".\\image\\메뉴보기버튼.png"));
+		btnOrderMenuButton.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/메뉴보기버튼.png")));
+		//(new ImageIcon(".\\image\\메뉴보기버튼.png"));
 		
 		btnOrderMenuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1456,7 +1560,7 @@ public class FrogPizzaFrame {
 				//showOrderHistory(lloginId);
 				//showOrderHistory2(lloginId);
 				//showOrderTable(lloginId);
-				
+				showOrderHistory(lloginId);
 				
 				panelOrderConfirmation.setVisible(true);
 				lblOrderConfirmationB.setVisible(true);
@@ -1509,17 +1613,20 @@ public class FrogPizzaFrame {
 		btnOrderDetailsButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnOrderDetailsButton.setIcon(new ImageIcon(".\\image\\주문내역드래그.png"));
+				btnOrderDetailsButton.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/주문내역드래그.png")));
+				//(new ImageIcon(".\\image\\주문내역드래그.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnOrderDetailsButton.setIcon(new ImageIcon(".\\image\\주문내역버튼.png"));
+				btnOrderDetailsButton.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/주문내역버튼.png")));
+				//(new ImageIcon(".\\image\\주문내역버튼.png"));
 			}
 		});
 		btnOrderDetailsButton.setContentAreaFilled(false);
 		btnOrderDetailsButton.setBorderPainted(false);
 		btnOrderDetailsButton.setFocusPainted(false);
-		btnOrderDetailsButton.setIcon(new ImageIcon(".\\image\\주문내역버튼.png"));
+		btnOrderDetailsButton.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/주문내역버튼.png")));
+		//(new ImageIcon(".\\image\\주문내역버튼.png"));
 		btnOrderDetailsButton.setBounds(0, 192, 226, 96);
 		panelSelectBtn.add(btnOrderDetailsButton);
 		
@@ -1535,32 +1642,39 @@ public class FrogPizzaFrame {
 				logOut();
 			}
 		});
-		btnLogOut.setBounds(50, 350, 97, 24);
+		btnLogOut.setBounds(50, 370, 97, 24);
 		panelSelectBtn.add(btnLogOut);
 		
 		lblIdName = new JLabel("");
 		lblIdName.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		String showLoginId = lloginId + "님 피자를 주문해주세요";
+		String showLoginId = lloginId + "님";
 		lblIdName.setText(showLoginId);
 		
-		lblIdName.setBounds(30, 310, 200, 30);
+		lblIdName.setBounds(40, 310, 200, 30);
 		panelSelectBtn.add(lblIdName);
 		
 		lblToday = new JLabel("");
 		LocalDate now = LocalDate.now();         
 		String showToday = now + "";
+		
+		JLabel lblNewLabel_3 = new JLabel("피자를 주문해주세요");
+		lblNewLabel_3.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		lblNewLabel_3.setBounds(40, 335, 200, 30);
+		panelSelectBtn.add(lblNewLabel_3);
 		lblToday.setText(showToday);
 		lblToday.setFont(new Font("맑은 고딕", Font.BOLD, 14));
-		lblToday.setBounds(30, 290, 200, 30);
+		lblToday.setBounds(40, 290, 200, 30);
 		panelSelectBtn.add(lblToday);
 		
 		lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon(".\\image\\로고메인.png"));
+		lblNewLabel_4.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/로고메인.png")));
+		//(new ImageIcon(".\\image\\로고메인.png"));
 		lblNewLabel_4.setBounds(0, 0, 227, 94);
 		panelSelectBtn.add(lblNewLabel_4);
 		
 		JLabel lblSideBackgroundImage = new JLabel("");
-		lblSideBackgroundImage.setIcon(new ImageIcon(".\\image\\왼쪽판넬메뉴배경.png"));
+		lblSideBackgroundImage.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/왼쪽판넬메뉴배경.png")));
+		//(new ImageIcon(".\\image\\왼쪽판넬메뉴배경.png"));
 		lblSideBackgroundImage.setBounds(0, 0, 230, 961);
 		panelSelectBtn.add(lblSideBackgroundImage);
 		
@@ -1572,7 +1686,8 @@ public class FrogPizzaFrame {
 		panelMain.setLayout(null);
 		
 		JLabel lblMainBackgroundImage = new JLabel("");
-		lblMainBackgroundImage.setIcon(new ImageIcon(".\\image\\피자메인판넬.png"));
+		lblMainBackgroundImage.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자메인판넬.png")));
+		//(new ImageIcon(".\\image\\피자메인판넬.png"));
 		lblMainBackgroundImage.setBounds(0, 0, 1244, 961);
 		panelMain.add(lblMainBackgroundImage);
 		
@@ -1639,9 +1754,15 @@ public class FrogPizzaFrame {
 		tableOrderConfirmation.getTableHeader().setReorderingAllowed(false); 
 		scrollPane_3.setViewportView(tableOrderConfirmation);
 		
+		lblNewLabel_5 = new JLabel("주문내역");
+		lblNewLabel_5.setFont(new Font("새굴림", Font.BOLD, 30));
+		lblNewLabel_5.setBounds(50, 30, 300, 70);
+		panelOrderConfirmation.add(lblNewLabel_5);
+		
 		lblOrderConfirmationB = new JLabel("");
 		
-		lblOrderConfirmationB.setIcon(new ImageIcon(".\\image\\주문내역배경.png"));
+		lblOrderConfirmationB.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/주문내역배경.png")));
+		//(new ImageIcon(".\\image\\주문내역배경.png"));
 		lblOrderConfirmationB.setBounds(0, 0, 1018, 961);
 		panelOrderConfirmation.add(lblOrderConfirmationB);
 		
@@ -2364,6 +2485,7 @@ public class FrogPizzaFrame {
 			public List<OrderTb> showOrderHistory(String loginId) {
 //				showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
 				//this.loginId = loginId;
+				 orderModel = new DefaultTableModel(null, COLUMN_ORDER_HISTORY);
 				List<OrderTb> orderHistory = new ArrayList<>();
 				orderHistory = orderTbRead(loginId);
 				// TODO 프린트 주석 나중에 지우기
@@ -2388,6 +2510,7 @@ public class FrogPizzaFrame {
 					orderModel.addRow(row);
 					panelHidig();
 				}
+				tableOrderConfirmation.setModel(orderModel);
 				return orderHistory;
 				}
 	    
@@ -2395,6 +2518,7 @@ public class FrogPizzaFrame {
 			private static final String SQL_SELECT_ORDER_MENU_RS = String.format(
 					"select * from %s where %s = ?", // 주의 여기 sql문장에서는 ;안 붙여야함
 					TBL_ORDER_TB, COL_ORDER_ID);
+			private JLabel lblNewLabel_5;
 				// "select * from FROG_DRINK_MENU_TB where DRINK_NAME = ?";
 			
 			public List<OrderTb> orderTbRead(String loginId) {
@@ -2442,211 +2566,4 @@ public class FrogPizzaFrame {
 			private void panelHidig() {
 				panelOrderConfirmation.setVisible(false);
 			} 
-	 
-			
-			
-			
-			/////////////////
-//		    //주문내역 테이블에 행 추가하기 --포장하기
-//			public List<OrderTb> showOrderHistory2 (String loginId) {
-////				showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
-//				//this.loginId = loginId;
-//				List<OrderTb> orderHistory = new ArrayList<>();
-//				orderHistory = orderTbRead2(loginId);
-//				// TODO 프린트 주석 나중에 지우기
-//				//System.out.println(orderFrogDrink);
-//				for (OrderTb o : orderHistory) {
-//					Object[] row = {
-//							o.getOrderId(),
-//							o.getOrderPizza(),
-//							o.getOrderDrink(),
-//							o.getOrderSide(),
-//							o.getOrderTotal(),
-//							o.getOrderMealMethod(),
-//							o.getOrderTime()
-////							,
-////							o.getDrinkName(),
-////							o.getDrinkPrice(),
-////							o.getSideName(),
-////							o.getSidePrice(),
-////							o.getPizzaCook(),
-////							o.getPizzaPopularity() 
-//							};
-//					orderModel.addRow(row);
-//					panelHidig();
-//				}
-//				return orderHistory;
-//				}
-	    
-			
-//			private static final String SQL_SELECT_ORDER_MENU_PK = "select * from PACKAING_ORDER_TB where ORDER_ID = ?";
-////					String.format(
-////					"select * from %s where %s = ?", // 주의 여기 sql문장에서는 ;안 붙여야함
-////					TBL_PACKAING_ORDER_TB, COL_ORDER_ID);
-//				// "select * from FROG_DRINK_MENU_TB where DRINK_NAME = ?";
-//			
-//			public List<OrderTb> orderTbRead2(String loginId) {
-//				
-//					List<OrderTb> result = new ArrayList<>();
-//
-//					Connection conn = null;
-//					PreparedStatement stmt = null;
-//					ResultSet rs = null;
-//
-//					try {
-//						// 데이터베이스에 접속.
-//						conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//						// 실행할 SQL 문장을 갖고 있는 PreparedStatement 객체를 생성.
-//						stmt = conn.prepareStatement(SQL_SELECT_ORDER_MENU_PK);
-//						
-//						stmt.setString(1, loginId);
-//						// SQL 문장을 데이터베이스로 전송해서 실행.
-//						rs = stmt.executeQuery();
-//						// 결과 처리.
-//						while (rs.next()) {
-////			            	FrogPizzaMenu frogPizzaMenu = makeFrogPizzaMenuFromResultSet(rs);
-//							String id = rs.getString(COL_ORDER_ID);
-//							String pizza = rs.getString(COL_ORDER_PIZZA);
-//							String drink = rs.getString(COL_ORDER_DRINK);
-//							String Side = rs.getString(COL_ORDER_SIDE);
-//							String total = rs.getString(COL_ORDER_TOTAL);
-//							String meal = rs.getString(COL_ORDER_MEAL_METHOD);
-//							LocalDateTime orderTime = rs.getTimestamp(COL_ORDER_TIME).toLocalDateTime();
-//							
-//							
-//							OrderTb getorder = new OrderTb(id, pizza, drink, Side, total, meal, orderTime);
-//							result.add(getorder); // 이름이 result인 리스트에 추가함.
-//						}
-//
-//					} catch (SQLException e) {
-//						e.printStackTrace();
-//					} finally {
-//						closeResources(conn, stmt, rs);
-//					}
-//					//panelHidig();
-//					return result;
-//			}
-
-
-			
-
-//			public void showOrderTable(String loginId) {
-//					List<OrderTb> orderResult = new ArrayList<>();
-////					showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
-//					//this.loginId = loginId;
-//					List<OrderTb> orderHistory = new ArrayList<>();
-//					orderHistory = orderTbRead(loginId);
-//					List<OrderTb> orderHistory2 = new ArrayList<>();
-//					orderHistory = orderTbRead2(loginId);
-//					// TODO 프린트 주석 나중에 지우기
-//					//System.out.println(orderFrogDrink);
-//					for (OrderTb o : orderHistory) {
-//						orderResult.add(o);
-//						}
-//					for (OrderTb o2 : orderHistory2) {
-//						orderResult.add(o2);
-//					}
-//					
-//					for (OrderTb o3 : orderResult) {
-//						Object[] row = {
-//								o3.getOrderId(),
-//								o3.getOrderPizza(),
-//								o3.getOrderDrink(),
-//								o3.getOrderSide(),
-//								o3.getOrderTotal(),
-//								o3.getOrderMealMethod(),
-//								o3.getOrderTime()
-//								};
-//						orderModel.addRow(row);
-//					}
-//					//tableOrderConfirmation.setModel(orderModel);
-//			}
-////								,
-////								o.getDrinkName(),
-////								o.getDrinkPrice(),
-////								o.getSideName(),
-////								o.getSidePrice(),
-////								o.getPizzaCook(),
-////								o.getPizzaPopularity() 
-//								};
-//						orderModel.addRow(row2);
-					
-					
-//						Object[] row = {
-//								o.getOrderId(),
-//								o.getOrderPizza(),
-//								o.getOrderDrink(),
-//								o.getOrderSide(),
-//								o.getOrderTotal(),
-//								o.getOrderMealMethod(),
-//								o.getOrderTime()
-////								,
-//								o.getDrinkName(),
-//								o.getDrinkPrice(),
-//								o.getSideName(),
-//								o.getSidePrice(),
-//								o.getPizzaCook(),
-//								o.getPizzaPopularity() 
-//								};
-//						for (OrderTb o2 : orderHistory2) {
-//							Object[] row2 = {
-//									o2.getOrderId(),
-//									o2.getOrderPizza(),
-//									o2.getOrderDrink(),
-//									o2.getOrderSide(),
-//									o2.getOrderTotal(),
-//									o2.getOrderMealMethod(),
-//									o2.getOrderTime()
-////									,
-////									o.getDrinkName(),
-////									o.getDrinkPrice(),
-////									o.getSideName(),
-////									o.getSidePrice(),
-////									o.getPizzaCook(),
-////									o.getPizzaPopularity() 
-//									};
-//							
-//							orderModel.addRow(row2);
-//							//tableOrderConfirmation.
-//							//panelHidig();
-//						}
-						//orderModel.addRow(row);
-//						orderResult.add(row);
-//					}
-//						tableOrderConfirmation.setModel(orderModel);
-			
-				
-//					showPizzaNameAndPriceTableOrderMenu(ckPizzaName);
-					//this.loginId = loginId;
-//					List<OrderTb> orderHistory2 = new ArrayList<>();
-//					orderHistory = orderTbRead2(loginId);
-					// TODO 프린트 주석 나중에 지우기
-					//System.out.println(orderFrogDrink);
-//					for (OrderTb o2 : orderHistory2) {
-//						Object[] row2 = {
-//								o2.getOrderId(),
-//								o2.getOrderPizza(),
-//								o2.getOrderDrink(),
-//								o2.getOrderSide(),
-//								o2.getOrderTotal(),
-//								o2.getOrderMealMethod(),
-//								o2.getOrderTime()
-////								,
-////								o.getDrinkName(),
-////								o.getDrinkPrice(),
-////								o.getSideName(),
-////								o.getSidePrice(),
-////								o.getPizzaCook(),
-////								o.getPizzaPopularity() 
-//								};
-//						orderModel.addRow(row2);
-//						tableOrderConfirmation.
-//						//panelHidig();
-//					}
-						//tableOrderConfirmation.setModel(orderModel);
-					
-//		
-//					}
-			
-			
 }//클래스 끝

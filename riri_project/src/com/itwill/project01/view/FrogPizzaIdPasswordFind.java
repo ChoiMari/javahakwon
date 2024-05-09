@@ -90,7 +90,8 @@ public class FrogPizzaIdPasswordFind extends JFrame {
 		setTitle("찾기 찾기");
 		//창 아이콘
 		Toolkit kit = Toolkit.getDefaultToolkit();
-		Image img = kit.getImage(".\\image\\아이콘.png");
+		Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/com/itwill/project01/image/아이콘.png"));
+		//Image img = kit.getImage(".\\image\\아이콘.png");ㄴ
 		setIconImage(img);
 		
 		setResizable(false);
@@ -117,7 +118,8 @@ public class FrogPizzaIdPasswordFind extends JFrame {
 		btnFindPassword.setContentAreaFilled(false);
 		btnFindPassword.setBorderPainted(false);
 		btnFindPassword.setFocusPainted(false);
-		btnFindPassword.setIcon(new ImageIcon(".\\image\\비밀번호찾기버튼.png"));
+		btnFindPassword.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/비밀번호찾기버튼.png")));
+		//(new ImageIcon(".\\image\\비밀번호찾기버튼.png"));
 		btnFindPassword.setBounds(23, 243, 109, 23);
 		panelFindId.add(btnFindPassword);
 		
@@ -125,7 +127,8 @@ public class FrogPizzaIdPasswordFind extends JFrame {
 		btnFindId.setBorderPainted(false);
 		btnFindId.setFocusPainted(false);
 		btnFindId.setContentAreaFilled(false);
-		btnFindId.setIcon(new ImageIcon(".\\image\\아이디찾기버튼.png"));
+		btnFindId.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/아이디찾기버튼.png")));
+		//(new ImageIcon(".\\image\\아이디찾기버튼.png"));
 		btnFindId.setBounds(153, 243, 97, 23);
 		panelFindId.add(btnFindId);
 		
@@ -148,7 +151,8 @@ public class FrogPizzaIdPasswordFind extends JFrame {
 		textNameFind.setColumns(10);
 		
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(".\\image\\아이디찾기배경.png"));
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/아이디찾기배경.png")));
+		//(new ImageIcon(".\\image\\아이디찾기배경.png"));
 		lblNewLabel.setBounds(0, 0, 278, 294);
 		panelFindId.add(lblNewLabel);
 		btnFindId.addActionListener(new ActionListener() {
@@ -195,7 +199,8 @@ public class FrogPizzaIdPasswordFind extends JFrame {
 		panelFindPassword.add(textFindEmail2);
 		
 		btnFindPassword2 = new JButton("");
-		btnFindPassword2.setIcon(new ImageIcon(".\\image\\비밀번호찾기버튼.png"));
+		btnFindPassword2.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/비밀번호찾기버튼.png")));
+		//(new ImageIcon(".\\image\\비밀번호찾기버튼.png"));
 		btnFindPassword2.setContentAreaFilled(false);
 		btnFindPassword2.setBorderPainted(false);
 		btnFindPassword2.setFocusPainted(false);
@@ -212,7 +217,8 @@ public class FrogPizzaIdPasswordFind extends JFrame {
 		btnFindId2.setContentAreaFilled(false);
 		btnFindId2.setBorderPainted(false);
 		btnFindId2.setFocusPainted(false);
-		btnFindId2.setIcon(new ImageIcon(".\\image\\아이디찾기버튼.png"));
+		btnFindId2.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/아이디찾기버튼.png")));
+		//(new ImageIcon(".\\image\\아이디찾기버튼.png"));
 		btnFindId2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelFindPassword.setVisible(false);
@@ -223,7 +229,8 @@ public class FrogPizzaIdPasswordFind extends JFrame {
 		panelFindPassword.add(btnFindId2);
 		
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(".\\image\\비밀번호찾기배경.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/비밀번호찾기배경.png")));
+		//(new ImageIcon(".\\image\\비밀번호찾기배경.png"));
 		lblNewLabel_1.setBounds(0, 0, 278, 294);
 		panelFindPassword.add(lblNewLabel_1);
 	}

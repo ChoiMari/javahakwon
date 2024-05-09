@@ -105,7 +105,7 @@ public class FrogPizzaLoginFrame {
 		frame.setTitle("개구리 피자 로그인"); //창 타이틀 문구
 		//창 아이콘
 		Toolkit kit = Toolkit.getDefaultToolkit();
-		Image img = kit.getImage(".\\image\\아이콘.png");
+		Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/com/itwill/project01/image/아이콘.png"));
 		frame.setIconImage(img);
 		
 		frame.setBounds(100, 100, 350, 350);
@@ -137,14 +137,16 @@ public class FrogPizzaLoginFrame {
 		textId.setColumns(10);
 		
 		labelId = new JLabel("");
-		labelId.setIcon(new ImageIcon(".\\image\\아이디.png"));
+		labelId.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/아이디.png")));
+				//(".\\image\\아이디.png"));
 		labelId.setHorizontalAlignment(SwingConstants.LEFT);
 		labelId.setFont(new Font("돋움", Font.PLAIN, 20));
 		labelId.setBounds(15, 101, 110, 40);
 		panelLogin.add(labelId);
 		
 		labelTitleLogo = new JLabel("");
-		labelTitleLogo.setIcon(new ImageIcon(".\\image\\피자로그인문구.png"));
+		labelTitleLogo.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/피자로그인문구.png")));
+		//(new ImageIcon(".\\image\\피자로그인문구.png"));
 		labelTitleLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitleLogo.setFont(new Font("굴림", Font.BOLD, 40));
 		labelTitleLogo.setBounds(47, 10, 275, 81);
@@ -167,7 +169,8 @@ public class FrogPizzaLoginFrame {
 		panelLogin.add(textPassword);
 		
 		labelPassword = new JLabel("");
-		labelPassword.setIcon(new ImageIcon(".\\image\\비밀번호.png"));
+		labelPassword.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/비밀번호.png")));
+		//(new ImageIcon(".\\image\\비밀번호.png"));
 		labelPassword.setHorizontalAlignment(SwingConstants.LEFT);
 		labelPassword.setFont(new Font("돋움", Font.PLAIN, 20));
 		labelPassword.setBounds(0, 157, 160, 40);
@@ -177,7 +180,8 @@ public class FrogPizzaLoginFrame {
 		btnLogin.setBorderPainted(false);
 		btnLogin.setFocusPainted(false);
 		btnLogin.setContentAreaFilled(false);
-		btnLogin.setIcon(new ImageIcon(".\\image\\로그인버튼.png"));
+		btnLogin.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/로그인버튼.png")));
+		//(new ImageIcon(".\\image\\로그인버튼.png"));
 		
 		//로그인 버튼 클릭시 실행
 		btnLogin.addActionListener(new ActionListener() {
@@ -218,7 +222,8 @@ public class FrogPizzaLoginFrame {
 		btnJoinMembership.setContentAreaFilled(false);
 		btnJoinMembership.setBorderPainted(false);
 		btnJoinMembership.setFocusPainted(false);
-		btnJoinMembership.setIcon(new ImageIcon(".\\image\\회원가입버튼.png"));
+		btnJoinMembership.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/회원가입버튼.png")));
+		//(new ImageIcon(".\\image\\회원가입버튼.png"));
 		//회원가입 버튼 클릭시 실행 코드
 		btnJoinMembership.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -230,7 +235,8 @@ public class FrogPizzaLoginFrame {
 		panelLogin.add(btnJoinMembership);
 		
 		btnIdPasswordFind = new JButton("");
-		btnIdPasswordFind.setIcon(new ImageIcon(".\\image\\아이디비밀번호찾기.png"));
+		btnIdPasswordFind.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/아이디비밀번호찾기.png")));
+		//(new ImageIcon(".\\image\\아이디비밀번호찾기.png"));
 		btnIdPasswordFind.setContentAreaFilled(false);
 		btnIdPasswordFind.setBorderPainted(false);
 		btnIdPasswordFind.setFocusPainted(false);
@@ -244,12 +250,14 @@ public class FrogPizzaLoginFrame {
 		panelLogin.add(btnIdPasswordFind);
 		
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(".\\image\\핑크개구리.png"));
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/핑크개구리.png")));
+		//(new ImageIcon(".\\image\\핑크개구리.png"));
 		lblNewLabel.setBounds(10, 5, 100, 86);
 		panelLogin.add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(".\\image\\로그인메인.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(getClass().getResource("/com/itwill/project01/image/로그인메인.png")));
+		//(new ImageIcon(".\\image\\로그인메인.png"));
 		lblNewLabel_1.setBounds(0, 0, 334, 311);
 		panelLogin.add(lblNewLabel_1);
 	}
