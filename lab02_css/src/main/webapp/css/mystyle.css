@@ -1,0 +1,15 @@
+@charset "UTF-8"; /* CSS 파일 인코딩 선언 */
+
+/*
+css 문법 :
+selector {
+    property: value;
+    ...
+}
+background-color가 property: , aqua가 value 
+
+*/
+
+body {
+    background-color: aqua;
+}
