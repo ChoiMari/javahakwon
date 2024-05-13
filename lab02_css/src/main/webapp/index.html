@@ -6,6 +6,16 @@
         
         <!-- 외부 CSS 파일 링크 -->
         <link rel="stylesheet" href="css/mystyle.css" />
+        
+        <!-- 내부 CSS -->
+        <style>
+        /* style 태그 안에서는 CSS문법이 적용됨. */
+        div {
+            border: 4px dotted crimson;  /* 외부 css 파일 링크에서 덮어 씀 */
+        }
+        </style>
+        <!-- 순서가 중요함!!밑에 코드에 <link rel="stylesheet" href="css/mystyle.css" /> 넣으면 다시 덮힘.-->
+        <!-- 기존 스타일에서 몇가지만 바꾸고 싶으면 내부CSS로 밑에 코드 넣어서 바꾸면 됨. -->
 	</head>
 	<body>
 		<main>
@@ -15,7 +25,8 @@
                 
                 <div>Division 1</div>
                 <div>Division 2</div>
-                <div>Division 3</div>
+                <!-- inline CSS -->
+                <div style="border:3px dashed green;">Division 3</div>
                 
             </section>
         </main>
