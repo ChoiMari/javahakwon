@@ -11,7 +11,7 @@ background-color가 property: , aqua가 value
 */
 
 body {
-    background-color: orange; /* 바탕색 */
+    background-color:rgb(255, 183, 183); /* 바탕색 */
 }
 
 div {

@@ -11,7 +11,7 @@
         <style>
         /* style 태그 안에서는 CSS문법이 적용됨. */
         div {
-            border: 4px dotted crimson;  /* 외부 css 파일 링크에서 덮어 씀 */
+            border: 4px dotted rgb(0, 128, 255);  /* 외부 css 파일 링크에서 덮어 씀 */
         }
         </style>
         <!-- 순서가 중요함!!밑에 코드에 <link rel="stylesheet" href="css/mystyle.css" /> 넣으면 다시 덮힘.-->
@@ -26,9 +26,30 @@
                 <div>Division 1</div>
                 <div>Division 2</div>
                 <!-- inline CSS -->
-                <div style="border:3px dashed green;">Division 3</div>
+                <div style="border:3px dashed rgb(128, 128, 255);">Division 3</div>
                 
             </section>
+            <section>
+                <h2>Contents</h2>
+                <ul>
+                    <li>
+                        <a href="selector.html">선택자 1</a> <!-- webapp폴더 밑에 파일 만들기. -->
+                    </li>
+                    <li>
+                        <a href="selector2.html">선택자 2</a> <!-- webapp폴더 밑에 파일 만들기. -->
+                    </li>
+                    <li>
+                        <a href="link.html">가상 선택자</a>
+                    </li>
+                    <li>
+                        <a href="table.html">테이블</a>
+                    </li>
+                    <li>
+                        <a href="example.html">CSS 예제</a>
+                    </li>                                           
+                </ul>
+            </section>
+            
         </main>
 	</body>
 </html>
