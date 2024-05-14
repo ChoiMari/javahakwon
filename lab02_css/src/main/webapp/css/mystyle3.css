@@ -46,11 +46,11 @@ img {
     border: 5px solid white;
 }
 
-img:hover {
-    -ms-transform: rotate(20deg); /* IE 9 */
+img:hover {/*rotate는 CSS가 가지고 있는 함수. 도는 각도->20도, 어떤 브라우저로 열릴지 몰라서 브라우저마다 각각 씀*/
+    -ms-transform: rotate(20deg); /* IE 9 퇴출 이제 안씀.*/
     -moz-transform: rotate(20deg); /* Firefox */
-    -webkit-transform: rotate(20deg); /* Safari */
-    transform: rotate(20degree); /* Standard syntax */
+    -webkit-transform: rotate(20deg); /* Safari MAC*/
+    transform: rotate(20degree); /* Standard syntax 일반적. 웬만하면 이걸로 충분. */
 }
 
 #bottom {
