@@ -59,6 +59,8 @@ console.log(arr2); //(4) [10, 100, -1, 90]//toSorted()메서드는 원본 값을
 console.log(result); //(4) [-1, 10, 100, 90] //-> 원소가 오름차순(작은 값부터)정렬됨.
 //근데 90이 뒤에 출력됨.. 오름차순 제대로 안됨. 
 //이유 :  브라우저 동작 -> 문자열로 변환 해서 콘솔에 보여줌. 문자 1보다 문자 9가 더 커서
+//자바스크립트는 여러가지 타입을 배열에 저장 가능해서 그걸 일반적으로 만들고자 하면
+//문자열로 변환해서 하는게 쉬워서 브라우저에서 그렇게 구현되어 있다고 함.//그래서 문자열 정렬로 생각하면 됨.
 
 //그래서 이렇게 씀
 //toSorted(callback) : 배열 원소들의 크기를 비교 할 때 사용할 콜백을 아규먼트로 전달.
@@ -82,3 +84,49 @@ result = arr2.sort((x , y) => x - y);
 console.log(arr2);//출력 결과 : (4) [-1, 10, 90, 100]
 console.log(result);//출력 결과 : (4) [-1, 10, 90, 100] //-> 원본 배열의 원소를 변경시킨다는 걸 볼 수 있음.
  
+ //-----------------------------------------------------------
+// 새로운 배열 선언 & 초기화 
+//filter, map, reduce;
+// 자바에서 stream에 필터 줌. 필터의 조건에 맞는 건만 빠져나옴. 그 결과를 리스트로 묶음.
+// 자바스크립트에서도 비슷한게 있다고..
+//자바처럼 stream 스트림객체 따로 필요 없다고.
+const numbers = [1,2,3,4,5,6];
+
+//배열 numbers의 원소들 중에서 홀수들로만 이루어진 새로운 배열을 만드세요.
+//배열 numbers는 원본 그대로 두어야 함.//-> 그래서 새로운 배열을 만들어 놓고 numbers의 원소를 하나씩 꺼내서 
+//조건에 맞는 것만 새로 만든 배열에 저장시킴.
+
+//배열 numbers의 원소들 중 홀수들만 저장할 새로운 배열을 선언하고 초기화 함.
+const odds = []; //let odds = []; -> concact메서드 사용시 변수를 let으로 선언해야 함.
+for (let x of numbers) {
+    if(x % 2) { // 자바스크립트에서 0은 false로 인식되서 실행 안됨. x % 2값이 0이 아닌 다른 값이 나올 때 true로 인식 돼서 실행
+        odds.push(x); //odds.concact(x);로 쓸 수 도 있다
+    } // x % 2 는 x를 2로 나눈 나머지. 0이면 짝수 1이면 홀수. 0이면 false 다른값이면 true로 인식되서 실행 됨.
+}
+console.log(odds); // 출력 결과 : (3) [1, 3, 5]
+
+result = numbers.filter ((x) => x % 2); 
+console.log(result); // 출력 결과 : (3) [1, 3, 5]
+
+//익명 함수 사용
+result = numbers.filter (function (x) {
+    return x % 2;
+});
+
+// 배열 numbers의 원소들의 제곱을 원소로 갖는 새로운 배열을 만드세요.
+
+// 배열 numbers의 원소들의 제곱을 저장할 배열 선언.
+const squares = []; 
+
+for (let x of numbers) {
+    squares.push(x * x); //배열 numbers의 원소를 하나 씩 꺼내서 x에 담고 그걸 배열 square에 push저장시킴
+}
+console.log(squares);
+
+result = numbers.map ((x) => x * x);
+console.log(result);
+
+numbers.forEach((x) => console.log(x));
+// 배열의 원소 1개 x를 가지고서 
+// 한 줄 씩(줄 바꿔서) 원소들을 출력
+
