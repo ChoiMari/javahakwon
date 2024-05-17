@@ -89,8 +89,60 @@ function minus(x, y){
     return x - y;
 }
 
-result = minus(1,2);
+result = minus(1, 2);
 console.log(`result = ${result}`); 
 //출력 결과 result = -1
+
+
+// default parameter : 기본값이 설정된 파라미터
+function multiply(x, y = 1) { //함수의 파라미터 선언에 기본값으로 y = 1로 설정함.
+    return x * y;
+}
+
+result = multiply(2, 3); //만든 multiply함수에 아규먼트로 2와 3을 넣어서 호출하고 리턴값을 변수 result에 저장.
+console.log(`result = ${result}`); //아규먼트로 y값을 전달해서 호출하면 함수에 설정된 파라미터의 기본값은 무시됨.
+
+result = multiply(2); //만든 multiply함수에 아규먼트로 2를 넣어서 호출하고 리턴값을 변수 result에 저장.
+console.log(`result = ${result}`); 
+//->아규먼트로 y값을 전달하지 않으면 파라미터에 선언 해 놓았던 기본값(y=1)이 사용되서 함수 내부 코드가 실행됨.
+
+//자바 스크립트의 함수는 객체
+const plus = add; //-> 함수 객체 add를 plus라는 변수에 할당(저장)함.
+//-> 주의! 함수 객체를 쓸 때는 ()를 안쓴다 add를 쓸 때 ()안 씀. ()를 쓰면 함수를 호출하는 것.
+//지금 부터 plus는 함수
+
+console.log(plus); //-> plus 함수 객체 개발자 도구 콘솔에 출력함
+console.log(plus(100,200));//plus(100,200) plus 함수에 아규먼트로 100,200넣어서 콘솔에 출력함
+//출력 결과 
+//x = 100, y = 200
+//300
+
+//익명 함수 : 이름이 없는 함수
+const divide = function (x, y) {
+    return x / y; // 나눈 값을 리턴해주는 함수
+}//함수에 이름 없음. 이름이 없어서 나중에 호출을 할래도, 이름이 없어서 쓸 수 없음 .그래서 문법오류.
+// 문법적으로 쓸 수가 없는데 
+// 대신에 이걸(익명함수를) divide라는 변수에 저장함. 이건 문법적으로 허용함.
+//익명 함수(함수에 이름이 없는 함수는) 그 자체로 선언만 할 수는 없고 쓸거면 변수에 저장해야 함.
+
+result = divide(1, 2); //사용 시에는 변수이름에 아규먼트를 넣어서 호출 하면 됨.
+console.log(`result = ${result}`); 
+// 출력 결과 result = 0.5
+
+//화살표 함수(arrow function) : 익명 함수를 간단히 표현 하는 문법.
+//(param, ...) =>{...}
+//(param, ...) => 리턴값
+//자바로 치면 람다 표현식. 자바스크립트에서는 화살표 함수라고 부름. 이것도 변수에 저장해야 쓸 수 있음.
+const subtract = (x, y) => x - y; // 화살표 함수를 변수 subtract에 저장
+
+result = subtract(1, 2);
+console.log(`result = ${result}`);
+
+
+
+
+
+
+
 
 
