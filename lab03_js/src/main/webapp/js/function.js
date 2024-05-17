@@ -137,12 +137,63 @@ const subtract = (x, y) => x - y; // 화살표 함수를 변수 subtract에 저�
 
 result = subtract(1, 2);
 console.log(`result = ${result}`);
+// 콘솔 출력 result = -1
 
 
+//다른 함수를 호출 할 때 아규먼트로 함수 (객체)를 전달할 수 있음
+//함수(객체)를 아규먼트로 전달 받는 함수
+function calculate(x, y, op) { //사용법 : 파라미터로 선언한 op 자리에는 반드시 아규먼트로 함수를 넣어주어서 호출 해야함.
+    return op(x, y);
+}
+
+//op자리에 함수 add를 넣어서 호출함
+console.log(calculate(1, 2, add));
+//출력결과 3
+
+//아규먼트로 op자리에 함수를 만들면서(이름이 없는 익명함수로) 호출함
+console.log(calculate(1, 2, function (x, y) {return x - y;}));
+
+//아규먼트로 넣은 익명 함수를 화살표 함수로 표현 
+console.log(calculate(1, 2, (x, y) => x - y));
+//-> 이벤트 리스너(핸들러) 설정할 때 많이 사용되는 코드 패턴.
+
+//콜백(callback): (나중에 호출하기 위해서) 함수의 아규먼트로 전달하는 함수
+// 나중에 호출 되는 함수다. 저렇게 아규먼트로 전달이 되는 함수를 콜백이라고 함.
+// 예) console.log(calculate(1, 2, add)); 이 코드에서는 아규먼트로 전달 되는 함수인 add가 콜백임.
 
 
+// 지역(내부) 함수 :  함수 안에서 선언 하는 함수.
+function increase(n) { 
+    
+    //지역 함수 : 바깥 함수의 지역 변수(파라미터 포함)들을 사용 할 수 있음
+    //(increase함수에 선언한 파라미터 n을 지역변수 내부{}에서 사용 가능하다는 뜻.)
+    function addN(x) {
+        return x + n;
+    }
+    return addN; //지역 함수 객체를 호출한 곳으로 리턴함.
+}
 
 
+//increase라는 함수의 리턴 값을 저장하게 되면 그 함수는 addN이라는 함수가 됨. 그럼 addN을 바깥에서 부를 수 있음.
+// 블록{} 안에 포함 되어져 있는 함수. 사용 범위 :블록 안에서만 사용 됨. 지역 변수와 똑같다고 보면 됨.
+// 블록{} 벗어나면 사라져 버리는 함수. 근데 사라지지 않게 하기 위해서 return addN;을 함(지역함수를 리턴값으로 보냄)
+// 지역 함수가 항상 리턴되는 패턴으로 이용 되는 건 아니고 지역함수를 함수의 내부{}가 끝나면 사라져 버리게 쓰는 경우도 많다고 함.
+// 주의) 위의 코드를 보면 
+//함수 return addN;을 썼을 때, 함수 addN 이름 다음 괄호를()안씀. 괄호를 써버리면 그 함수를 호출하는 것.
 
+const increaseTwo = increase(2);
+
+console.log(increaseTwo);
+console.log(increaseTwo(100));
+//출력 결과 102
+
+
+const increaseTen = increase(10);
+console.log(increaseTen(100));
+//출력 결과 110
+
+console.log(increase(1)(1));
+//출력 결과 2
+//increase(1)를 호출하고 리턴값으로 받은 addN. (x+1)에 addN(1);으로 호출 되서 (1+1)값을 받은 것.
 
 
