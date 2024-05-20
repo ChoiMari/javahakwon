@@ -130,3 +130,64 @@ numbers.forEach((x) => console.log(x));
 // 배열의 원소 1개 x를 가지고서 
 // 한 줄 씩(줄 바꿔서) 원소들을 출력
 
+result.forEach((x) => console.log(x));
+
+//----------------------------------------------------------
+//배열 numbers의 모든 원소들의 합계
+let sum = 0;
+for(let value of numbers) {
+    sum += value; //sum = sum + value;
+}
+
+//브라우저의 개발자도구 콘솔에 출력
+console.log(`sum = ${sum}`);
+
+// 배열에 있는 원소 처음부터 마지막까지 순서대로 꺼내서 할일(콜백)을 실행해서 리턴해줌.
+sum = numbers.reduce((acc, cur) => acc + cur, 0);
+//reduce(callback, initialValue)
+//initialValue를 주어야 하는 이유. 첫번째는 initialValue값이 들어가고 두번째부터 콜백 실행해서 리턴해준값이 들어간다고?
+
+//numbers의 모든 원소들의 곱 구하기(곱하기는 0값이 들어가면 뭘 곱해도 0나옴 시작 값이 0이면 안됨.)
+
+//곱하기는 1로 시작. 0이면 뭘 곱해도 0이라서. 
+result = 1;
+for(let value of numbers) {
+    result = result * value; //result *= value;
+}
+//콘솔 로그 출력
+console.log(`result = ${result}`);
+// 이 코드를 간단하게 -> 배열의 reduce메서드 사용.
+result = numbers.reduce((acc, cur) => acc * cur, 1);
+//콘솔 로그 출력
+console.log(`result = ${result}`);
+
+
+//numbers의 원소들 중에서 짝수들의 합 : 2 + 4 + 6
+
+//문제 1) 짝수들만 걸러서 콘솔 로그 출력
+// 선생님은 x % 2 ===0 이라고 콜백 주심.initialValue 써주지 않으면 원소의 첫번째 값이 1번째로 시작됨.
+result = numbers.filter((x) => (x % 2 === 0)).reduce((acc, cur) => acc + cur);
+console.log(`짝수 합 = ${result}`);
+//filter는 콜백으로 넣은 함수에 만족하는 것만 리턴. 콜백을 처음 시작하는 값이 initialValue에 넣어준 값.
+//reduce 원소의 처음부터 마지막까지 순서대로 꺼내서 콜백을 실행하고 최종결과를 리턴해줌.
+
+//내가 푼 것.
+result = numbers.filter((x) => !(x % 2)).reduce((acc, cur) => acc + cur, 0);
+console.log(`evenAdd = ${result}`);
+
+//문제 2) numbers의 원소들 제곱의 합
+result = numbers.map((x) => (x * x)).reduce((acc, cur) => acc + cur, 0);
+console.log(`제곱 합 = ${result}`);
+//acc는 처음엔 initialValue로 준 값
+// 0 + 첫번째 원소 이게 콜백의 리턴값인데 이게 다시 acc로 들어가고
+// 다시 콜백 실행 0+첫번째+두번째 원소의 결과가 다시 acc로 들어가고
+// (원소의 마지막 까지 계속 반복 실행)해서 최종 결과를 리턴해준다.
+ 
+//문제 3) numbers의 원소들 중에서 짝수들의 제곱의 합
+result = numbers.filter((x) => (x % 2 === 0)).map((x) => (x * x)).reduce((acc, cur) => acc + cur, 0);
+console.log(`짝수 제곱 합 = ${result}`);
+
+
+
+
+
