@@ -26,7 +26,8 @@
  //btn2에 클릭 이벤트 리스너를 설정.
  btn2.addEventListener('click', function(){
      //이벤트 리스너는 class 속성 값이 "c1"인 요소들의 바탕색을 변경.
-     const divs = document.getElementsByClassName('c1'); //클래스 이름은 1개 이상일 수 있기 때문에 메서드 이름이 getElements
+     const divs = document.getElementsByClassName('c1'); //->HTMLCollection(배열과 비슷)을 리턴.
+     //클래스 이름은 1개 이상일 수 있기 때문에 메서드 이름이 getElements
      //-> 배열을 리턴함.
      //console.log(divs); 
      
@@ -51,6 +52,43 @@
         e.style.backgroundColor = 'slateblue';
     }
   });
+ 
+ //document.querySelector(),
+ //document.querySelectorAll(); -> 전부를 다 찾아줌
+ //CSS 선택자 문법으로 아규먼트를 전달.
+ //tagname, #id, .classname, tagname#id.classname
+ //parent > child
+ //ancestor descendent 
+ //element:pseudo-selector
+ 
+ const btn4 = document.querySelector('button#btn4');
+ btn4.addEventListener('click', function(){
+    const div4 = document.querySelector('#id4'); //querySeletor('div#id4')
+    // console.log(div4);
+    div4.style.backgroundColor = 'lightgray';
+ });
+ 
+ const btn5 = document.querySelector('button#btn5');
+ btn5.addEventListener('click',() => {
+    const divs = document.querySelectorAll('div.c2'); //-> NodeList(배열과 비슷)를 리턴.forEach 사용가능.
+//    console.log(divs);
+
+    for(let e of divs) {
+        e.style.backgroundColor = 'dodgerblue';
+    }
+    divs.forEach((x)=> x.style.backgroundColor = 'violet');
+ });
+ 
+ //자바스크립트 속성에  - 가 들어가면 안됨. 빼기라고 생각함.
+ //CSS에서 이름에 자바스크립트에서는 그래서 카멜 표기법으로 되어있음.
+ //그래서 CSS에서 찾고 -를 제외하고 카멜표기법으로 찾으면 된다고 함.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
