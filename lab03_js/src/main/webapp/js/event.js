@@ -93,7 +93,7 @@ bulb.addEventListener('mouseenter', function(e){
 
 //});
 
-//선생님 풀이
+//선생님 풀이 . 화살표 함수 사용 function(){});와 같음.
 bulb.addEventListener('mouseleave', () =>{ // 아규먼트 필요 없을 시 선언 안해도 됨. 굳이 이벤트 종류 찾아내서 속성쓸 필요 없으면 선언 안해도 된다
     bulb.src = 'images/bulb_off.gif'; //이벤트가 콜백 내부에 사용되지 않는 경우 선언 안해도 된다. 어차피 선언해도 내부 코드에서 사용 안하니까.
     bulb.alt = 'bulb_off';
