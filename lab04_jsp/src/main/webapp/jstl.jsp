@@ -98,6 +98,16 @@
             </tbody>
         </table>        
         
+        <h2>URL 태그</h2>
+           <a href="result.jsp?username=gu&est&color=crimson">클릭1</a> 
+      
+      <%-- URL 쿼리스트링의(질의 문자열) 요청 파라미터 값에 특수 문자 기호가 포함 될 때 사용  --%>
+      <c:url value="result.jsp" var="url"> <!-- 질의 문자열 전까지의 경로를 적으면 됨. var는 변수이름 -->
+        <c:param name="username" value="admin" />
+        <c:param name="color" value="crimson" />
+      </c:url>
+      <a href="${ url }">클릭2</a> <!-- 변수이름 var를 {}안에 써주면 됨. ?와 &는 자기가 알아서 붙인다고 함.-->
+        
     </main>
 </body>
 </html>
