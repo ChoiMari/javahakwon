@@ -1,5 +1,12 @@
+<%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%-- page 지시문 trimDirectiveWhitespaces 속성:
+    jsp 파일이 java 코드로 변환되는 과정에서 JSP 태그들이 빈 줄로 대체되는데,
+    빈 줄을 삭제할 것인 지, 아닌 지를 설정하는 속성. 속성값을 true로 바꾸면 삭제 되고
+    false는 삭제 안하고 둠. false가 기본값. true로 따로 속성값을 바꿔놓지 않는 빈 줄로...
+--%>    
+    
     
  <%-- JSP 주석 
  1. Servlet(Server + Applet):  WAS(웹 애플리케이션 서버)에서 실행되는
@@ -29,7 +36,8 @@
 
 (1) 주석(comment) : jsp 파일이 java 코드로 변환 될 때 무시되는 코드.
 (2) 지시문(directive) : <%@ ... %> 
-    jsp페이지 설정이나 컨텐트 타입 설정, 인코딩, 자바의 import문장(구문) 등의 여러가지 옵션들을 설정하는 용도로 사용된다.
+    jsp페이지 설정이나 컨텐트 타입 설정, 인코딩, 자바의 import문장(구문) 등의 여러가지 옵션들을 설정하는 
+    용도로 사용된다.
 (3) 선언문(declaration): <%! ... %>
     jsp 파일이 java 코드로 변환 될 때, 클래스의 필드/메서드 선언 부분이 선언문.
     java코드로 변환 된다는 말은 클래스가 생성 된다는 것.
@@ -39,18 +47,33 @@
     메서드 안에서 할 수 있는 코드들인게 중요.
     지역 변수 선언 & 초기화, 메서드 호출, 조건문, 반복문, 등의 로직들을.
     <% ... %>안에서 작성 된다고 보면 됨.
+    선생님이 jsp에서 스크립트릿을 제거하는게 목적이라고 함
 (5) 식, 표현식(expression): <%= ... %>
     jsp 파일이 java 코드로 변환 될 때, out.write()메서드의 아규먼트로 전달되는 값.
     HTML 코드에 문자열을 삽입하는 것.
-    
+    가장 많이 사용.
  
  --%>   
+<%! 
+/* JSP declaration(선언문)*/
+private static final String USER = "scott"; //static 상수(필드)선언
+
+//메서드 선언:
+private void printLog(String msg) {
+    System.out.print("[intro.jsp]" + msg);   
+}
+%>
     
+<% 
+/* scriptlet */
+printLog("intro.jsp 실행..."); //선언문에서 만든 메서드 호출. //서버쪽 디버깅 이클립스. 이클립스 콘솔에 출력됨
+%>    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>JSP</title>
 </head>
 <body>
     <nav>
@@ -58,6 +81,19 @@
     </nav>
     <main>
         <h1>JSP 소개</h1>
+        
+        <% //scriptlet
+        LocalDateTime now = LocalDateTime.now(); //지역 변수 선언 & 초기화 (지역변수에 붙일수 있는 수식어. final)
+        // 앞에 접근 제한자 수식어 선언 못함.(여기서는 필드 선언 못함. 접근 제한자는 필드에 붙일수 있지만 지역변수엔 불가능)
+        String date = String.format("%d-%02d-%02d",now.getYear(),now.getMonthValue(),now.getDayOfMonth());
+        String time = String.format("%02d:%02d:%02d",now.getHour(),now.getMinute(),now.getSecond());
+        %>
+        <h2>날짜: <%= date %></h2> <!-- expression 값이 오는 부분-->
+        <h2>시간: <%= time %></h2>
+        <h2>USER: <%= USER %></h2>
+        
+        
+        
     </main>
 </body>
 </html>
