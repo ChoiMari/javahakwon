@@ -11,6 +11,7 @@
     <header>
         <h1>Contents</h1>
         <h2><%=LocalDateTime.now() %></h2> <!-- 브라우저에 문자열로 들어가 있음. -->
+        <h3>Hello, ${ nickname }!</h3>
     </header>
     
     <main>
@@ -47,7 +48,17 @@
             </li>
             <li>
                 <a href="jstl.jsp">JSTL</a>
-            </li>                                                                                    
+            </li>   
+            <li>
+                <a href="mvc">MVC</a>
+            </li>
+            <li>
+                <a href="cookie">Cookie</a> <!-- 확장자를 안쓰는것은 서블릿으로 보내겠다는 뜻. -->
+            </li> 
+            <li>
+                <a href="session">Session</a> <!--서블릿 애너테이션으로 작성한 urlPatterns= {"/session"}) 이랑 이름 맞춰야함. -->
+            </li>     
+                                                                                                      
         </ul>
     </main>
 </body>

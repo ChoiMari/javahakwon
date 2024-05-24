@@ -5,6 +5,7 @@
     trimDirectiveWhitespaces="true"
     %>
     
+    <!--core말고도 FNT?도 많이 사용한다고.. 나라별 언어 선택.. -->
 <%@ taglib prefix="c"  uri="jakarta.tags.core"%>    
 <!DOCTYPE html>
 <html>
@@ -99,9 +100,10 @@
         </table>        
         
         <h2>URL 태그</h2>
-           <a href="result.jsp?username=gu&est&color=crimson">클릭1</a> 
+           <a href="result.jsp?username=gu&est&color=crimson">클릭1</a> <!-- &를 문자열로 보내고 싶을때는 이렇게 쓰면 안됨. -->
       
-      <%-- URL 쿼리스트링의(질의 문자열) 요청 파라미터 값에 특수 문자 기호가 포함 될 때 사용  --%>
+      
+      <%-- URL 쿼리스트링의(질의 문자열) 요청 파라미터 값에 &같은 특수 문자 기호가 포함 될 때 이렇게 사용하기!  --%>
       <c:url value="result.jsp" var="url"> <!-- 질의 문자열 전까지의 경로를 적으면 됨. var는 변수이름 -->
         <c:param name="username" value="admin" />
         <c:param name="color" value="crimson" />
