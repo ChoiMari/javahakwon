@@ -107,7 +107,7 @@ public class Post {
 			//getter의 역할
 		public PostBuilder id(Integer id) {
 			this.id = id;
-			return this;
+			return this;// 메서드를 연쇄적으로 호출 가능함. 
 		}
 		
 		public PostBuilder title(String title) {
