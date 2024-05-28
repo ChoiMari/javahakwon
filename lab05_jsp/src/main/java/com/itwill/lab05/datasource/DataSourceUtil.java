@@ -7,6 +7,7 @@ public class DataSourceUtil {
 
 	//singleton 구현
 	private static DataSourceUtil instance = null;
+	
 	private HikariConfig config;
 	private HikariDataSource ds;
 	
@@ -17,12 +18,13 @@ public class DataSourceUtil {
 		//커넥션 풀(데이터소스) 환경 설정.
 		config.setDriverClassName("oracle.jdbc.OracleDriver");
 		config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		config.setUsername("jspstudy");
-		config.setPassword("jspstudy");
+		config.setUsername("jspstudy"); //오라클 DB 계정의 아이디
+		config.setPassword("jspstudy"); //오라클 DB 계정의 비밀번호
 		
 		//데이터 소스 객체 생성. 
 		ds = new HikariDataSource(config);
 	}
+	
 	
 	public static DataSourceUtil getInstance() {
 		
@@ -31,6 +33,8 @@ public class DataSourceUtil {
 		}
 		return instance;
 	}
+	
+	//getter메서드라고 보면 됨. 데이터 소스에서 커넥션을 가져온다..
 	public HikariDataSource getDataSource() {
 		return ds;
 	}
