@@ -23,6 +23,36 @@ public enum PostService {
 	
 	
 	public List<Post> read() {
-		return postDao.select();
+		log.debug("read()");
+		
+		List<Post> list = postDao.select();
+		 log.debug("list size = {}", list.size());
+		
+		//return postDao.select();
+		return list;
 	}
+	
+	public int create(Post post) {
+		log.debug("create(post={})",post); //{}에 2번째넣은 아규먼트가 들어감?? 맞나?
+		
+		//Repository 계층의 메서드를 사용해서 DB 테이블에 행을 삽입(insert)
+		int result = postDao.insert(post);
+		
+		//로그는 프로그램 동작에 필요없고 실행 흐름 보기 위해서 추가한 코드..
+		log.debug("insert result = {}", result);
+		
+		return result;//insert된 행의 개수를 리턴.
+	}
+	
+	public Post read(int id) {
+		log.debug("read(id={})",id);
+		
+		// 영속성 계층의 메서드르 호출해서 DB테이블에서 id로 검색하는 sql을 실행.
+		Post post = postDao.select(id);//아규먼트로 전달받은 아이디 그대로 넘겨줌
+		
+		log.debug("{}",post);
+		
+		return post; //검색한 Post객체(제목,내용,작성자)를 리턴 //-> 이 서비스를 컨트롤러에서 호출(포스트 디테일컨트롤러에서)
+	}
+	
 }
