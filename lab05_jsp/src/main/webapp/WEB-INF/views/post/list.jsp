@@ -43,7 +43,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${posts}" var="p">
+                            <c:forEach items="${posts}" var="p"> 
+                            <!-- "${posts}"  EL 사용. 원소를 하나씩 꺼내서 변수 p에 저장하겠다 이렇게 반복. 반복할때마다 테이블 row(행)를 그려줌-->
                                 <tr>
                                     <td>${p.id}</td>
                                     <td>${p.title}</td>

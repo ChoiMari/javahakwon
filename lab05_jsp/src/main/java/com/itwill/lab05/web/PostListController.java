@@ -33,7 +33,7 @@ public class PostListController extends HttpServlet{
 		
 		
 		req.getRequestDispatcher("/WEB-INF/views/post/list.jsp")
-		.forward(req, resp);
+		.forward(req, resp);//list.jsp에 전달함.
 		
 	}
 }
